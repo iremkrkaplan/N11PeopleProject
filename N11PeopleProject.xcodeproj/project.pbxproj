@@ -6,8 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6458CDE02E4622FE001ACBC6 /* DashboardViewControllerRevised.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CDDF2E4622FE001ACBC6 /* DashboardViewControllerRevised.swift */; };
+		6458CDE32E4626AF001ACBC6 /* UIVIew+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CDE22E4626AF001ACBC6 /* UIVIew+Layout.swift */; };
+		6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CDED2E467D52001ACBC6 /* BaseViewController.swift */; };
+		6458CDF02E467D75001ACBC6 /* BaseScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CDEF2E467D75001ACBC6 /* BaseScrollViewController.swift */; };
+		64EE7C5F2E45DDBF009AFFE4 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EE7C5E2E45DDBF009AFFE4 /* DashboardViewController.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		6458CDDF2E4622FE001ACBC6 /* DashboardViewControllerRevised.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewControllerRevised.swift; sourceTree = "<group>"; };
+		6458CDE22E4626AF001ACBC6 /* UIVIew+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Layout.swift"; sourceTree = "<group>"; };
+		6458CDED2E467D52001ACBC6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		6458CDEF2E467D75001ACBC6 /* BaseScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseScrollViewController.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EE7C5E2E45DDBF009AFFE4 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -42,9 +55,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6458CDE12E462696001ACBC6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6458CDE22E4626AF001ACBC6 /* UIVIew+Layout.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6458CDEA2E467C79001ACBC6 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		6458CDEB2E467C87001ACBC6 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6458CDEC2E467CB0001ACBC6 /* Base */,
+				6458CDE12E462696001ACBC6 /* Extensions */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6458CDEC2E467CB0001ACBC6 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				6458CDED2E467D52001ACBC6 /* BaseViewController.swift */,
+				6458CDEF2E467D75001ACBC6 /* BaseScrollViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		64EE7C3B2E45D294009AFFE4 = {
 			isa = PBXGroup;
 			children = (
+				6458CDEB2E467C87001ACBC6 /* Core */,
+				64EE7C5C2E45DD34009AFFE4 /* Modules */,
 				64EE7C462E45D294009AFFE4 /* N11PeopleProject */,
 				64EE7C452E45D294009AFFE4 /* Products */,
 			);
@@ -56,6 +104,24 @@
 				64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		64EE7C5C2E45DD34009AFFE4 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				6458CDEA2E467C79001ACBC6 /* New Group */,
+				64EE7C5D2E45DD75009AFFE4 /* Dashboard */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		64EE7C5D2E45DD75009AFFE4 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				64EE7C5E2E45DDBF009AFFE4 /* DashboardViewController.swift */,
+				6458CDDF2E4622FE001ACBC6 /* DashboardViewControllerRevised.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,6 +198,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6458CDE32E4626AF001ACBC6 /* UIVIew+Layout.swift in Sources */,
+				64EE7C5F2E45DDBF009AFFE4 /* DashboardViewController.swift in Sources */,
+				6458CDF02E467D75001ACBC6 /* BaseScrollViewController.swift in Sources */,
+				6458CDE02E4622FE001ACBC6 /* DashboardViewControllerRevised.swift in Sources */,
+				6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
