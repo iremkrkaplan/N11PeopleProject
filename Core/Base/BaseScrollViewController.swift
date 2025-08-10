@@ -39,4 +39,4 @@ class BaseScrollViewController<P: AnyObject>:  BaseViewController<P>{
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
     }
-} 
+}
