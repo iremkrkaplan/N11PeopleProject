@@ -7,27 +7,28 @@
 import Foundation
 import UIKit
 
-class AvatarrView: UIView {
+class AvatarView: UIView {
     
-    private lazy var avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    private let avatarSize: CGFloat
+
+    private lazy var avatarImageView: UIImageView = .build {
+        $0.contentMode = .scaleAspectFit
+    }
     
-    private lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 17, weight: .medium)
-        return label
-    }()
+    private lazy var nameLabel: UILabel = .build {
+        $0.font = .systemFont(ofSize: 17, weight: .medium)
+    }
     
     // MARK: - Initializer
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(size: CGFloat) {
+        self.avatarSize = size
+        super.init(frame: .zero)
         setupUI()
     }
+    /*override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    } */
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -41,8 +42,8 @@ class AvatarrView: UIView {
         NSLayoutConstraint.activate([
             avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             avatarImageView.topAnchor.constraint(equalTo: topAnchor),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 70),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 70),
+            avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
+            avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
             
             nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
             nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),

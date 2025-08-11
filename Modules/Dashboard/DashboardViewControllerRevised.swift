@@ -13,30 +13,31 @@ import UIKit
 // Navigation bar large title -> Dashboard
 //    private lazy var scrollView: UIScrollView = .build()
 //    private lazy var contentView: UIView = .build()
+//private lazy var dashBoardView: UILabel = .build() //dashboardlabel view kaldırıldı yerine large title
 
-// AvatarView
-// GalleryView - UIImageView
+// AvatarView +
+// GalleryView - UIImageView b stacjview
 
 final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> {
 
     // MARK: - UI Components
     private lazy var titleView: UILabel = .build()
     private lazy var cardView: UIView = .build()
-    private lazy var dashBoardView: UILabel = .build() //dashboardlabel view
     private lazy var settingsActionView: UIButton = .build()
-    private lazy var profileView: UIView = .build()
     private lazy var settingsButton: UIButton = .build()
     private lazy var galleryView: UIView = .build()
     private lazy var icons: [UIView] = []
     private lazy var galleryTitleLabel: UILabel = .build()
-    private lazy var AvatarView: UIImageView = .build()
-    private lazy var nameLabel: UILabel = .build()
+    private lazy var profileView: AvatarView = .build { AvatarView(size: 70) }
     private let layout: Layout = .init()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .darkGray
+        self.title = "Dashboard"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .automatic
+        view.backgroundColor = .lightGray
         //addUI()
     }
     
@@ -49,10 +50,6 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
     
     // MARK: - Component Configuration
     private func configureComponents(){
-        dashBoardView.text = "Dashboard"
-        dashBoardView.font = .systemFont(ofSize: 34, weight: .bold)
-        dashBoardView.textColor = .white
-        
         cardView.backgroundColor = .white
         cardView.layer.cornerRadius = 40
         
@@ -63,13 +60,8 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
         let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
         settingsButton.setImage(UIImage(systemName: "gearshape.fill", withConfiguration: config), for: .normal)
         
-        AvatarView.image = UIImage(systemName: "person.circle.fill")
-        AvatarView.tintColor = .systemPink
-        AvatarView.contentMode = .scaleAspectFit
-        
-        nameLabel.text = "İrem Karakaplan"
-        nameLabel.font = .systemFont(ofSize: 17, weight: .medium)
-        
+        profileView.configure(with: UIImage(systemName: "person.circle.fill")?.withTintColor(.systemPurple), name: "İrem Karakaplan")
+
         let titleLabel: UILabel = .build {
             $0.text = "Yönetim Paneli"
             $0.font = .systemFont(ofSize: 34, weight: .bold)
@@ -216,23 +208,19 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
     
     private func didTapSettingsButton() {
         print("Ayarlar butonu tıklandı!")
-        //TODO: Implement the method
+        //TODO:
     }
 }
 
 
 extension DashboardViewControllerRevised {
     private func addUI() {
-        contentView.addSubview(dashBoardView)
         contentView.addSubview(cardView)
         
         cardView.addSubview(profileView)
         cardView.addSubview(titleView)
-        
-        profileView.addSubview(AvatarView)
-        profileView.addSubview(nameLabel)
-        profileView.addSubview(settingsButton)
-        
+        cardView.addSubview(settingsButton)
+
         for icon in icons {
             cardView.addSubview(icon)
         }
@@ -292,30 +280,18 @@ extension DashboardViewControllerRevised {
         let iconSpacing: CGFloat = 25
         
         NSLayoutConstraint.activate([
-            dashBoardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            dashBoardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-
-            cardView.topAnchor.constraint(equalTo: dashBoardView.bottomAnchor, constant: 20),
+            cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
 
-            profileView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: cardPadding),
-            profileView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
-            profileView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-            
-            AvatarView.centerXAnchor.constraint(equalTo: profileView.centerXAnchor),
-            AvatarView.topAnchor.constraint(equalTo: profileView.topAnchor),
-            AvatarView.widthAnchor.constraint(equalToConstant: 70),
-            AvatarView.heightAnchor.constraint(equalToConstant: 70),
-            nameLabel.topAnchor.constraint(equalTo: AvatarView.bottomAnchor, constant: 8),
-            nameLabel.centerXAnchor.constraint(equalTo: profileView.centerXAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: profileView.bottomAnchor),
+            profileView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40),
+            profileView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
 
-            settingsButton.centerYAnchor.constraint(equalTo: profileView.centerYAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: profileView.trailingAnchor),
-            settingsButton.widthAnchor.constraint(equalToConstant: 40),
-            settingsButton.heightAnchor.constraint(equalToConstant: 40),
+             settingsButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: cardPadding),
+             settingsButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
+             settingsButton.widthAnchor.constraint(equalToConstant: 40),
+             settingsButton.heightAnchor.constraint(equalToConstant: 40),
             
             titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 25),
             titleView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
