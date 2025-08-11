@@ -32,7 +32,6 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
     private lazy var AvatarView: UIImageView = .build()
     private lazy var nameLabel: UILabel = .build()
     private let layout: Layout = .init()
-    // ...
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
