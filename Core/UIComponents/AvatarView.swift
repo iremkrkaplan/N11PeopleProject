@@ -7,52 +7,33 @@
 import Foundation
 import UIKit
 
-class AvatarView: UIView {
-    
-    private let avatarSize: CGFloat
-
-    private lazy var avatarImageView: UIImageView = .build {
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private lazy var nameLabel: UILabel = .build {
-        $0.font = .systemFont(ofSize: 17, weight: .medium)
-    }
+class AvatarView: UIImageView {
     
     // MARK: - Initializer
-    init(size: CGFloat) {
-        self.avatarSize = size
-        super.init(frame: .zero)
-        setupUI()
-    }
-    /*override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
-    } */
+        setupDefaults()
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private lazy var avatarImageView: UIImageView = .build {
+        $0.contentMode = .scaleAspectFit
+    }
+
     // MARK: - Setup
-    private func setupUI() {
-        addSubview(avatarImageView)
-        addSubview(nameLabel)
-        
-        NSLayoutConstraint.activate([
-            avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            avatarImageView.topAnchor.constraint(equalTo: topAnchor),
-            avatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
-            avatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
-            
-            nameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
-            nameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+    private func setupDefaults() {
+        contentMode = .scaleAspectFill
+        clipsToBounds = true
+        backgroundColor = .systemGray
+        layer.borderColor = UIColor.systemGray4.cgColor
+        layer.borderWidth = 1
     }
     
-    func configure(with image: UIImage?, name: String) {
-        avatarImageView.image = image
-        nameLabel.text = name
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = bounds.width / 2
     }
 }

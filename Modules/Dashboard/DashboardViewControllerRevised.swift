@@ -28,7 +28,7 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
     private lazy var galleryView: UIView = .build()
     private lazy var icons: [UIView] = []
     private lazy var galleryTitleLabel: UILabel = .build()
-    private lazy var profileView: AvatarView = .build { AvatarView(size: 70) }
+    private lazy var profileView: AvatarView = .build ()
     private let layout: Layout = .init()
     
     // MARK: - View Lifecycle
@@ -278,6 +278,7 @@ extension DashboardViewControllerRevised {
         let padding: CGFloat = 16
         let cardPadding: CGFloat = 20
         let iconSpacing: CGFloat = 25
+        let avatarSize: CGFloat = 70
         
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
