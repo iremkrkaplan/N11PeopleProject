@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-//<P is a generic presenter>
+
 class BaseViewController<P: AnyObject>: UIViewController {
     var presenter: P?
     override func viewDidLoad(){

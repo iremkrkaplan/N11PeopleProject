@@ -21,14 +21,14 @@ import UIKit
 final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> {
 
     // MARK: - UI Components
+    private lazy var profileView: ProfileView = .build()
+    private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
     private lazy var cardView: UIView = .build()
     private lazy var settingsActionView: UIButton = .build()
     private lazy var settingsButton: UIButton = .build()
-    private lazy var galleryView: UIView = .build()
     private lazy var icons: [UIView] = []
     private lazy var galleryTitleLabel: UILabel = .build()
-    private lazy var profileView: AvatarView = .build ()
     private let layout: Layout = .init()
     
     // MARK: - View Lifecycle
@@ -60,7 +60,10 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
         let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
         settingsButton.setImage(UIImage(systemName: "gearshape.fill", withConfiguration: config), for: .normal)
         
-        profileView.configure(with: UIImage(systemName: "person.circle.fill")?.withTintColor(.systemPurple), name: "İrem Karakaplan")
+        profileView.configure(
+            image: UIImage(systemName: "person.circle.fill"),
+            name: "İrem Karakaplan"
+        )
 
         let titleLabel: UILabel = .build {
             $0.text = "Yönetim Paneli"
@@ -97,51 +100,10 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
         galleryTitleLabel.text = "n11 Galeri"
         galleryTitleLabel.font = .systemFont(ofSize: 26, weight: .bold)
         galleryTitleLabel.textColor = .black
-        let galleryItems = [
-            makeGalleryItemView(), makeGalleryItemView(),
-            makeGalleryItemView(), makeGalleryItemView(),
-            makeGalleryItemView(), makeGalleryItemView()
-        ]
-        
-        for item in galleryItems {
-            galleryView.addSubview(item)
-        }
         
         let itemSpacing: CGFloat = 16
         let itemHeight: CGFloat = 120
         
-        NSLayoutConstraint.activate([
-            galleryItems[0].topAnchor.constraint(equalTo: galleryView.topAnchor),
-            galleryItems[0].leadingAnchor.constraint(equalTo: galleryView.leadingAnchor),
-            galleryItems[0].widthAnchor.constraint(equalTo: galleryView.widthAnchor, multiplier: 0.5, constant: -itemSpacing/2),
-            galleryItems[0].heightAnchor.constraint(equalToConstant: itemHeight),
-
-            galleryItems[1].topAnchor.constraint(equalTo: galleryItems[0].topAnchor),
-            galleryItems[1].leadingAnchor.constraint(equalTo: galleryItems[0].trailingAnchor, constant: itemSpacing),
-            galleryItems[1].widthAnchor.constraint(equalTo: galleryItems[0].widthAnchor),
-            galleryItems[1].heightAnchor.constraint(equalToConstant: itemHeight),
-            
-            galleryItems[2].topAnchor.constraint(equalTo: galleryItems[0].bottomAnchor, constant: itemSpacing),
-            galleryItems[2].leadingAnchor.constraint(equalTo: galleryView.leadingAnchor),
-            galleryItems[2].widthAnchor.constraint(equalTo: galleryItems[0].widthAnchor),
-            galleryItems[2].heightAnchor.constraint(equalToConstant: itemHeight),
-
-            galleryItems[3].topAnchor.constraint(equalTo: galleryItems[2].topAnchor),
-            galleryItems[3].leadingAnchor.constraint(equalTo: galleryItems[2].trailingAnchor, constant: itemSpacing),
-            galleryItems[3].widthAnchor.constraint(equalTo: galleryItems[0].widthAnchor),
-            galleryItems[3].heightAnchor.constraint(equalToConstant: itemHeight),
-            
-            galleryItems[4].topAnchor.constraint(equalTo: galleryItems[2].bottomAnchor, constant: itemSpacing),
-            galleryItems[4].leadingAnchor.constraint(equalTo: galleryView.leadingAnchor),
-            galleryItems[4].widthAnchor.constraint(equalTo: galleryItems[0].widthAnchor),
-            galleryItems[4].heightAnchor.constraint(equalToConstant: itemHeight),
-
-            galleryItems[5].topAnchor.constraint(equalTo: galleryItems[4].topAnchor),
-            galleryItems[5].leadingAnchor.constraint(equalTo: galleryItems[4].trailingAnchor, constant: itemSpacing),
-            galleryItems[5].widthAnchor.constraint(equalTo: galleryItems[0].widthAnchor),
-            galleryItems[5].heightAnchor.constraint(equalToConstant: itemHeight),
-            galleryView.bottomAnchor.constraint(equalTo: galleryItems[5].bottomAnchor)
-        ])
     }
     
     // MARK: - Helper Functions
@@ -177,30 +139,6 @@ final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> 
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        return view
-    }
-    
-    private func makeGalleryItemView() -> UIView {
-        let view: UIView = .build {
-            $0.backgroundColor = .systemGray6
-            $0.layer.cornerRadius = 15
-        }
-
-        let ladybugImageView: UIImageView = .build {
-            $0.image = UIImage(systemName: "ladybug.fill")
-            $0.tintColor = .systemPurple
-            $0.contentMode = .scaleAspectFit
-        }
-
-        view.addSubview(ladybugImageView)
-        
-        NSLayoutConstraint.activate([
-            ladybugImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            ladybugImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            ladybugImageView.widthAnchor.constraint(equalToConstant: 60),
-            ladybugImageView.heightAnchor.constraint(equalToConstant: 60)
         ])
         
         return view
@@ -288,12 +226,12 @@ extension DashboardViewControllerRevised {
 
             profileView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40),
             profileView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
-
-             settingsButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: cardPadding),
-             settingsButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-             settingsButton.widthAnchor.constraint(equalToConstant: 40),
-             settingsButton.heightAnchor.constraint(equalToConstant: 40),
             
+            settingsButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: cardPadding),
+            settingsButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
+            settingsButton.widthAnchor.constraint(equalToConstant: 40),
+            settingsButton.heightAnchor.constraint(equalToConstant: 40),
+           
             titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 25),
             titleView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
             titleView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),

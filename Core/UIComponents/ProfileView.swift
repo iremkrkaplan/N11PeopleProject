@@ -48,7 +48,7 @@ class ProfileView: UIView {
     
     func configure(image: UIImage?, name: String) {
         avatarView.image = image
-        avatarView.tintColor = .systemPurple
+        avatarView.tintColor = .white
         nameLabel.text = name
     }
 }
