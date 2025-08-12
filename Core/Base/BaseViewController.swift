@@ -8,14 +8,11 @@
 import Foundation
 import UIKit
 
-class BaseViewController<P: AnyObject>: UIViewController {
-    var presenter: P?
-    override func viewDidLoad(){
+class BaseViewController: UIViewController {
+    func addUI() {}
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor
-        setupUI()
-        bindViewModel()
+        addUI()
     }
-    open func setupUI(){}
-    open func bindViewModel(){}
 }

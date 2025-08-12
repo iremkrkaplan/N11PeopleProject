@@ -8,254 +8,164 @@
 import Foundation
 import UIKit
 
-// BaseViewController +
-// BaseScrollViewController +
-// Navigation bar large title -> Dashboard
-//    private lazy var scrollView: UIScrollView = .build()
-//    private lazy var contentView: UIView = .build()
-//private lazy var dashBoardView: UILabel = .build() //dashboardlabel view kaldırıldı yerine large title
-
-// AvatarView +
-// GalleryView - UIImageView b stacjview
-
-final class DashboardViewControllerRevised: BaseScrollViewController<AnyObject> {
-
+final class DashboardViewControllerRevised: BaseScrollViewController{
+    
     // MARK: - UI Components
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
-    private lazy var cardView: UIView = .build()
+    private lazy var subtitleView: UILabel = .build()
     private lazy var settingsActionView: UIButton = .build()
     private lazy var settingsButton: UIButton = .build()
-    private lazy var icons: [UIView] = []
     private lazy var galleryTitleLabel: UILabel = .build()
+
     private let layout: Layout = .init()
     
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Dashboard"
+    override func addUI() {
+        super.addUI()
+        addBackground()
+        addNavigationBar()
+        addProfile()
+        addTitle()
+        addSubtitle()
+        //addQuickActions()
+        addGallery()
+        addSettingsAction()
+    }
+}
+
+extension DashboardViewControllerRevised {
+    private func addBackground() {
+        view.backgroundColor = .systemBackground
+    }
+    
+    private func addNavigationBar() {
+        navigationItem.title = "Dashboard"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .automatic
-        view.backgroundColor = .lightGray
-        //addUI()
     }
-    
-    // MARK: - Setup UI
-    override func setupUI() {
-        super.setupUI()
-        configureComponents()
-        addUI()
-    }
-    
-    // MARK: - Component Configuration
-    private func configureComponents(){
-        cardView.backgroundColor = .white
-        cardView.layer.cornerRadius = 40
-        
-        let buttonSize: CGFloat = 40
-        settingsButton.layer.cornerRadius = buttonSize / 2
-        settingsButton.backgroundColor = .systemPurple
-        settingsButton.tintColor = .white
-        let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .bold)
-        settingsButton.setImage(UIImage(systemName: "gearshape.fill", withConfiguration: config), for: .normal)
-        
+	
+    private func addProfile() {
         profileView.configure(
             image: UIImage(systemName: "person.circle.fill"),
             name: "İrem Karakaplan"
         )
 
-        let titleLabel: UILabel = .build {
-            $0.text = "Yönetim Paneli"
-            $0.font = .systemFont(ofSize: 34, weight: .bold)
-            $0.textAlignment = .center
-            $0.textColor = .systemPurple
-        }
-        let subtitleLabel: UILabel = .build {
-            $0.text = "n11 Kültür"
-            $0.font = .systemFont(ofSize: 17, weight: .regular)
-            $0.textColor = .gray
-            $0.textAlignment = .center
-        }
-        titleView.addSubview(titleLabel)
-        titleView.addSubview(subtitleLabel)
-        
+        contentView.addSubview(profileView)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            subtitleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-            subtitleLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-            subtitleLabel.bottomAnchor.constraint(equalTo: titleView.bottomAnchor)
+            profileView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: layout.contentInsets.top
+            ),
+            profileView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: layout.contentInsets.leading
+            ),
+            profileView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: layout.contentInsets.leading
+            )
         ])
+    }
+    
+    private func addTitle() {
+        titleView.text = "Yönetim Paneli"
+        titleView.font = .systemFont(ofSize: 34, weight: .bold)
+        titleView.textAlignment = .center
+        titleView.textColor = .systemPurple
         
-        icons.append(makeIconView(iconName: "magnifyingglass", text: "Kayıt Sorgulama", color: .systemPink))
-        icons.append(makeIconView(iconName: "heart.fill", text: "Favorilediklerim", color: .systemPurple))
-        icons.append(makeIconView(iconName: "eye.fill", text: "Görüntülediklerim", color: .systemPink))
-        icons.append(makeIconView(iconName: "person.2.fill", text: "Arkadaşlarım", color: .systemPurple))
-        icons.append(makeIconView(iconName: "birthday.cake.fill", text: "Bu Ay Doğanlar", color: .systemPink))
+        contentView.addSubview(titleView)
+        titleView.setContentHuggingPriority(
+            .required,
+            for: .vertical
+        )
+        titleView.setContentCompressionResistancePriority(
+            .required,
+            for: .vertical
+        )
+        NSLayoutConstraint.activate([
+            titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 24),
+            titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.contentInsets.leading),
+            titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.contentInsets.trailing),
+        ])
+    }
+    
+    private func addSubtitle() {
+        subtitleView.text = "n11 Kültür"
+        subtitleView.font = .systemFont(ofSize: 17, weight: .regular)
+        subtitleView.textColor = .gray
+        subtitleView.textAlignment = .center
         
+        contentView.addSubview(subtitleView)
+        NSLayoutConstraint.activate([
+            subtitleView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
+            subtitleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            subtitleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+    }
+    
+    private func addGallery() {
         galleryTitleLabel.text = "n11 Galeri"
         galleryTitleLabel.font = .systemFont(ofSize: 26, weight: .bold)
         galleryTitleLabel.textColor = .black
         
-        let itemSpacing: CGFloat = 16
-        let itemHeight: CGFloat = 120
-        
-    }
-    
-    // MARK: - Helper Functions
-    private func makeIconView(iconName: String, text: String, color: UIColor) -> UIView {
-        let view: UIView = .build()
-        
-        let iconImageView: UIImageView = .build {
-            let config = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium)
-            $0.image = UIImage(systemName: iconName, withConfiguration: config)
-            $0.tintColor = .white
-            $0.backgroundColor = color.withAlphaComponent(0.8)
-            $0.contentMode = .center
-            $0.layer.cornerRadius = 30
-        }
-
-        let label: UILabel = .build {
-            $0.text = text
-            $0.font = .systemFont(ofSize: 12)
-            $0.textColor = .darkGray
-            $0.textAlignment = .center
-        }
-
-        view.addSubview(iconImageView)
-        view.addSubview(label)
-
+        contentView.addSubview(galleryTitleLabel)
+        contentView.addSubview(galleryView)
         NSLayoutConstraint.activate([
-            iconImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            iconImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 60),
-            iconImageView.heightAnchor.constraint(equalToConstant: 60),
-            
-            label.topAnchor.constraint(equalTo: iconImageView.bottomAnchor, constant: 8),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            label.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        return view
-    }
-    
-    private func didTapSettingsButton() {
-        print("Ayarlar butonu tıklandı!")
-        //TODO:
-    }
-}
-
-
-extension DashboardViewControllerRevised {
-    private func addUI() {
-        contentView.addSubview(cardView)
-        
-        cardView.addSubview(profileView)
-        cardView.addSubview(titleView)
-        cardView.addSubview(settingsButton)
-
-        for icon in icons {
-            cardView.addSubview(icon)
-        }
-        
-        cardView.addSubview(galleryTitleLabel)
-        cardView.addSubview(galleryView)
-        
-        addScroll()
-    }
-    
-    private func addScroll() {
-        addSettingsAction()
-    }
-    
-    private func addSettingsAction() {
-        /// .configuration
-        /// UIButton.Configuration
-        /// action
-        settingsButton.addAction(
-            .init(handler: { [weak self] _ in
-                self?.didTapSettingsButton()
-            }),
-            for: .touchUpInside
-        )
-        setupConstraints()
-    }
-
-/*
-    private func addSettingsAction() {
-        /// .configuration
-        /// UIButton.Configuration
-        
-        var configuration = UIButton.Configuration.filled(UIColor)
-        /// layout
-        scrollView.addSubview(settingsActionView)
-        NSLayoutConstraint.activate([])
-        
-        /// action
-        settingsActionView.addAction(
-            .init(handler: { _ in
-            
-            }),
-            for: .touchUpInside
-        )
-    }
-    */
-}
-extension DashboardViewControllerRevised {
-    private struct Layout {
-        // CGFloat
-        // CGSize
-        // NSDirectionalEdgeInsets
-    }
-    private func setupConstraints() {
-        let padding: CGFloat = 16
-        let cardPadding: CGFloat = 20
-        let iconSpacing: CGFloat = 25
-        let avatarSize: CGFloat = 70
-        
-        NSLayoutConstraint.activate([
-            cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-
-            profileView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 40),
-            profileView.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
-            
-            settingsButton.topAnchor.constraint(equalTo: cardView.topAnchor, constant: cardPadding),
-            settingsButton.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-            settingsButton.widthAnchor.constraint(equalToConstant: 40),
-            settingsButton.heightAnchor.constraint(equalToConstant: 40),
-           
-            titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 25),
-            titleView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
-            titleView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-
-            icons[0].topAnchor.constraint(equalTo: titleView.bottomAnchor, constant: iconSpacing),
-            icons[0].leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
-            icons[1].topAnchor.constraint(equalTo: icons[0].topAnchor),
-            icons[1].centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
-            icons[2].topAnchor.constraint(equalTo: icons[0].topAnchor),
-            icons[2].trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-
-            icons[3].topAnchor.constraint(equalTo: icons[0].bottomAnchor, constant: iconSpacing),
-            icons[3].leadingAnchor.constraint(equalTo: cardView.centerXAnchor, constant: -80),
-            icons[4].topAnchor.constraint(equalTo: icons[3].topAnchor),
-            icons[4].leadingAnchor.constraint(equalTo: cardView.centerXAnchor, constant: 10),
-            
-            galleryTitleLabel.topAnchor.constraint(equalTo: icons[3].bottomAnchor, constant: 40),
-            galleryTitleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
-            galleryTitleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
+            galleryTitleLabel.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: 40),
+            galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: 16),
-            galleryView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: cardPadding),
-            galleryView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -cardPadding),
-            galleryView.bottomAnchor.constraint(equalTo: cardView.bottomAnchor, constant: -cardPadding)
+            galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
+    
+    private func addSettingsAction() {
+        var configuration: UIButton.Configuration = .filled()
+        configuration.background.backgroundColor = .systemPurple
+        configuration.background.cornerRadius = layout.settingsActionSize.width / 2
+        configuration.image = .init(systemName: "gearshape.fill")
+        settingsButton.configuration = configuration
+        
+        contentView.addSubview(settingsButton)
+        NSLayoutConstraint.activate([
+            settingsButton.topAnchor.constraint(equalTo: profileView.topAnchor),
+            settingsButton.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -layout.contentInsets.trailing
+            ),
+            settingsButton.widthAnchor.constraint(equalToConstant: layout.settingsActionSize.width),
+            settingsButton.heightAnchor.constraint(equalToConstant: layout.settingsActionSize.height)
+        ])
+        
+        settingsButton.addAction(
+            .init(handler: { [weak self] _ in
+                // TODO
+            }),
+            for: .touchUpInside
+        )
+    }
 }
+
+extension DashboardViewControllerRevised {
+    private struct Layout {
+        let contentInsets: NSDirectionalEdgeInsets = .init(
+            top: 16,
+            leading: 16,
+            bottom: 16,
+            trailing: 16
+        )
+        let settingsActionSize: CGSize = .init(width: 40, height: 40)
+    }
+}
+
+// BaseViewController +
+// BaseScrollViewController +
+// Navigation bar large title -> Dashboard
+// private lazy var scrollView: UIScrollView = .build()
+// private lazy var contentView: UIView = .build()
+//private lazy var dashBoardView: UILabel = .build() //dashboardlabel view kaldırıldı yerine large title
+// AvatarView +
+// GalleryView - UIImageView b stacjview
