@@ -6,6 +6,10 @@
 //
 
 import UIKit
+struct ProfilePresentationModel {
+    let avatarModel: AvatarPresentationModel
+    let nameText: String
+}
 
 class ProfileView: UIView {
     
@@ -27,6 +31,11 @@ class ProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func bind(_ model: ProfilePresentationModel) {
+        avatarView.bind(model.avatarModel)
+        nameLabel.text = model.nameText
+    }
+    
     private func setupUI() {
         addSubview(avatarView)
         addSubview(nameLabel)
@@ -44,11 +53,5 @@ class ProfileView: UIView {
             nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-    }
-    
-    func configure(image: UIImage?, name: String) {
-        avatarView.image = image
-        avatarView.tintColor = .white
-        nameLabel.text = name
     }
 }
