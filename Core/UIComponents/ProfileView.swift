@@ -4,54 +4,80 @@
 //
 //  Created by irem.karakaplan on 11.08.2025.
 //
-
 import UIKit
+
 struct ProfilePresentationModel {
     let avatarModel: AvatarPresentationModel
     let nameText: String
 }
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
     
-    // MARK: - UI Components
     private lazy var avatarView: AvatarView = .build()
+    private lazy var nameView: UILabel = .build()
     
-    private lazy var nameLabel: UILabel = .build {
-        $0.font = .systemFont(ofSize: 17, weight: .medium)
-        $0.textAlignment = .center
+    var isAvatarCircular: Bool = false {
+        didSet {
+            setNeedsLayout()
+        }
     }
     
-    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        addUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(_ model: ProfilePresentationModel) {
-        avatarView.bind(model.avatarModel)
-        nameLabel.text = model.nameText
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        avatarView.layer.cornerRadius = isAvatarCircular ? avatarView.bounds.width / 2 : 0
     }
     
-    private func setupUI() {
+    func bind(_ model: ProfilePresentationModel) {
+        avatarView.bind(model.avatarModel)
+        nameView.text = model.nameText
+    }
+}
+
+private extension ProfileView {
+    
+    func addUI() {
+        addAvatarView()
+        addNameView()
+    }
+    
+    func addAvatarView() {
         addSubview(avatarView)
-        addSubview(nameLabel)
-        
-        let avatarSize: CGFloat = 100
-        
+    
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: self.topAnchor),
             avatarView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            avatarView.widthAnchor.constraint(equalToConstant: avatarSize),
-            avatarView.heightAnchor.constraint(equalToConstant: avatarSize),
-            
-            nameLabel.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: 8),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            avatarView.widthAnchor.constraint(equalToConstant: Layout.avatarSize),
+            avatarView.heightAnchor.constraint(equalToConstant: Layout.avatarSize)
         ])
+    }
+    
+    func addNameView() {
+        nameView.font = .systemFont(ofSize: Layout.nameFontSize, weight: .medium)
+        nameView.textAlignment = .center
+        nameView.textColor = .label
+        
+        addSubview(nameView)
+        NSLayoutConstraint.activate([
+            nameView.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: Layout.verticalSpacing),
+            nameView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            nameView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            nameView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+    }
+}
+private extension ProfileView {
+    struct Layout {
+        static let avatarSize: CGFloat = 100
+        static let nameFontSize: CGFloat = 17
+        static let verticalSpacing: CGFloat = 8
     }
 }

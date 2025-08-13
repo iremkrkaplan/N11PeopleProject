@@ -4,52 +4,44 @@
 //
 //  Created by irem.karakaplan on 10.08.2025.
 //
-import Foundation
 import UIKit
 
 struct AvatarPresentationModel {
     let url: URL?
+    let placeholderImage: UIImage?
 }
 
-class AvatarView: UIImageView {
-    
-    // MARK: - Initializer
+final class AvatarView: UIImageView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupDefaults()
+        addUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var avatarImageView: UIImageView = .build {
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    func bind(_ model: AvatarPresentationModel) {
-        self.image = nil
-        self.image = UIImage(systemName: "person.circle.fill")
-        
-        // TODO: - Kingfisher lib
-       /* if let url = model.url {
-            self.kf.setImage(with: url, placeholder: UIImage(systemName: "person.circle.fill"))
-        } else {
-            self.image = UIImage(systemName: "person.circle.fill")
-        } */
-    }
-
-    // MARK: - Setup
-    private func setupDefaults() {
+    private func addUI() {
         contentMode = .scaleAspectFill
         clipsToBounds = true
         tintColor = .systemPurple
         layer.borderColor = UIColor.systemGray4.cgColor
-        layer.borderWidth = 1
+        layer.borderWidth = Layout.borderWidth
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layer.cornerRadius = bounds.width / 2
+    func bind(_ model: AvatarPresentationModel) {
+        self.image = model.placeholderImage ?? UIImage(systemName: "person.fill")
+        // TODO: - Kingfisher lib
+       /* if let url = model.url {
+            self.kf.setImage(with: url, placeholder: mdoel.placeholderImage)
+        } else {
+            self.image = model.placeholderImage
+        } */
+    }
+}
+private extension AvatarView {
+    struct Layout {
+        static let borderWidth: CGFloat = 1.0
     }
 }

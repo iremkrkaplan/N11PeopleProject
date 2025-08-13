@@ -23,7 +23,6 @@ final class DashboardViewController: BaseScrollViewController{
         $0.spacing = Layout.quickActionRowSpacing
         $0.alignment = .center
     }
-//    private let layout: Layout = .init()
     
     override func addUI() {
         super.addUI()
@@ -49,9 +48,10 @@ extension DashboardViewController {
     }
     
     private func addProfile() {
-        
+        profileView.isAvatarCircular = true
+
         let model = ProfilePresentationModel(
-            avatarModel: .init(url: nil),
+            avatarModel: .init(url: nil, placeholderImage: UIImage(systemName: "person.fill")),
             nameText: "İrem Karakaplan"
         )
         profileView.bind(model)
@@ -198,7 +198,8 @@ extension DashboardViewController {
         galleryTitleLabel.text = "n11 Galeri"
         galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
         galleryTitleLabel.textColor = .black
-        
+        galleryView.configure(withItemCount: 6)
+
         contentView.addSubview(galleryTitleLabel)
         contentView.addSubview(galleryView)
         NSLayoutConstraint.activate([
