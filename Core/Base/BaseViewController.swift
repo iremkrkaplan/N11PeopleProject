@@ -14,5 +14,9 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addUI()
+        setupView()
+    }
+    private func setupView() {
+        view.backgroundColor = .systemBackground
     }
 }

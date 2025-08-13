@@ -6,11 +6,6 @@
 //
 import UIKit
 
-struct AvatarPresentationModel {
-    let url: URL?
-    let placeholderImage: UIImage?
-}
-
 final class AvatarView: UIImageView {
 
     override init(frame: CGRect) {
@@ -23,7 +18,7 @@ final class AvatarView: UIImageView {
     }
     
     private func addUI() {
-        contentMode = .scaleAspectFill
+        contentMode = .center
         clipsToBounds = true
         tintColor = .systemPurple
         layer.borderColor = UIColor.systemGray4.cgColor

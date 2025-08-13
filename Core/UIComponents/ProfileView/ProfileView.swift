@@ -6,22 +6,12 @@
 //
 import UIKit
 
-struct ProfilePresentationModel {
-    let avatarModel: AvatarPresentationModel
-    let nameText: String
-}
-
 final class ProfileView: UIView {
     
     private lazy var avatarView: AvatarView = .build()
     private lazy var nameView: UILabel = .build()
-    
-    var isAvatarCircular: Bool = false {
-        didSet {
-            setNeedsLayout()
-        }
-    }
-    
+    private var avatarShape: AvatarPresentationModel.AvatarShape = .rectangle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUI()
@@ -30,15 +20,20 @@ final class ProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
-        avatarView.layer.cornerRadius = isAvatarCircular ? avatarView.bounds.width / 2 : 0
+        
+        switch avatarShape {
+        case .circle:
+            avatarView.layer.cornerRadius = avatarView.bounds.width / 2
+        case .rectangle:
+            avatarView.layer.cornerRadius = 0
+        }
     }
-    
     func bind(_ model: ProfilePresentationModel) {
         avatarView.bind(model.avatarModel)
         nameView.text = model.nameText
+        self.avatarShape = model.avatarModel.shape
     }
 }
 

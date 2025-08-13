@@ -26,7 +26,6 @@ final class DashboardViewController: BaseScrollViewController{
     
     override func addUI() {
         super.addUI()
-        addBackground()
         addNavigationBar()
         addProfile()
         addTitle()
@@ -38,9 +37,6 @@ final class DashboardViewController: BaseScrollViewController{
 }
 
 extension DashboardViewController {
-    private func addBackground() {
-        view.backgroundColor = .systemBackground
-    }
     
     private func addNavigationBar() {
         navigationItem.title = "Dashboard"
@@ -48,12 +44,16 @@ extension DashboardViewController {
     }
     
     private func addProfile() {
-        profileView.isAvatarCircular = true
-
+        //   TODO: move to presenter
         let model = ProfilePresentationModel(
-            avatarModel: .init(url: nil, placeholderImage: UIImage(systemName: "person.fill")),
+            avatarModel: .init(
+                url: nil,
+                placeholderImage: UIImage(systemName: "person.fill"),
+                shape: .circle
+            ),
             nameText: "İrem Karakaplan"
         )
+        
         profileView.bind(model)
 
         contentView.addSubview(profileView)
@@ -198,7 +198,9 @@ extension DashboardViewController {
         galleryTitleLabel.text = "n11 Galeri"
         galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
         galleryTitleLabel.textColor = .black
-        galleryView.configure(withItemCount: 6)
+        
+        let galleryModel = createPlaceholderGalleryModel()
+        galleryView.configure(with: galleryModel)
 
         contentView.addSubview(galleryTitleLabel)
         contentView.addSubview(galleryView)
@@ -213,6 +215,21 @@ extension DashboardViewController {
             galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.galleryBottomPadding)
         ])
     }
+//    TODO: move to Presenter
+    private func createPlaceholderGalleryModel() -> GalleryPresentationModel {
+        
+        let itemCount = 6
+        
+        let ladybugModel = GalleryItemPresentationModel(
+            imageSystemName: "ladybug.fill",
+            tintColor: .systemPurple
+        )
+
+        let allItems = Array(repeating: ladybugModel, count: itemCount)
+        
+        return GalleryPresentationModel(items: allItems)
+    }
+    
 }
 
 extension DashboardViewController {

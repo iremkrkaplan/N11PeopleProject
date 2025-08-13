@@ -8,15 +8,6 @@
 import Foundation
 import UIKit
 
-// MARK: - Presentation Model
-struct QuickActionButtonPresentationModel {
-    let title: String
-    let iconName: String
-    let color: UIColor
-    let action: () -> Void
-}
-
-// MARK: - QuickActionButton
 final class QuickActionButton: UIButton {
     
     private lazy var containerStackView: UIStackView = .build()

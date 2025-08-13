@@ -16,7 +16,6 @@ final class GalleryView: UIView {
         $0.distribution = .fillEqually
     }
     
-    // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUI()
@@ -26,12 +25,12 @@ final class GalleryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(withItemCount count: Int) {
+    func configure(with model: GalleryPresentationModel) {
         mainStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        addGalleryRows(for: count)
+        addGalleryRows(for: model.items)
     }
 }
-    // MARK: - Setup UI
+
 private extension GalleryView {
     
     func addUI() {
@@ -50,31 +49,39 @@ private extension GalleryView {
 
     }
     
-    func addGalleryRows(for count: Int) {
-        guard count > 0 else { return }
+    func addGalleryRows(for items: [GalleryItemPresentationModel]) {
+        guard !items.isEmpty else { return }
         
-        let numberOfRows = (count + 1) / 2
+        let numberOfRows = (items.count + 1) / 2
         
         for index in 0..<numberOfRows {
-            let rowStackView = createGalleryRow(at: index, totalItemCount: count)
+            let item1Index = index * 2
+            let item1Model = items[item1Index]
+            
+            var item2Model: GalleryItemPresentationModel? = nil
+            let item2Index = item1Index + 1
+            if item2Index < items.count {
+                item2Model = items[item2Index]
+            }
+            
+            let rowStackView = createGalleryRow(item1: item1Model, item2: item2Model)
             mainStackView.addArrangedSubview(rowStackView)
         }
     }
     
-    func createGalleryRow(at rowIndex: Int, totalItemCount: Int) -> UIStackView {
+    func createGalleryRow(item1: GalleryItemPresentationModel, item2: GalleryItemPresentationModel?) -> UIStackView {
         let rowStackView: UIStackView = .build {
             $0.axis = .horizontal
             $0.spacing = Layout.itemSpacing
             $0.distribution = .fillEqually
         }
         
-        let item1 = makeGalleryItemView()
-        rowStackView.addArrangedSubview(item1)
+        let item1View = makeGalleryItemView(with: item1)
+        rowStackView.addArrangedSubview(item1View)
         
-        let secondItemIndex = rowIndex * 2 + 1
-        if secondItemIndex < totalItemCount {
-            let item2 = makeGalleryItemView()
-            rowStackView.addArrangedSubview(item2)
+        if let item2Model = item2 {
+            let item2View = makeGalleryItemView(with: item2Model)
+            rowStackView.addArrangedSubview(item2View)
         } else {
             let placeholderView = UIView()
             rowStackView.addArrangedSubview(placeholderView)
@@ -83,7 +90,7 @@ private extension GalleryView {
         return rowStackView
     }
     
-    func makeGalleryItemView() -> UIView {
+    func makeGalleryItemView(with model: GalleryItemPresentationModel) -> UIView {
         let view: UIView = .build {
             $0.backgroundColor = .systemGray6
             $0.layer.cornerRadius = Layout.itemCornerRadius
@@ -91,10 +98,9 @@ private extension GalleryView {
         }
 
         let imageView: UIImageView = .build {
-            $0.image = UIImage(systemName: "ladybug.fill")
-            $0.tintColor = .systemPurple
+            $0.image = UIImage(systemName: model.imageSystemName)
+            $0.tintColor = model.tintColor
             $0.contentMode = .scaleAspectFit
-            $0.translatesAutoresizingMaskIntoConstraints = false
         }
 
         view.addSubview(imageView)
