@@ -5,7 +5,6 @@
 //  Created by irem.karakaplan on 13.08.2025.
 //
 
-
 import UIKit
 
 struct GalleryItemPresentationModel {

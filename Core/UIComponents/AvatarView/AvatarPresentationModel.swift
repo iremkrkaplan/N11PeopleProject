@@ -15,8 +15,7 @@ struct AvatarPresentationModel {
         url: URL?,
         placeholderImage: UIImage?,
         shape: AvatarShape = .circle
-    )
-    {
+    ) {
         self.url = url
         self.placeholderImage = placeholderImage
         self.shape = shape

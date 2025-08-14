@@ -23,6 +23,11 @@ final class DashboardViewController: BaseScrollViewController{
         $0.spacing = Layout.quickActionRowSpacing
         $0.alignment = .center
     }
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        display(createPlaceholderDashboardData())
+    }
     
     override func addUI() {
         super.addUI()
@@ -34,8 +39,18 @@ final class DashboardViewController: BaseScrollViewController{
         addGallery()
         addSettingsAction()
     }
+    
+    func display(_ data: DashboardViewData) {
+        titleView.text = data.titleViewText
+        subtitleView.text = data.subtitleViewText
+        galleryTitleLabel.text = data.galleryTitleLabelText
+        
+        profileView.bind(data.profileModel)
+        configureQuickActions(with: data.quickActionModels)
+        configureSettingsAction(with: data.settingsButtonModel)
+        configureGallery(with: data.galleryModel)
+    }
 }
-
 extension DashboardViewController {
     
     private func addNavigationBar() {
@@ -44,71 +59,30 @@ extension DashboardViewController {
     }
     
     private func addProfile() {
-        //   TODO: move to presenter
-        let model = ProfilePresentationModel(
-            avatarModel: .init(
-                url: nil,
-                placeholderImage: UIImage(systemName: "person.fill"),
-                shape: .circle
-            ),
-            nameText: "İrem Karakaplan"
-        )
-        
-        profileView.bind(model)
-
         contentView.addSubview(profileView)
         NSLayoutConstraint.activate([
-            profileView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: Layout.contentInsets.top
-            ),
-            profileView.centerXAnchor.constraint(
-                equalTo: contentView.centerXAnchor
-            )
+            profileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Layout.contentInsets.top),
+            profileView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
 
     private func addSettingsAction() {
-        var configuration: UIButton.Configuration = .filled()
-        configuration.background.backgroundColor = .systemPurple
-        configuration.background.cornerRadius = Layout.settingsActionSize.width / 2
-        configuration.image = .init(systemName: "gearshape.fill")
-        settingsButton.configuration = configuration
-        
         contentView.addSubview(settingsButton)
         NSLayoutConstraint.activate([
             settingsButton.topAnchor.constraint(equalTo: profileView.topAnchor),
-            settingsButton.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Layout.contentInsets.trailing
-            ),
+            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing),
             settingsButton.widthAnchor.constraint(equalToConstant: Layout.settingsActionSize.width),
             settingsButton.heightAnchor.constraint(equalToConstant: Layout.settingsActionSize.height)
         ])
-        
-        settingsButton.addAction(
-            .init(handler: { [weak self] _ in
-//                TODO:
-            }),
-            for: .touchUpInside
-        )
     }
     
     private func addTitle() {
-        titleView.text = "Yönetim Paneli"
         titleView.font = .systemFont(ofSize: Layout.titleFontSize, weight: .bold)
         titleView.textAlignment = .center
         titleView.textColor = .systemPurple
-        
+        titleView.setContentHuggingPriority(.required, for: .vertical)
+        titleView.setContentCompressionResistancePriority(.required, for: .vertical)
         contentView.addSubview(titleView)
-        titleView.setContentHuggingPriority(
-            .required,
-            for: .vertical
-        )
-        titleView.setContentCompressionResistancePriority(
-            .required,
-            for: .vertical
-        )
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: Layout.profileBottomSpacing),
             titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.contentInsets.leading),
@@ -117,11 +91,9 @@ extension DashboardViewController {
     }
 
     private func addSubtitle() {
-        subtitleView.text = "n11 Kültür"
         subtitleView.font = .systemFont(ofSize: Layout.subtitleFontSize, weight: .regular)
         subtitleView.textColor = .gray
         subtitleView.textAlignment = .center
-        
         contentView.addSubview(subtitleView)
         NSLayoutConstraint.activate([
             subtitleView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
@@ -129,10 +101,101 @@ extension DashboardViewController {
             subtitleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
     }
+    
     private func addQuickActions() {
         contentView.addSubview(quickActionsStackView)
+        NSLayoutConstraint.activate([
+            quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: Layout.quickActionsTopSpacing),
+            quickActionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.contentInsets.leading),
+            quickActionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing)
+        ])
+    }
+    
+    private func addGallery() {
+        galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
+        galleryTitleLabel.textColor = .black
+        contentView.addSubview(galleryTitleLabel)
+        contentView.addSubview(galleryView)
+        NSLayoutConstraint.activate([
+            galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: Layout.gallerySectionTopSpacing),
+            galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
+            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
+            
+            galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: Layout.galleryTitleBottomSpacing),
+            galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
+            galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
+            galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.galleryBottomPadding)
+        ])
+    }
+    
+       private func configureSettingsAction(with model: SimpleActionPresentationModel) {
+           var config = UIButton.Configuration.filled()
+           config.background.backgroundColor = .systemPurple
+           config.background.cornerRadius = Layout.settingsActionSize.width / 2
+           config.image = .init(systemName: model.iconName)
+           settingsButton.configuration = config
+           
+           settingsButton.addAction(UIAction { _ in model.action() }, for: .touchUpInside)
+       }
+       
+       private func configureQuickActions(with models: [[QuickActionButtonPresentationModel]]) {
+           quickActionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+           
+           models.forEach { rowModels in
+               let rowStackView = UIStackView()
+               rowStackView.spacing = Layout.quickActionRowSpacing
+               rowStackView.distribution = .fillEqually
+               
+               rowModels.forEach { model in
+                   let button = QuickActionButton()
+                   button.bind(with: model)
+                   rowStackView.addArrangedSubview(button)
+               }
+               quickActionsStackView.addArrangedSubview(rowStackView)
+           }
+       }
 
-        let models: [[QuickActionButtonPresentationModel]] = [
+       private func configureGallery(with model: GalleryPresentationModel?) {
+           let finalModel = model ?? createPlaceholderGalleryModel()
+           galleryView.isHidden = false
+           galleryView.bind(with: finalModel)
+       }
+}
+
+//Data Factory TODO: Move to presenter
+private extension DashboardViewController {
+    
+    func createPlaceholderDashboardData() -> DashboardViewData {
+        return .init(
+            titleViewText: "Yönetim Paneli",
+            subtitleViewText: "n11 Kültür",
+            galleryTitleLabelText: "nYakınım",
+            profileModel: createPlaceholderProfileModel(),
+            quickActionModels: createPlaceholderQuickActionModels(),
+            settingsButtonModel: createPlaceholderSettingsButtonModel(),
+            galleryModel: nil
+        )
+    }
+    
+    func createPlaceholderProfileModel() -> ProfilePresentationModel {
+        return .init(
+            avatarModel: .init(url: nil, placeholderImage: UIImage(systemName: "person.fill"), shape: .circle),
+            nameText: "İrem Karakaplan"
+        )
+    }
+    
+    func createPlaceholderSettingsButtonModel() -> SimpleActionPresentationModel {
+        return .init(
+            iconName: "gearshape.fill",
+            action: {
+                print("Ayarlar butonu tıklandı! Navigasyon olmalı.")
+                // TODO: `self?.presenter.navigateToSettings()` olacak.
+            }
+        )
+    }
+    
+    func createPlaceholderQuickActionModels() -> [[QuickActionButtonPresentationModel]] {
+        return [
             [
                 .init(
                     title: "Kayıt Sorgulama",
@@ -173,64 +236,18 @@ extension DashboardViewController {
                 }
             ]
         ]
-        
-        models.forEach { rowModels in
-            let rowStackView = UIStackView()
-            rowStackView.spacing = Layout.quickActionRowSpacing
-            rowStackView.distribution = .fillEqually
-            
-            rowModels.forEach { model in
-                let button = QuickActionButton(type: .system)
-                button.configure(with: model)
-                rowStackView.addArrangedSubview(button)
-            }
-            quickActionsStackView.addArrangedSubview(rowStackView)
-        }
-
-        NSLayoutConstraint.activate([
-            quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: Layout.quickActionsTopSpacing),
-            quickActionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.contentInsets.leading),
-            quickActionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing)
-        ])
     }
     
-    private func addGallery() {
-        galleryTitleLabel.text = "n11 Galeri"
-        galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
-        galleryTitleLabel.textColor = .black
-        
-        let galleryModel = createPlaceholderGalleryModel()
-        galleryView.configure(with: galleryModel)
-
-        contentView.addSubview(galleryTitleLabel)
-        contentView.addSubview(galleryView)
-        NSLayoutConstraint.activate([
-            galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: Layout.gallerySectionTopSpacing),
-            galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
-            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
-            
-            galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: Layout.galleryTitleBottomSpacing),
-            galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
-            galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
-            galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.galleryBottomPadding)
-        ])
-    }
-//    TODO: move to Presenter
-    private func createPlaceholderGalleryModel() -> GalleryPresentationModel {
-        
-        let itemCount = 6
-        
-        let ladybugModel = GalleryItemPresentationModel(
-            imageSystemName: "ladybug.fill",
-            tintColor: .systemPurple
-        )
-
-        let allItems = Array(repeating: ladybugModel, count: itemCount)
-        
-        return GalleryPresentationModel(items: allItems)
-    }
-    
-}
+     func createPlaceholderGalleryModel() -> GalleryPresentationModel {
+         let placeholderItemCount = 6
+         let placeholderItem = GalleryItemPresentationModel(
+             imageSystemName: "ladybug.fill",
+             tintColor: .systemGray4
+         )
+         let allItems = Array(repeating: placeholderItem, count: placeholderItemCount)
+         return GalleryPresentationModel(items: allItems)
+     }
+ }
 
 extension DashboardViewController {
     private struct Layout {
@@ -257,3 +274,4 @@ extension DashboardViewController {
         static let galleryTitleFontSize: CGFloat = 26
     }
 }
+

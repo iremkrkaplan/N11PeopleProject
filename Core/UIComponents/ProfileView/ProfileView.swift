@@ -10,7 +10,6 @@ final class ProfileView: UIView {
     
     private lazy var avatarView: AvatarView = .build()
     private lazy var nameView: UILabel = .build()
-    private var avatarShape: AvatarPresentationModel.AvatarShape = .rectangle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,20 +19,17 @@ final class ProfileView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        switch avatarShape {
-        case .circle:
-            avatarView.layer.cornerRadius = avatarView.bounds.width / 2
-        case .rectangle:
-            avatarView.layer.cornerRadius = 0
-        }
-    }
+    
     func bind(_ model: ProfilePresentationModel) {
         avatarView.bind(model.avatarModel)
         nameView.text = model.nameText
-        self.avatarShape = model.avatarModel.shape
+        
+        switch model.shape {
+        case .rectangle:
+            break;
+        case .circle:
+            avatarView.layer.cornerRadius = avatarView.bounds.width / 2
+        }
     }
 }
 
@@ -45,8 +41,8 @@ private extension ProfileView {
     }
     
     func addAvatarView() {
+        
         addSubview(avatarView)
-    
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: self.topAnchor),
             avatarView.centerXAnchor.constraint(equalTo: self.centerXAnchor),

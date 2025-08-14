@@ -8,6 +8,23 @@
 import UIKit
 
 struct ProfilePresentationModel {
+    
     let avatarModel: AvatarPresentationModel
     let nameText: String
+    let shape: Shape
+    
+    init(
+        avatarModel: AvatarPresentationModel,
+        nameText: String,
+        shape: ProfilePresentationModel.Shape = .circle
+    ) {
+        self.avatarModel = avatarModel
+        self.nameText = nameText
+        self.shape = shape
+    }
+    
+    enum Shape {
+        case rectangle
+        case circle
+    }
 }

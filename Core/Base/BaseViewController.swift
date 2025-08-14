@@ -16,6 +16,7 @@ class BaseViewController: UIViewController {
         addUI()
         setupView()
     }
+    
     private func setupView() {
         view.backgroundColor = .systemBackground
     }

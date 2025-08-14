@@ -26,21 +26,23 @@ final class QuickActionButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with model: QuickActionButtonPresentationModel) {
+    func bind(with model: QuickActionButtonPresentationModel) { //bindData
         titleLabelView.text = model.title
         iconView.image = UIImage(systemName: model.iconName)
         circleView.backgroundColor = model.color
-        self.actionHandler = model.action
+        
+        self.addAction(UIAction(handler: { action in
+            model.action()
+        }), for: .touchUpInside)
     }
-    
 }
+
 private extension QuickActionButton {
     
     func addUI() {
         addContainerStackView()
         addCircleView()
         addTitleLabelView()
-        configureButton()
     }
     
     func addContainerStackView() {
@@ -84,14 +86,6 @@ private extension QuickActionButton {
         titleLabelView.numberOfLines = 0
         
         containerStackView.addArrangedSubview(titleLabelView)
-    }
-    
-    func configureButton() {
-        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-    
-    @objc private func buttonTapped() {
-        actionHandler?()
     }
 }
 
