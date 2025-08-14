@@ -21,9 +21,9 @@ struct AvatarPresentationModel {
         self.shape = shape
     }
     
-    enum AvatarShape {
-        case rectangle
-        case circle
-    }
+}
+enum AvatarShape {
+    case rectangle
+    case circle
 }
 

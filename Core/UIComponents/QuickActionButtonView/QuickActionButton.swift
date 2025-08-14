@@ -26,7 +26,7 @@ final class QuickActionButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bind(with model: QuickActionButtonPresentationModel) { //bindData
+    func bind(with model: QuickActionButtonPresentationModel) {
         titleLabelView.text = model.title
         iconView.image = UIImage(systemName: model.iconName)
         circleView.backgroundColor = model.color
