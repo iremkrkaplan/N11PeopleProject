@@ -20,6 +20,7 @@
 		6458CE142E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE132E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift */; };
 		6458CE182E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE172E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift */; };
 		6458CE242E4DFD3E001ACBC6 /* DashboardPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */; };
+		6458CE2C2E4E0ACA001ACBC6 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE2B2E4E0ACA001ACBC6 /* GalleryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6458CE132E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionButtonPresentationModel.swift; sourceTree = "<group>"; };
 		6458CE172E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryItemPresentationModel.swift; sourceTree = "<group>"; };
 		6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresentationModel.swift; sourceTree = "<group>"; };
+		6458CE2B2E4E0ACA001ACBC6 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -139,6 +141,7 @@
 		6458CE152E4CA08A001ACBC6 /* GalleryView */ = {
 			isa = PBXGroup;
 			children = (
+				6458CE2A2E4E0A9B001ACBC6 /* Cells */,
 				6458CDFA2E49E2F1001ACBC6 /* GalleryView.swift */,
 				6458CE172E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift */,
 			);
@@ -150,6 +153,14 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6458CE2A2E4E0A9B001ACBC6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6458CE2B2E4E0ACA001ACBC6 /* GalleryCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		64EE7C3B2E45D294009AFFE4 = {
@@ -272,6 +283,7 @@
 				6458CDF32E48E7A2001ACBC6 /* AvatarView.swift in Sources */,
 				6458CE072E4B3E5C001ACBC6 /* QuickActionButton.swift in Sources */,
 				6458CE092E4B7689001ACBC6 /* DashboardViewController.swift in Sources */,
+				6458CE2C2E4E0ACA001ACBC6 /* GalleryCell.swift in Sources */,
 				6458CDFB2E49E2F1001ACBC6 /* GalleryView.swift in Sources */,
 				6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */,
 				6458CE142E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift in Sources */,

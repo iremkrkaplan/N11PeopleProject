@@ -36,7 +36,7 @@ private extension GalleryView {
     func addUI() {
         addMainStackView()
     }
-
+    
     func addMainStackView() {
         addSubview(mainStackView)
         
@@ -46,7 +46,7 @@ private extension GalleryView {
             mainStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             mainStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
-
+        
     }
     
     func addGalleryRows(for items: [GalleryItemPresentationModel]) {
@@ -68,60 +68,38 @@ private extension GalleryView {
             mainStackView.addArrangedSubview(rowStackView)
         }
     }
-    //    view yap custom
+    
     func createGalleryRow(item1: GalleryItemPresentationModel, item2: GalleryItemPresentationModel?) -> UIStackView {
-          let rowStackView: UIStackView = .build {
-              $0.axis = .horizontal
-              $0.spacing = Layout.itemSpacing
-              $0.distribution = .fillEqually
-          }
-          
-          let item1View = makeGalleryItemView(with: item1)
-          rowStackView.addArrangedSubview(item1View)
-          
-          if let item2Model = item2 {
-              let item2View = makeGalleryItemView(with: item2Model)
-              rowStackView.addArrangedSubview(item2View)
-          } else {
-              let placeholderView = UIView()
-              rowStackView.addArrangedSubview(placeholderView)
-          }
-          
-          return rowStackView
-      }
+        let rowStackView: UIStackView = .build {
+            $0.axis = .horizontal
+            $0.spacing = Layout.itemSpacing
+            $0.distribution = .fillEqually
+        }
+        
+        let item1View = makeGalleryItemView(with: item1)
+        rowStackView.addArrangedSubview(item1View)
+        
+        if let item2Model = item2 {
+            let item2View = makeGalleryItemView(with: item2Model)
+            rowStackView.addArrangedSubview(item2View)
+        } else {
+            let placeholderView = UIView()
+            rowStackView.addArrangedSubview(placeholderView)
+        }
+        
+        return rowStackView
+    }
     
     func makeGalleryItemView(with model: GalleryItemPresentationModel) -> UIView {
-         let view: UIView = .build {
-             $0.backgroundColor = .systemGray6
-             $0.layer.cornerRadius = Layout.itemCornerRadius
-             $0.clipsToBounds = true
-         }
-
-         let imageView: UIImageView = .build {
-             $0.image = UIImage(systemName: model.imageSystemName)
-             $0.tintColor = model.tintColor
-             $0.contentMode = .scaleAspectFit
-         }
-
-         view.addSubview(imageView)
-         NSLayoutConstraint.activate([
-             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-             imageView.widthAnchor.constraint(equalToConstant: Layout.imageSize.width),
-             imageView.heightAnchor.constraint(equalToConstant: Layout.imageSize.height),
-             view.heightAnchor.constraint(equalToConstant: Layout.itemHeight)
-         ])
-         
-         return view
-     }
- }
+        let cell = GalleryCell()
+        cell.bind(with: model)
+        return cell
+    }
+}
 
 private extension GalleryView {
     struct Layout {
         static let rowSpacing: CGFloat = 16
         static let itemSpacing: CGFloat = 16
-        static let itemCornerRadius: CGFloat = 15
-        static let itemHeight: CGFloat = 120
-        static let imageSize: CGSize = .init(width: 60, height: 60)
     }
 }
