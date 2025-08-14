@@ -40,7 +40,7 @@ private extension GalleryCell{
         addSubview(iconImageView)
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: Layout.height),
-            
+
             iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: Layout.iconSize.width),

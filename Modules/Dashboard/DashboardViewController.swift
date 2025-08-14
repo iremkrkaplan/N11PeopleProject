@@ -36,7 +36,8 @@ final class DashboardViewController: BaseScrollViewController{
         addTitle()
         addSubtitle()
         addQuickActions()
-        addGallery()
+        addGalleryTitle()
+        addGalleryView()
         addSettingsAction()
     }
     
@@ -111,24 +112,28 @@ extension DashboardViewController {
         ])
     }
     
-    private func addGallery() {
+    private func addGalleryTitle() {
         galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
         galleryTitleLabel.textColor = .black
         contentView.addSubview(galleryTitleLabel)
-        contentView.addSubview(galleryView)
         NSLayoutConstraint.activate([
             galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: Layout.gallerySectionTopSpacing),
             galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
-            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
-            
+            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding)
+        ])
+    }
+
+    private func addGalleryView() {
+        contentView.addSubview(galleryView)
+        NSLayoutConstraint.activate([
             galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: Layout.galleryTitleBottomSpacing),
             galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
             galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
             galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.galleryBottomPadding)
         ])
     }
-    
-       private func configureSettingsAction(with model: SimpleActionPresentationModel) {
+        
+    private func configureSettingsAction(with model: SimpleActionPresentationModel) {
            var config = UIButton.Configuration.filled()
            config.background.backgroundColor = .systemPurple
            config.background.cornerRadius = Layout.settingsActionSize.width / 2
@@ -138,7 +143,7 @@ extension DashboardViewController {
            settingsButton.addAction(UIAction { _ in model.action() }, for: .touchUpInside)
        }
        
-       private func configureQuickActions(with models: [[QuickActionButtonPresentationModel]]) {
+    private func configureQuickActions(with models: [[QuickActionButtonPresentationModel]]) {
            quickActionsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
            
            models.forEach { rowModels in
@@ -155,7 +160,7 @@ extension DashboardViewController {
            }
        }
 
-       private func configureGallery(with model: GalleryPresentationModel?) {
+    private func configureGallery(with model: GalleryPresentationModel?) {
            let finalModel = model ?? createPlaceholderGalleryModel()
            galleryView.isHidden = false
            galleryView.bind(with: finalModel)
