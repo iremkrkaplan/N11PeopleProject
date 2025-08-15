@@ -10,7 +10,7 @@ import UIKit
 
 final class DashboardViewController: BaseScrollViewController{
     
-    // MARK: - UI Components
+    private let interactor: any DashboardInteractorProtocol
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
@@ -23,11 +23,19 @@ final class DashboardViewController: BaseScrollViewController{
         $0.spacing = Layout.quickActionRowSpacing
         $0.alignment = .center
     }
-
-    // MARK: - Lifecycle
+    // init
+    init(interactor: any DashboardInteractorProtocol) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind(createPlaceholderDashboardData())
+        fetchDataAndUpdateUI()
     }
     
     override func addUI() {
@@ -52,7 +60,32 @@ final class DashboardViewController: BaseScrollViewController{
         configureSettingsAction(with: data.settingsButtonModel)
         configureGallery(with: data.galleryModel)
     }
+    
+    // MARK: - Data Fetching
+    private func fetchDataAndUpdateUI() {
+        Task {
+            do {
+                let user = try await interactor.fetchUser(username: "iremkrkaplan")
+                let viewData = createViewData(from: user)
+                bind(viewData)
+                
+            } catch {
+                print("Hata oluştu: \(error.localizedDescription)")
+                // TODO: Kullanıcıya allert ieklinde hata mesajı göster.
+            }
+        }
+    }
 }
+//TODO:
+//extension DashboardViewController {
+//    private func loadData() {
+//        Task {
+//            let user = try await interactor.fetchUser()
+//            // user -> presentationModel
+//            // presentation -> view
+//        }
+//    }
+//}
 
 extension DashboardViewController {
     
@@ -172,29 +205,22 @@ extension DashboardViewController {
 //Data Factory TODO: Move to presenter
 private extension DashboardViewController {
     
-    func createPlaceholderDashboardData() -> DashboardViewData {
+    func createPlaceholderDashboardData(from user: User) -> DashboardViewData {
         return .init(
             titleViewText: "Yönetim Paneli",
             subtitleViewText: "n11 Kültür",
             galleryTitleLabelText: "nYakınım",
-            profileModel: createPlaceholderProfileModel(),
+            profileModel: ProfilePresentationModel(
+            avatarModel: .init(
+                url: user.avatarUrl,
+                placeholderImage: UIImage(systemName: "person.circle.fill"),
+                shape: .circle
+                ),
+                nameText: user.login
+             ),
             quickActionModels: createPlaceholderQuickActionModels(),
             settingsButtonModel: createPlaceholderSettingsButtonModel(),
             galleryModel: nil
-        )
-    }
-    
-    func createPlaceholderProfileModel() -> ProfilePresentationModel {
-        
-        let avatar = AvatarPresentationModel(
-            url: nil,
-            placeholderImage: UIImage(systemName: "person.fill"),
-            shape: .circle
-        )
-        
-        return ProfilePresentationModel(
-            avatarModel: avatar,
-            nameText: "İrem Karakaplan"
         )
     }
     
@@ -263,6 +289,31 @@ private extension DashboardViewController {
      }
  }
 
+private extension DashboardViewController {
+    
+    func createViewData(from user: User) -> DashboardViewData {
+        let profile = ProfilePresentationModel(
+            avatarModel: .init(
+                url: user.avatarUrl,
+                placeholderImage: UIImage(systemName: "person.circle.fill"),
+                shape: .circle
+            ),
+            nameText: user.login
+        )
+        let quickActions = createPlaceholderQuickActionModels()
+        let settings = createPlaceholderSettingsButtonModel()
+        
+        return DashboardViewData(
+            titleViewText: "Yönetim Paneli",
+            subtitleViewText: "n11 Kültür",
+            galleryTitleLabelText: "n11 Galeri",
+            profileModel: profile,
+            quickActionModels: quickActions,
+            settingsButtonModel: settings,
+            galleryModel: createPlaceholderGalleryModel()
+        )
+    }
+}
 extension DashboardViewController {
     private struct Layout {
         static let contentInsets: NSDirectionalEdgeInsets = .init(
