@@ -13,10 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // 1. Mock Interactor'ı oluştur.
         let mockInteractor = DashboardMockInteractor()
         
-        // 2. ViewController'ı, bu Interactor'ı kullanarak oluştur.
         let dashboardVC = DashboardViewController(interactor: mockInteractor)
         
         let navigationController = UINavigationController(rootViewController: dashboardVC)
