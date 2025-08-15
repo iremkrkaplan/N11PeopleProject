@@ -23,7 +23,7 @@ final class ProfileView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+//        TODO: will be moved
         switch avatarShape {
         case .circle:
             avatarView.layer.cornerRadius = avatarView.bounds.width / 2
@@ -36,6 +36,7 @@ final class ProfileView: UIView {
         avatarView.bind(model.avatarModel)
         nameView.text = model.nameText
         self.avatarShape = model.avatarModel.shape
+        setNeedsLayout()
     }
 }
 

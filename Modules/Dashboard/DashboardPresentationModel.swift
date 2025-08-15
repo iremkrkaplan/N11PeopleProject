@@ -20,6 +20,7 @@ struct DashboardViewData {
 
     let galleryModel: GalleryPresentationModel?
 }
+
 struct SimpleActionPresentationModel {
     let iconName: String
     let action: () -> Void

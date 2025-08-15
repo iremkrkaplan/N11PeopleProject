@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct User {
+    let id: String
+    let name: String?
+}
+
+protocol DashboardInteractorProtocol: AnyObject {
+    func fetchUser() async throws -> User
+}

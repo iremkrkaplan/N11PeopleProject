@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+final class DashboardMockInteractor: DashboardInteractorProtocol {
+    
+    func fetchUser() async throws -> User {
+        User(id: "id", name: "Irem ...")
+    }
+}

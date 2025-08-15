@@ -185,8 +185,15 @@ private extension DashboardViewController {
     }
     
     func createPlaceholderProfileModel() -> ProfilePresentationModel {
-        return .init(
-            avatarModel: .init(url: nil, placeholderImage: UIImage(systemName: "person.fill"), shape: .circle),
+        
+        let avatar = AvatarPresentationModel(
+            url: nil,
+            placeholderImage: UIImage(systemName: "person.fill"),
+            shape: .circle
+        )
+        
+        return ProfilePresentationModel(
+            avatarModel: avatar,
             nameText: "İrem Karakaplan"
         )
     }

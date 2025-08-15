@@ -11,7 +11,7 @@ struct AvatarPresentationModel {
     let placeholderImage: UIImage?
     let shape: AvatarShape
     
-    internal init(
+    init(
         url: URL?,
         placeholderImage: UIImage?,
         shape: AvatarShape = .circle
@@ -26,4 +26,3 @@ enum AvatarShape {
     case rectangle
     case circle
 }
-

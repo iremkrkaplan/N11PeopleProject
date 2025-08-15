@@ -21,6 +21,9 @@
 		6458CE182E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE172E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift */; };
 		6458CE242E4DFD3E001ACBC6 /* DashboardPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */; };
 		6458CE2C2E4E0ACA001ACBC6 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE2B2E4E0ACA001ACBC6 /* GalleryCell.swift */; };
+		6458CE322E4F0FB0001ACBC6 /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE312E4F0FB0001ACBC6 /* DashboardInteractor.swift */; };
+		6458CE342E4F0FD8001ACBC6 /* DashboardContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE332E4F0FD8001ACBC6 /* DashboardContracts.swift */; };
+		6458CE362E4F1043001ACBC6 /* DashboardMockInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE352E4F1043001ACBC6 /* DashboardMockInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,9 @@
 		6458CE172E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryItemPresentationModel.swift; sourceTree = "<group>"; };
 		6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresentationModel.swift; sourceTree = "<group>"; };
 		6458CE2B2E4E0ACA001ACBC6 /* GalleryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		6458CE312E4F0FB0001ACBC6 /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
+		6458CE332E4F0FD8001ACBC6 /* DashboardContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContracts.swift; sourceTree = "<group>"; };
+		6458CE352E4F1043001ACBC6 /* DashboardMockInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMockInteractor.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -194,7 +200,10 @@
 			isa = PBXGroup;
 			children = (
 				6458CE082E4B7689001ACBC6 /* DashboardViewController.swift */,
+				6458CE352E4F1043001ACBC6 /* DashboardMockInteractor.swift */,
+				6458CE312E4F0FB0001ACBC6 /* DashboardInteractor.swift */,
 				6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */,
+				6458CE332E4F0FD8001ACBC6 /* DashboardContracts.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -277,13 +286,16 @@
 				6458CDF72E49DD6E001ACBC6 /* ProfileView.swift in Sources */,
 				6458CDE32E4626AF001ACBC6 /* UIVIew+Layout.swift in Sources */,
 				6458CE0D2E4C82C7001ACBC6 /* AvatarPresentationModel.swift in Sources */,
+				6458CE342E4F0FD8001ACBC6 /* DashboardContracts.swift in Sources */,
 				6458CE112E4CA03C001ACBC6 /* ProfilePresentationModel.swift in Sources */,
 				6458CE182E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift in Sources */,
 				6458CDF02E467D75001ACBC6 /* BaseScrollViewController.swift in Sources */,
 				6458CDF32E48E7A2001ACBC6 /* AvatarView.swift in Sources */,
+				6458CE322E4F0FB0001ACBC6 /* DashboardInteractor.swift in Sources */,
 				6458CE072E4B3E5C001ACBC6 /* QuickActionButton.swift in Sources */,
 				6458CE092E4B7689001ACBC6 /* DashboardViewController.swift in Sources */,
 				6458CE2C2E4E0ACA001ACBC6 /* GalleryCell.swift in Sources */,
+				6458CE362E4F1043001ACBC6 /* DashboardMockInteractor.swift in Sources */,
 				6458CDFB2E49E2F1001ACBC6 /* GalleryView.swift in Sources */,
 				6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */,
 				6458CE142E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift in Sources */,
