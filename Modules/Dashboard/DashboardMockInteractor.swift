@@ -8,8 +8,16 @@
 import Foundation
 
 final class DashboardMockInteractor: DashboardInteractorProtocol {
-    
-    func fetchUser() async throws -> User {
-        User(id: "id", name: "Irem ...")
+    func fetchUser(username: String) async throws -> User {
+        let mockJsonString = """
+        {
+          "login": "iremkrkaplan",
+          "id": 115878341,
+          "avatar_url": "https://avatars.githubusercontent.com/u/115878341?v=4"
+        }
+        """
+        let jsonData = Data(mockJsonString.utf8)
+        let user = try JSONDecoder().decode(User.self, from: jsonData)
+        return user
     }
 }

@@ -7,11 +7,21 @@
 
 import Foundation
 
-struct User {
-    let id: String
-    let name: String?
+struct User: Codable {
+    let login: String
+    let id: Int
+    let avatarUrl: URL
+}
+
+enum CodingKeys: String, CodingKey {
+    case login, id
+    case avatarUrl = "avatar_url"
+}
+
+struct UserSearchResponse: Codable {
+    let items: [User]
 }
 
 protocol DashboardInteractorProtocol: AnyObject {
-    func fetchUser() async throws -> User
+    func fetchUser(username: String) async throws -> User
 }
