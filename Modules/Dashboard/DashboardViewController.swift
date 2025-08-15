@@ -23,10 +23,11 @@ final class DashboardViewController: BaseScrollViewController{
         $0.spacing = Layout.quickActionRowSpacing
         $0.alignment = .center
     }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        display(createPlaceholderDashboardData())
+        bind(createPlaceholderDashboardData())
     }
     
     override func addUI() {
@@ -40,8 +41,8 @@ final class DashboardViewController: BaseScrollViewController{
         addGalleryView()
         addSettingsAction()
     }
-    
-    func display(_ data: DashboardViewData) {
+
+    func bind(_ data: DashboardViewData) {
         titleView.text = data.titleViewText
         subtitleView.text = data.subtitleViewText
         galleryTitleLabel.text = data.galleryTitleLabelText
@@ -52,6 +53,7 @@ final class DashboardViewController: BaseScrollViewController{
         configureGallery(with: data.galleryModel)
     }
 }
+
 extension DashboardViewController {
     
     private func addNavigationBar() {
