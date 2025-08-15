@@ -23,7 +23,7 @@ final class DashboardViewController: BaseScrollViewController{
         $0.spacing = Layout.quickActionRowSpacing
         $0.alignment = .center
     }
-    // init
+    
     init(interactor: any DashboardInteractorProtocol) {
         self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
@@ -49,7 +49,7 @@ final class DashboardViewController: BaseScrollViewController{
         addGalleryView()
         addSettingsAction()
     }
-
+    
     func bind(_ data: DashboardViewData) {
         titleView.text = data.titleViewText
         subtitleView.text = data.subtitleViewText
@@ -76,16 +76,6 @@ final class DashboardViewController: BaseScrollViewController{
         }
     }
 }
-//TODO:
-//extension DashboardViewController {
-//    private func loadData() {
-//        Task {
-//            let user = try await interactor.fetchUser()
-//            // user -> presentationModel
-//            // presentation -> view
-//        }
-//    }
-//}
 
 extension DashboardViewController {
     
@@ -205,22 +195,22 @@ extension DashboardViewController {
 //Data Factory TODO: Move to presenter
 private extension DashboardViewController {
     
-    func createPlaceholderDashboardData(from user: User) -> DashboardViewData {
+    func createViewData(from user: User) -> DashboardViewData {
         return .init(
             titleViewText: "Yönetim Paneli",
             subtitleViewText: "n11 Kültür",
-            galleryTitleLabelText: "nYakınım",
-            profileModel: ProfilePresentationModel(
-            avatarModel: .init(
-                url: user.avatarUrl,
-                placeholderImage: UIImage(systemName: "person.circle.fill"),
-                shape: .circle
+            galleryTitleLabelText: "n11 Galeri",
+            profileModel: .init(
+                avatarModel: .init(
+                    url: user.avatarUrl,
+                    placeholderImage: UIImage(systemName: "person.circle.fill"),
+                    shape: .circle
                 ),
                 nameText: user.login
-             ),
+            ),
             quickActionModels: createPlaceholderQuickActionModels(),
             settingsButtonModel: createPlaceholderSettingsButtonModel(),
-            galleryModel: nil
+            galleryModel: createPlaceholderGalleryModel()
         )
     }
     
@@ -289,31 +279,6 @@ private extension DashboardViewController {
      }
  }
 
-private extension DashboardViewController {
-    
-    func createViewData(from user: User) -> DashboardViewData {
-        let profile = ProfilePresentationModel(
-            avatarModel: .init(
-                url: user.avatarUrl,
-                placeholderImage: UIImage(systemName: "person.circle.fill"),
-                shape: .circle
-            ),
-            nameText: user.login
-        )
-        let quickActions = createPlaceholderQuickActionModels()
-        let settings = createPlaceholderSettingsButtonModel()
-        
-        return DashboardViewData(
-            titleViewText: "Yönetim Paneli",
-            subtitleViewText: "n11 Kültür",
-            galleryTitleLabelText: "n11 Galeri",
-            profileModel: profile,
-            quickActionModels: quickActions,
-            settingsButtonModel: settings,
-            galleryModel: createPlaceholderGalleryModel()
-        )
-    }
-}
 extension DashboardViewController {
     private struct Layout {
         static let contentInsets: NSDirectionalEdgeInsets = .init(

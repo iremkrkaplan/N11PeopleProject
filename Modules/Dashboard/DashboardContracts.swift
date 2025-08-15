@@ -11,11 +11,11 @@ struct User: Codable {
     let login: String
     let id: Int
     let avatarUrl: URL
-}
-
-enum CodingKeys: String, CodingKey {
-    case login, id
-    case avatarUrl = "avatar_url"
+    
+    enum CodingKeys: String, CodingKey {
+        case login, id
+        case avatarUrl = "avatar_url"
+    }
 }
 
 struct UserSearchResponse: Codable {
