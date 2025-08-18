@@ -1,0 +1,24 @@
+//
+//  APIClient.swift
+//  N11PeopleProject
+//
+//  Created by irem.karakaplan on 17.08.2025.
+//
+
+import Foundation
+
+struct APIClient {
+    var getUser: (GetUserParams) async throws -> User
+    
+    static let noop = Self(getUser: { _ in try await Task.never() })
+}
+
+extension Task where Failure == Never {
+    static func never() async throws -> Success {
+        for await element in AsyncStream<Success>.never { return element }
+        throw _Concurrency.CancellationError()
+    }
+}
+extension AsyncStream {
+    static var never: Self { Self { _ in } }
+}

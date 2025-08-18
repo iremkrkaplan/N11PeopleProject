@@ -7,4 +7,16 @@
 
 import Foundation
 
-final class DashboardInteractor {}
+final class DashboardAPIInteractor: DashboardInteractorProtocol {
+    private let apiClient: APIClient
+
+    init(apiClient: APIClient) {
+        self.apiClient = apiClient
+    }
+
+    func fetchUser(username: String) async throws -> User {
+        let params = GetUserParams(username: username)
+        
+        return try await self.apiClient.getUser(params)
+    }
+}

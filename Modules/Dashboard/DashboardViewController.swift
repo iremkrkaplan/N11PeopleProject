@@ -10,7 +10,8 @@ import UIKit
 
 final class DashboardViewController: BaseScrollViewController{
     
-    private let interactor: any DashboardInteractorProtocol
+//    private let interactor: any DashboardInteractorProtocol
+    private let interactor: DashboardInteractorProtocol
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
