@@ -67,12 +67,12 @@ final class DashboardViewController: BaseScrollViewController{
     private func fetchDataAndUpdateUI() {
         Task {
             do {
-                let user = try await interactor.fetchUser(username: "iremkrkaplan")
+                let user = try await interactor.fetchAuthenticatedUser()
                 let viewData = createViewData(from: user)
                 bind(viewData)
                 
             } catch {
-                print("Hata oluştu: \(error.localizedDescription)")
+                print("Error: \(error.localizedDescription)")
                 // TODO: Kullanıcıya allert ieklinde hata mesajı göster.
             }
         }

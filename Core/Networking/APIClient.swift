@@ -8,9 +8,9 @@
 import Foundation
 
 struct APIClient {
-    var getUser: (GetUserParams) async throws -> User
+    var getAuthenticatedUser: () async throws -> User
     
-    static let noop = Self(getUser: { _ in try await Task.never() })
+    static let noop = Self(getAuthenticatedUser: { try await Task.never() })
 }
 
 extension Task where Failure == Never {

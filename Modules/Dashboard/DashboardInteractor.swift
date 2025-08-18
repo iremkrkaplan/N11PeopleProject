@@ -14,9 +14,7 @@ final class DashboardAPIInteractor: DashboardInteractorProtocol {
         self.apiClient = apiClient
     }
 
-    func fetchUser(username: String) async throws -> User {
-        let params = GetUserParams(username: username)
-        
-        return try await self.apiClient.getUser(params)
+    func fetchAuthenticatedUser() async throws -> User {
+        return try await self.apiClient.getAuthenticatedUser()
     }
 }

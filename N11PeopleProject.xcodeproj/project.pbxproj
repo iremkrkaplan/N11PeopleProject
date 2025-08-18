@@ -31,6 +31,8 @@
 		6458CE682E530867001ACBC6 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE672E530867001ACBC6 /* AppRouter.swift */; };
 		6458CE6C2E530AE8001ACBC6 /* DashboardFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE6B2E530AE8001ACBC6 /* DashboardFeature.swift */; };
 		6458CE6E2E530ED7001ACBC6 /* NetworkingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE6D2E530ED7001ACBC6 /* NetworkingModels.swift */; };
+		6458CE742E5349C8001ACBC6 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */; };
+		6458CE762E535EDE001ACBC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6458CE752E535ED8001ACBC6 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		6458CE672E530867001ACBC6 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		6458CE6B2E530AE8001ACBC6 /* DashboardFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardFeature.swift; sourceTree = "<group>"; };
 		6458CE6D2E530ED7001ACBC6 /* NetworkingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingModels.swift; sourceTree = "<group>"; };
+		6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		6458CE752E535ED8001ACBC6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -221,6 +225,8 @@
 		64EE7C3B2E45D294009AFFE4 = {
 			isa = PBXGroup;
 			children = (
+				6458CE752E535ED8001ACBC6 /* .gitignore */,
+				6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */,
 				6458CE642E530846001ACBC6 /* App */,
 				6458CE572E4FB9B4001ACBC6 /* Sources */,
 				6458CE1E2E4DE7FF001ACBC6 /* Models */,
@@ -328,6 +334,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6458CE762E535EDE001ACBC6 /* .gitignore in Resources */,
+				6458CE742E5349C8001ACBC6 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +377,7 @@
 /* Begin XCBuildConfiguration section */
 		64EE7C582E45D297009AFFE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -403,6 +412,7 @@
 		};
 		64EE7C592E45D297009AFFE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -437,6 +447,7 @@
 		};
 		64EE7C5A2E45D297009AFFE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -501,6 +512,7 @@
 		};
 		64EE7C5B2E45D297009AFFE4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

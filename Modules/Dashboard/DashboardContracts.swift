@@ -11,7 +11,7 @@ struct User: Codable {
     let login: String
     let id: Int
     let avatarUrl: URL
-    
+//    sor codingkeys vs decoder.keyDecodingStrategy = .convertFromSnakeCase
     enum CodingKeys: String, CodingKey {
         case login, id
         case avatarUrl = "avatar_url"
@@ -23,5 +23,5 @@ struct UserSearchResponse: Codable {
 }
 
 protocol DashboardInteractorProtocol: AnyObject {
-    func fetchUser(username: String) async throws -> User
+    func fetchAuthenticatedUser() async throws -> User
 }

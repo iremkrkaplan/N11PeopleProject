@@ -5,7 +5,7 @@
 //  Created by irem.karakaplan on 15.08.2025.
 //
 import Foundation
-
+/*
 final class DashboardMockInteractor: DashboardInteractorProtocol {
     func fetchUser(username: String) async throws -> User {
         let mockJsonString = """
@@ -20,3 +20,4 @@ final class DashboardMockInteractor: DashboardInteractorProtocol {
         return user
     }
 }
+*/
