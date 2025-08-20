@@ -5,7 +5,6 @@
 //  Created by irem.karakaplan on 18.08.2025.
 //
 
-import Foundation
 import UIKit
 
 public struct DashboardFeature {
