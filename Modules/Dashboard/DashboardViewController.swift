@@ -9,7 +9,6 @@ import UIKit
 
 final class DashboardViewController: BaseScrollViewController{
     
-//    private let interactor: any DashboardInteractorProtocol
     private let interactor: DashboardInteractorProtocol
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
@@ -18,11 +17,7 @@ final class DashboardViewController: BaseScrollViewController{
     private lazy var settingsActionView: UIButton = .build()
     private lazy var settingsButton: UIButton = .build()
     private lazy var galleryTitleLabel: UILabel = .build()
-    private lazy var quickActionsStackView: UIStackView = .build {
-        $0.axis = .vertical
-        $0.spacing = Layout.quickActionRowSpacing
-        $0.alignment = .center
-    }
+    private lazy var quickActionsStackView: UIStackView = .build()
     
     init(interactor: any DashboardInteractorProtocol) {
         self.interactor = interactor
@@ -131,6 +126,10 @@ extension DashboardViewController {
     }
     
     private func addQuickActions() {
+        quickActionsStackView.axis = .vertical
+        quickActionsStackView.spacing = Layout.quickActionRowSpacing
+        quickActionsStackView.alignment = .center
+        
         contentView.addSubview(quickActionsStackView)
         NSLayoutConstraint.activate([
             quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: Layout.quickActionsTopSpacing),

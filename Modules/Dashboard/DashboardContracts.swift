@@ -11,7 +11,7 @@ struct User: Codable {
     let login: String
     let id: Int
     let avatarUrl: URL
-//    sor codingkeys vs decoder.keyDecodingStrategy = .convertFromSnakeCase
+    
     enum CodingKeys: String, CodingKey {
         case login, id
         case avatarUrl = "avatar_url"

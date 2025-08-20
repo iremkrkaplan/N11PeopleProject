@@ -51,6 +51,7 @@ private extension APIClient {
         
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw URLError(.badServerResponse)
+            
         }
         
         let decoder = JSONDecoder()
