@@ -4,7 +4,6 @@
 //
 //  Created by irem.karakaplan on 18.08.2025.
 //
-
 import UIKit
 
 public final class AppLoader {

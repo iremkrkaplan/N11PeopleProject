@@ -4,9 +4,7 @@
 //
 //  Created by irem.karakaplan on 11.08.2025.
 //
-
 import UIKit
-
 final class GalleryView: UIView {
     
     private lazy var mainStackView: UIStackView = .build {
