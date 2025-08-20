@@ -47,7 +47,6 @@ private extension APIClient {
         request.addValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(githubToken)", forHTTPHeaderField: "Authorization")
 
-        
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {

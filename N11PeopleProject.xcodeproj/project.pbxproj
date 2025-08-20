@@ -189,13 +189,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		6458CE572E4FB9B4001ACBC6 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		6458CE582E527765001ACBC6 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +221,6 @@
 				6458CE752E535ED8001ACBC6 /* .gitignore */,
 				6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */,
 				6458CE642E530846001ACBC6 /* App */,
-				6458CE572E4FB9B4001ACBC6 /* Sources */,
 				6458CE1E2E4DE7FF001ACBC6 /* Models */,
 				6458CDEB2E467C87001ACBC6 /* Core */,
 				64EE7C5C2E45DD34009AFFE4 /* Modules */,

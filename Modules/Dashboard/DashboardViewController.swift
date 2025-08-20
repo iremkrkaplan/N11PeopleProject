@@ -66,6 +66,7 @@ final class DashboardViewController: BaseScrollViewController{
     // MARK: - Data Fetching
     private func fetchDataAndUpdateUI() {
         Task {
+            try await Task.sleep(nanoseconds: 5_000_000_000)
             do {
                 let user = try await interactor.fetchAuthenticatedUser()
                 let viewData = createViewData(from: user)
@@ -220,7 +221,7 @@ private extension DashboardViewController {
         return .init(
             iconName: "gearshape.fill",
             action: {
-                print("Ayarlar butonu tıklandı! Navigasyon olmalı.")
+                print("Ayarlar butonu tıklandı!")
                 // TODO: `self?.presenter.navigateToSettings()` olacak.
             }
         )
@@ -306,4 +307,3 @@ extension DashboardViewController {
         static let galleryTitleFontSize: CGFloat = 26
     }
 }
-
