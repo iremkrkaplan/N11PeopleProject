@@ -8,8 +8,6 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    func addUI() {}
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         addUI()
@@ -19,4 +17,8 @@ class BaseViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .systemBackground
     }
+}
+
+extension BaseViewController{
+    private func addUI() {}
 }
