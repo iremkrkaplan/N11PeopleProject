@@ -50,7 +50,6 @@ final class DashboardViewController: BaseScrollViewController{
         addSettingsAction()
     }
     
-    @MainActor
     func bind(_ data: DashboardViewData) {
         titleView.text = data.titleViewText
         subtitleView.text = data.subtitleViewText
