@@ -4,13 +4,13 @@
 //
 //  Created by irem.karakaplan on 8.08.2025.
 //
-
+//customview
 import UIKit
 
 final class DashboardViewController: BaseScrollViewController{
     
-//    private let interactor: any DashboardInteractorProtocol
     private let interactor: DashboardInteractorProtocol
+    private let refreshControl = UIRefreshControl()
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
@@ -18,11 +18,7 @@ final class DashboardViewController: BaseScrollViewController{
     private lazy var settingsActionView: UIButton = .build()
     private lazy var settingsButton: UIButton = .build()
     private lazy var galleryTitleLabel: UILabel = .build()
-    private lazy var quickActionsStackView: UIStackView = .build {
-        $0.axis = .vertical
-        $0.spacing = Layout.quickActionRowSpacing
-        $0.alignment = .center
-    }
+    private lazy var quickActionsStackView: UIStackView = .build()
     
     init(interactor: any DashboardInteractorProtocol) {
         self.interactor = interactor
@@ -37,7 +33,7 @@ final class DashboardViewController: BaseScrollViewController{
         super.viewDidLoad()
         fetchDataAndUpdateUI()
     }
-    
+
     override func addUI() {
         super.addUI()
         addNavigationBar()
@@ -50,7 +46,6 @@ final class DashboardViewController: BaseScrollViewController{
         addSettingsAction()
     }
     
-    @MainActor
     func bind(_ data: DashboardViewData) {
         titleView.text = data.titleViewText
         subtitleView.text = data.subtitleViewText
@@ -110,6 +105,7 @@ extension DashboardViewController {
         titleView.textColor = .systemPurple
         titleView.setContentHuggingPriority(.required, for: .vertical)
         titleView.setContentCompressionResistancePriority(.required, for: .vertical)
+        
         contentView.addSubview(titleView)
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: Layout.profileBottomSpacing),
@@ -122,6 +118,7 @@ extension DashboardViewController {
         subtitleView.font = .systemFont(ofSize: Layout.subtitleFontSize, weight: .regular)
         subtitleView.textColor = .gray
         subtitleView.textAlignment = .center
+        
         contentView.addSubview(subtitleView)
         NSLayoutConstraint.activate([
             subtitleView.topAnchor.constraint(equalTo: titleView.bottomAnchor),
@@ -131,6 +128,10 @@ extension DashboardViewController {
     }
     
     private func addQuickActions() {
+        quickActionsStackView.axis = .vertical
+        quickActionsStackView.spacing = Layout.quickActionRowSpacing
+        quickActionsStackView.alignment = .center
+        
         contentView.addSubview(quickActionsStackView)
         NSLayoutConstraint.activate([
             quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: Layout.quickActionsTopSpacing),
@@ -142,6 +143,7 @@ extension DashboardViewController {
     private func addGalleryTitle() {
         galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
         galleryTitleLabel.textColor = .black
+        
         contentView.addSubview(galleryTitleLabel)
         NSLayoutConstraint.activate([
             galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: Layout.gallerySectionTopSpacing),
