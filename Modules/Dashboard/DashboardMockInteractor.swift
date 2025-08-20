@@ -13,7 +13,6 @@ enum MockScenario {
 }
 
 final class DashboardMockInteractor: DashboardInteractorProtocol {
-    
     private let scenario: MockScenario
 
     init(scenario: MockScenario) {
