@@ -5,6 +5,7 @@
 //  Created by irem.karakaplan on 10.08.2025.
 //
 import UIKit
+import Kingfisher
 
 final class AvatarView: UIView {
     
@@ -20,13 +21,15 @@ final class AvatarView: UIView {
     }
     
     func bind(_ model: AvatarPresentationModel) {
-        self.imageView.image = model.placeholderImage ?? UIImage(systemName: "person.fill")
-        // TODO: - Kingfisher lib
-       /* if let url = model.url {
-            self.kf.setImage(with: url, placeholder: mdoel.placeholderImage)
-        } else {
-            self.image = model.placeholderImage
-        } */
+        let placeholder = model.placeholderImage
+        let transition: KingfisherOptionsInfoItem = .transition(.fade(0.2))
+
+        self.imageView.image = model.placeholderImage
+        imageView.kf.setImage(
+            with: model.url,
+            placeholder: placeholder,
+            options: [transition]
+        )
     }
 }
 
