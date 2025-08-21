@@ -10,6 +10,7 @@ final class ProfileView: UIView {
     
     private lazy var avatarView: AvatarView = .build()
     private lazy var nameView: UILabel = .build()
+    private let layout: Layout = .init()
     private var avatarShape: AvatarShape = .rectangle
     
     override init(frame: CGRect) {
@@ -53,19 +54,19 @@ private extension ProfileView {
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: self.topAnchor),
             avatarView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            avatarView.widthAnchor.constraint(equalToConstant: Layout.avatarSize),
-            avatarView.heightAnchor.constraint(equalToConstant: Layout.avatarSize)
+            avatarView.widthAnchor.constraint(equalToConstant: layout.avatarSize),
+            avatarView.heightAnchor.constraint(equalToConstant: layout.avatarSize)
         ])
     }
     
     func addNameView() {
-        nameView.font = .systemFont(ofSize: Layout.nameFontSize, weight: .medium)
+        nameView.font = .systemFont(ofSize: layout.nameFontSize, weight: .medium)
         nameView.textAlignment = .center
         nameView.textColor = .label
         
         addSubview(nameView)
         NSLayoutConstraint.activate([
-            nameView.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: Layout.verticalSpacing),
+            nameView.topAnchor.constraint(equalTo: avatarView.bottomAnchor, constant: layout.verticalSpacing),
             nameView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             nameView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             nameView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
@@ -74,8 +75,8 @@ private extension ProfileView {
 }
 private extension ProfileView {
     struct Layout {
-        static let avatarSize: CGFloat = 100
-        static let nameFontSize: CGFloat = 17
-        static let verticalSpacing: CGFloat = 8
+        let avatarSize: CGFloat = 100
+        let nameFontSize: CGFloat = 17
+        let verticalSpacing: CGFloat = 8
     }
 }

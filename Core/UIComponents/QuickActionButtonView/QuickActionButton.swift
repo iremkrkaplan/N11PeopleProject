@@ -13,6 +13,7 @@ final class QuickActionButton: UIButton {
     private lazy var circleView: UIView = .build ()
     private lazy var iconView: UIImageView = .build ()
     private lazy var titleLabelView: UILabel = .build ()
+    private let layout: Layout = .init()
     
     private var actionHandler: (() -> Void)?
     
@@ -46,25 +47,25 @@ private extension QuickActionButton {
     
     func addContainerStackView() {
         containerStackView.axis = .vertical
-        containerStackView.spacing = Layout.stackViewSpacing
+        containerStackView.spacing = layout.stackViewSpacing
         containerStackView.alignment = .center
         containerStackView.isUserInteractionEnabled = false
         
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: Layout.verticalPadding),
+            containerStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: layout.verticalPadding),
             containerStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Layout.verticalPadding)
+            containerStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -layout.verticalPadding)
         ])
     }
     
     func addCircleView() {
-        circleView.layer.cornerRadius = Layout.cornerRadius
+        circleView.layer.cornerRadius = layout.cornerRadius
         containerStackView.addArrangedSubview(circleView)
         NSLayoutConstraint.activate([
-            circleView.widthAnchor.constraint(equalToConstant: Layout.circleSize),
-            circleView.heightAnchor.constraint(equalToConstant: Layout.circleSize)
+            circleView.widthAnchor.constraint(equalToConstant: layout.circleSize),
+            circleView.heightAnchor.constraint(equalToConstant: layout.circleSize)
         ])
         
         iconView.contentMode = .scaleAspectFit
@@ -73,8 +74,8 @@ private extension QuickActionButton {
         NSLayoutConstraint.activate([
             iconView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: Layout.iconSize),
-            iconView.heightAnchor.constraint(equalToConstant: Layout.iconSize)
+            iconView.widthAnchor.constraint(equalToConstant: layout.iconSize),
+            iconView.heightAnchor.constraint(equalToConstant: layout.iconSize)
         ])
     }
     
@@ -90,10 +91,10 @@ private extension QuickActionButton {
 
 private extension QuickActionButton {
     struct Layout {
-        static let circleSize: CGFloat = 70.0
-        static let iconSize: CGFloat = 40.0
-        static let stackViewSpacing: CGFloat = 8.0
-        static let verticalPadding: CGFloat = 10.0
-        static var cornerRadius: CGFloat { circleSize / 2.0 }
+        let circleSize: CGFloat = 70.0
+        let iconSize: CGFloat = 40.0
+        let stackViewSpacing: CGFloat = 8.0
+        let verticalPadding: CGFloat = 10.0
+        var cornerRadius: CGFloat { circleSize / 2.0 }
     }
 }

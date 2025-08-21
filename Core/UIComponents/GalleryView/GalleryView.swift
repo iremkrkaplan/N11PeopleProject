@@ -9,11 +9,9 @@ import UIKit
 
 final class GalleryView: UIView {
     
-    private lazy var mainStackView: UIStackView = .build {
-        $0.axis = .vertical
-        $0.spacing = Layout.rowSpacing
-        $0.distribution = .fillEqually
-   }
+    private lazy var mainStackView: UIStackView = .build()
+    private let layout: Layout = .init()
+
     //  TODO: FIX: custom view olarak yap
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +35,10 @@ private extension GalleryView {
     }
     
     func addMainStackView() {
+        mainStackView.axis = .vertical
+        mainStackView.spacing = Layout.rowSpacing
+        mainStackView.distribution = .fillEqually
+
         addSubview(mainStackView)
         
         NSLayoutConstraint.activate([

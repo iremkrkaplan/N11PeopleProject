@@ -9,6 +9,7 @@ import UIKit
 final class GalleryCell: UIView {
 
     private lazy var iconImageView: UIImageView = .build()
+    private let layout: Layout = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +29,7 @@ private extension GalleryCell{
     
     func addUI(){
         self.backgroundColor = .systemGray6
-        self.layer.cornerRadius = Layout.cornerRadius
+        self.layer.cornerRadius = layout.cornerRadius
         self.clipsToBounds = true
         addIconImageView()
     }
@@ -38,19 +39,19 @@ private extension GalleryCell{
         
         addSubview(iconImageView)
         NSLayoutConstraint.activate([
-            self.heightAnchor.constraint(equalToConstant: Layout.height),
+            self.heightAnchor.constraint(equalToConstant: layout.height),
 
             iconImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             iconImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: Layout.iconSize.width),
-            iconImageView.heightAnchor.constraint(equalToConstant: Layout.iconSize.height)
+            iconImageView.widthAnchor.constraint(equalToConstant: layout.iconSize.width),
+            iconImageView.heightAnchor.constraint(equalToConstant: layout.iconSize.height)
         ])
     }
 }
 private extension GalleryCell {
     struct Layout {
-        static let height: CGFloat = 120
-        static let cornerRadius: CGFloat = 15
-        static let iconSize: CGSize = .init(width: 60, height: 60)
+        let height: CGFloat = 120
+        let cornerRadius: CGFloat = 15
+        let iconSize: CGSize = .init(width: 60, height: 60)
     }
 }

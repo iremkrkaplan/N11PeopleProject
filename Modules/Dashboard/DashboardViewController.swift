@@ -46,8 +46,7 @@ final class DashboardViewController: BaseScrollViewController{
         addSettingsAction()
     }
     
-    @MainActor
-    func bind(_ data: DashboardViewData) {
+    private func bind(_ data: DashboardViewData) {
         titleView.text = data.titleViewText
         subtitleView.text = data.subtitleViewText
         galleryTitleLabel.text = data.galleryTitleLabelText
@@ -58,7 +57,7 @@ final class DashboardViewController: BaseScrollViewController{
         configureGallery(with: data.galleryModel)
     }
     
-    // MARK: - Data Fetching
+    @MainActor
     private func fetchDataAndUpdateUI() {
         Task {
             try await Task.sleep(nanoseconds: 5_000_000_000)

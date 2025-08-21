@@ -8,7 +8,6 @@
 import UIKit
 
 class BaseViewController: UIViewController {
-    
     func addUI() {}
     
     override func viewDidLoad() {

@@ -15,12 +15,13 @@ class BaseScrollViewController:  BaseViewController{
         super.addUI()
         addScroll()
     }
-    
+}
+
+extension BaseScrollViewController{
     func addScroll() {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.bounces = true
         scrollView.alwaysBounceVertical = true
-        
         
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -40,8 +41,6 @@ class BaseScrollViewController:  BaseViewController{
 
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
-    
     }
-    
 
 }
