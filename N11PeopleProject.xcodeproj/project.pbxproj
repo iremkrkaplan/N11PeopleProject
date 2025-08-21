@@ -108,7 +108,6 @@
 		6458CDEB2E467C87001ACBC6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				6458CE612E527E6F001ACBC6 /* Entities */,
 				6458CE582E527765001ACBC6 /* Networking */,
 				6458CDF12E48E77F001ACBC6 /* UIComponents */,
 				6458CDEC2E467CB0001ACBC6 /* Base */,
@@ -174,13 +173,6 @@
 			path = GalleryView;
 			sourceTree = "<group>";
 		};
-		6458CE1E2E4DE7FF001ACBC6 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		6458CE2A2E4E0A9B001ACBC6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,13 +191,6 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		6458CE612E527E6F001ACBC6 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		6458CE642E530846001ACBC6 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,7 +206,6 @@
 				6458CE752E535ED8001ACBC6 /* .gitignore */,
 				6458CE732E5349C8001ACBC6 /* Secrets.xcconfig */,
 				6458CE642E530846001ACBC6 /* App */,
-				6458CE1E2E4DE7FF001ACBC6 /* Models */,
 				6458CDEB2E467C87001ACBC6 /* Core */,
 				64EE7C5C2E45DD34009AFFE4 /* Modules */,
 				64EE7C462E45D294009AFFE4 /* N11PeopleProject */,
