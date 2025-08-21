@@ -18,6 +18,7 @@ final class DashboardViewController: BaseScrollViewController{
     private lazy var settingsButton: UIButton = .build()
     private lazy var galleryTitleLabel: UILabel = .build()
     private lazy var quickActionsStackView: UIStackView = .build()
+    private let layout: Layout = .init()
     
     init(interactor: any DashboardInteractorProtocol) {
         self.interactor = interactor
@@ -84,7 +85,7 @@ extension DashboardViewController {
     private func addProfile() {
         contentView.addSubview(profileView)
         NSLayoutConstraint.activate([
-            profileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Layout.contentInsets.top),
+            profileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: layout.contentInsets.top),
             profileView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
@@ -93,28 +94,28 @@ extension DashboardViewController {
         contentView.addSubview(settingsButton)
         NSLayoutConstraint.activate([
             settingsButton.topAnchor.constraint(equalTo: profileView.topAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing),
-            settingsButton.widthAnchor.constraint(equalToConstant: Layout.settingsActionSize.width),
-            settingsButton.heightAnchor.constraint(equalToConstant: Layout.settingsActionSize.height)
+            settingsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.contentInsets.trailing),
+            settingsButton.widthAnchor.constraint(equalToConstant: layout.settingsActionSize.width),
+            settingsButton.heightAnchor.constraint(equalToConstant: layout.settingsActionSize.height)
         ])
     }
     
     private func addTitle() {
-        titleView.font = .systemFont(ofSize: Layout.titleFontSize, weight: .bold)
+        titleView.font = .systemFont(ofSize: layout.titleFontSize, weight: .bold)
         titleView.textAlignment = .center
         titleView.textColor = .systemPurple
         titleView.setContentHuggingPriority(.required, for: .vertical)
         titleView.setContentCompressionResistancePriority(.required, for: .vertical)
         contentView.addSubview(titleView)
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: Layout.profileBottomSpacing),
-            titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.contentInsets.leading),
-            titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing),
+            titleView.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: layout.profileBottomSpacing),
+            titleView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.contentInsets.leading),
+            titleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.contentInsets.trailing),
         ])
     }
 
     private func addSubtitle() {
-        subtitleView.font = .systemFont(ofSize: Layout.subtitleFontSize, weight: .regular)
+        subtitleView.font = .systemFont(ofSize: layout.subtitleFontSize, weight: .regular)
         subtitleView.textColor = .gray
         subtitleView.textAlignment = .center
         contentView.addSubview(subtitleView)
@@ -127,42 +128,42 @@ extension DashboardViewController {
     
     private func addQuickActions() {
         quickActionsStackView.axis = .vertical
-        quickActionsStackView.spacing = Layout.quickActionRowSpacing
+        quickActionsStackView.spacing = layout.quickActionRowSpacing
         quickActionsStackView.alignment = .center
         
         contentView.addSubview(quickActionsStackView)
         NSLayoutConstraint.activate([
-            quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: Layout.quickActionsTopSpacing),
-            quickActionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.contentInsets.leading),
-            quickActionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.contentInsets.trailing)
+            quickActionsStackView.topAnchor.constraint(equalTo: subtitleView.bottomAnchor, constant: layout.quickActionsTopSpacing),
+            quickActionsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.contentInsets.leading),
+            quickActionsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.contentInsets.trailing)
         ])
     }
     
     private func addGalleryTitle() {
-        galleryTitleLabel.font = .systemFont(ofSize: Layout.galleryTitleFontSize, weight: .bold)
+        galleryTitleLabel.font = .systemFont(ofSize: layout.galleryTitleFontSize, weight: .bold)
         galleryTitleLabel.textColor = .black
         contentView.addSubview(galleryTitleLabel)
         NSLayoutConstraint.activate([
-            galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: Layout.gallerySectionTopSpacing),
-            galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
-            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding)
+            galleryTitleLabel.topAnchor.constraint(equalTo: quickActionsStackView.bottomAnchor, constant: layout.gallerySectionTopSpacing),
+            galleryTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.galleryHorizontalPadding),
+            galleryTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.galleryHorizontalPadding)
         ])
     }
 
     private func addGalleryView() {
         contentView.addSubview(galleryView)
         NSLayoutConstraint.activate([
-            galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: Layout.galleryTitleBottomSpacing),
-            galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.galleryHorizontalPadding),
-            galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.galleryHorizontalPadding),
-            galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.galleryBottomPadding)
+            galleryView.topAnchor.constraint(equalTo: galleryTitleLabel.bottomAnchor, constant: layout.galleryTitleBottomSpacing),
+            galleryView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.galleryHorizontalPadding),
+            galleryView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.galleryHorizontalPadding),
+            galleryView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -layout.galleryBottomPadding)
         ])
     }
         
     private func configureSettingsAction(with model: SimpleActionPresentationModel) {
            var config = UIButton.Configuration.filled()
            config.background.backgroundColor = .systemPurple
-           config.background.cornerRadius = Layout.settingsActionSize.width / 2
+           config.background.cornerRadius = layout.settingsActionSize.width / 2
            config.image = .init(systemName: model.iconName)
            settingsButton.configuration = config
            
@@ -174,7 +175,7 @@ extension DashboardViewController {
            
            models.forEach { rowModels in
                let rowStackView = UIStackView()
-               rowStackView.spacing = Layout.quickActionRowSpacing
+               rowStackView.spacing = layout.quickActionRowSpacing
                rowStackView.distribution = .fillEqually
                
                rowModels.forEach { model in
@@ -282,26 +283,26 @@ private extension DashboardViewController {
 
 extension DashboardViewController {
     private struct Layout {
-        static let contentInsets: NSDirectionalEdgeInsets = .init(
+         let contentInsets: NSDirectionalEdgeInsets = .init(
             top: 16,
             leading: 16,
             bottom: 16,
             trailing: 16
         )
         
-        static let settingsActionSize: CGSize = .init(width: 40, height: 40)
+        let settingsActionSize: CGSize = .init(width: 40, height: 40)
         
-        static let profileBottomSpacing: CGFloat = 24
-        static let quickActionsTopSpacing: CGFloat = 30
-        static let quickActionRowSpacing: CGFloat = 20
-        static let gallerySectionTopSpacing: CGFloat = 40
-        static let galleryTitleBottomSpacing: CGFloat = 16
+         let profileBottomSpacing: CGFloat = 24
+         let quickActionsTopSpacing: CGFloat = 30
+         let quickActionRowSpacing: CGFloat = 20
+         let gallerySectionTopSpacing: CGFloat = 40
+         let galleryTitleBottomSpacing: CGFloat = 16
 
-        static let galleryHorizontalPadding: CGFloat = 20
-        static let galleryBottomPadding: CGFloat = 20
+         let galleryHorizontalPadding: CGFloat = 20
+         let galleryBottomPadding: CGFloat = 20
         
-        static let titleFontSize: CGFloat = 34
-        static let subtitleFontSize: CGFloat = 17
-        static let galleryTitleFontSize: CGFloat = 26
+         let titleFontSize: CGFloat = 34
+         let subtitleFontSize: CGFloat = 17
+         let galleryTitleFontSize: CGFloat = 26
     }
 }
