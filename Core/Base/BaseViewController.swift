@@ -10,15 +10,13 @@ import UIKit
 class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        addUI()
         setupView()
     }
     
     private func setupView() {
         view.backgroundColor = .systemBackground
+        addUI()
     }
-}
-
-extension BaseViewController{
-    private func addUI() {}
+    
+    func addUI() {}
 }
