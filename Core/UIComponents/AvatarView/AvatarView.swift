@@ -22,14 +22,12 @@ final class AvatarView: UIView {
     }
     
     func bind(_ model: AvatarPresentationModel) {
-        let placeholder = model.placeholderImage
-        let transition: KingfisherOptionsInfoItem = .transition(.fade(0.2))
-
         self.imageView.image = model.placeholderImage
+
         imageView.kf.setImage(
             with: model.url,
-            placeholder: placeholder,
-            options: [transition]
+            placeholder: model.placeholderImage,
+            options: [.transition(.fade(0.2))]
         )
     }
 }
