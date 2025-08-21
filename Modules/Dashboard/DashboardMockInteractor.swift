@@ -18,29 +18,40 @@ final class DashboardMockInteractor: DashboardInteractorProtocol {
     init(scenario: MockScenario) {
         self.scenario = scenario
     }
+    
     func fetchAuthenticatedUser() async throws -> User {
+        try await Task.sleep(nanoseconds: 4_000_000_000)
+        
         switch scenario{
         case .success:
-            try await Task.sleep(nanoseconds: 2_000_000_000)
-            let jsonData = Data(mockJsonString.utf8)
+            let jsonData = Data(mockSuccessJson.utf8)
             return try JSONDecoder().decode(User.self, from: jsonData)
             
         case .failure:
-            try await Task.sleep(nanoseconds: 2_000_000_000)
-            throw URLError(.badServerResponse)
+            let jsonData = Data(mockMalformedJson.utf8)
+            return try JSONDecoder().decode(User.self, from: jsonData)
             
         case .loading:
-            try await Task.sleep(nanoseconds: 7_000_000_000)
-            let jsonData = Data(mockJsonString.utf8)
+            let jsonData = Data(mockSuccessJson.utf8)
             return try JSONDecoder().decode(User.self, from: jsonData)
         }
     }
     
-    private var mockJsonString: String {
+    private var mockSuccessJson: String {
         """
         {
           "login": "iremkrkaplan",
           "id": 115878341,
+          "avatar_url": "https://avatars.githubusercontent.com/u/115878341?v=4"
+        }
+        """
+    }
+
+    private var mockMalformedJson: String {
+        """
+        {
+          "login": "iremkrkaplan",
+          "id": "115878341",
           "avatar_url": "https://avatars.githubusercontent.com/u/115878341?v=4"
         }
         """
