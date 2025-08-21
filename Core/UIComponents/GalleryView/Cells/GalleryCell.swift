@@ -5,7 +5,6 @@
 //  Created by irem.karakaplan on 14.08.2025.
 //
 
-import Foundation
 import UIKit
 final class GalleryCell: UIView {
 

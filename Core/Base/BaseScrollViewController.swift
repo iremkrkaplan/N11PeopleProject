@@ -5,19 +5,23 @@
 //  Created by irem.karakaplan on 8.08.2025.
 //
 
-import Foundation
 import UIKit
 
 class BaseScrollViewController:  BaseViewController{
-    let scrollView: UIScrollView = .build {
-        $0.showsVerticalScrollIndicator = false
-        $0.bounces = true
-        $0.alwaysBounceVertical = true
-    }
-
+    let scrollView: UIScrollView = .build()
     let contentView: UIView = .build()
     
+    override func addUI() {
+        super.addUI()
+        addScroll()
+    }
+    
     func addScroll() {
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.bounces = true
+        scrollView.alwaysBounceVertical = true
+        
+        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         
@@ -39,8 +43,5 @@ class BaseScrollViewController:  BaseViewController{
     
     }
     
-    override func addUI() {
-        super.addUI()
-        addScroll()
-    }
+
 }
