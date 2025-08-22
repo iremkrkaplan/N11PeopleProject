@@ -9,10 +9,8 @@ import UIKit
 
 class BaseScrollViewController:  BaseViewController{
     let scrollView: UIScrollView = .build()
-    let contentView: UIView = .build()
     
     override func addUI() {
-        super.addUI()
         addScroll()
     }
 }
