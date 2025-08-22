@@ -305,3 +305,7 @@ extension DashboardViewController {
          let galleryTitleFontSize: CGFloat = 26
     }
 }
+@available(iOS 17, *)
+#Preview {
+    DashboardViewController(interactor: DashboardAPIInteractor(apiClient: .live))
+}
