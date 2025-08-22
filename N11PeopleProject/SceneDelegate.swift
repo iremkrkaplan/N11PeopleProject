@@ -11,42 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     private let appLoader = AppLoader()
-    // SceneDelegate.swift
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        // 1. Pencereyi hazırla
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        
-        // 2. ErrorView'i gösterecek bir ana ViewController oluştur
-        let rootViewController = UIViewController()
-        
-        // 3. Bizim özel ErrorView'imizi oluştur
-        let errorView = ErrorView()
-        
-        // 4. Modelimizdeki test verisiyle ErrorView'i doldur
-        // Bu, ErrorPresentationModel.swift dosyasındaki static fonksiyondur
-        let errorModel = ErrorPresentationModel.createViewData()
-        errorView.bind(errorModel)
-        // 5. ErrorView'i ana ViewController'ın view'ine ekle
-        rootViewController.view.addSubview(errorView)
-        
-        // 6. ErrorView'in tüm ekranı kaplamasını sağla (Auto Layout)
-        errorView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            errorView.topAnchor.constraint(equalTo: rootViewController.view.topAnchor),
-            errorView.bottomAnchor.constraint(equalTo: rootViewController.view.bottomAnchor),
-            errorView.leadingAnchor.constraint(equalTo: rootViewController.view.leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: rootViewController.view.trailingAnchor)
-        ])
-
-        // 7. Hazırladığımız ViewController'ı uygulamanın başlangıç ekranı yap
-        window.rootViewController = rootViewController
-        self.window = window
-        window.makeKeyAndVisible()
-    }
-/*
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
@@ -55,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = window
     }
-*/
+
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
