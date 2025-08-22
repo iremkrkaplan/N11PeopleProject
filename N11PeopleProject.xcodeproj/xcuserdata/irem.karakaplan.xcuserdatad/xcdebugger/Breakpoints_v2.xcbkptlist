@@ -14,8 +14,8 @@
             filePath = "Modules/Dashboard/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "addGalleryView()"
             landmarkType = "7">
          </BreakpointContent>

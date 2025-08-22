@@ -106,7 +106,10 @@ final class DashboardViewController: BaseScrollViewController{
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
-        let errorModel = createErrorViewData()
+        let errorModel = ErrorPresentationModel.createViewData(retryAction: { [weak self] in
+            self?.fetchDataAndUpdateUI()
+        })
+        
         errorView.bind(errorModel)
     }
 }
@@ -126,23 +129,6 @@ private extension DashboardViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-    }
-}
-
-// MARK: - Data Factory
-private extension DashboardViewController {
-    func createErrorViewData() -> ErrorPresentationModel {
-        return .init(
-            titleViewText: "Oops!",
-            subtitleViewText: "There is no connection. Try again.",
-            imageView:  UIImage(named: "NetworkErrorImage") ?? UIImage(systemName: "wifi.exclamationmark"),
-            retryButtonModel: .init(
-                buttonTitle: "Yeniden Dene",
-                action: { [weak self] in
-                    self?.fetchDataAndUpdateUI()
-                }
-            )
-        )
     }
 }
 

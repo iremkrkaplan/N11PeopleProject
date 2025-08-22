@@ -22,16 +22,14 @@ struct RetryActionPresentationModel {
 //TODO: Will be moved to presenter
 extension ErrorPresentationModel{
     
-    static func createViewData() -> ErrorPresentationModel {
+    static func createViewData(retryAction: @escaping () -> Void = { print("Retry button tapped") }) -> ErrorPresentationModel {
         return .init(titleViewText: "Oops!",
                      subtitleViewText: "There is no connection",
                      imageView:  UIImage(named: "NetworkErrorImage") ?? UIImage(systemName: "wifi.exclamationmark"),
-                     retryButtonModel: createPlaceholderRetryButtonModel())
+                     retryButtonModel: createPlaceholderRetryButtonModel(action: retryAction))
     }
     
-    static func createPlaceholderRetryButtonModel() -> RetryActionPresentationModel {
-        return .init(buttonTitle: "Retry", action: {
-            print("Retry button tapped")
-        })
+    static func createPlaceholderRetryButtonModel(action: @escaping () -> Void = { print("Retry button tapped") }) -> RetryActionPresentationModel {
+        return .init(buttonTitle: "Yeniden Dene", action: action)
     }
 }
