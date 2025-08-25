@@ -7,53 +7,44 @@
 import Foundation
 
 enum MockScenario {
-    case success
-    case failure
-    case loading
+    case success(User)
+    case failure(Error)
 }
 
 final class DashboardMockInteractor: DashboardInteractorProtocol {
     private let scenario: MockScenario
-
-    init(scenario: MockScenario) {
+    private let delayInSeconds: UInt64
+    
+    init(scenario: MockScenario, delayInSeconds: UInt64 = 2) {
         self.scenario = scenario
+        self.delayInSeconds = delayInSeconds
     }
     
     func fetchAuthenticatedUser() async throws -> User {
-        try await Task.sleep(nanoseconds: 4_000_000_000)
+        try await Task.sleep(nanoseconds: delayInSeconds * 1_000_000_000)
         
         switch scenario{
-        case .success:
-            let jsonData = Data(mockSuccessJson.utf8)
-            return try JSONDecoder().decode(User.self, from: jsonData)
+        case .success(let user):
+            return user
             
-        case .failure:
-            let jsonData = Data(mockMalformedJson.utf8)
-            return try JSONDecoder().decode(User.self, from: jsonData)
-            
-        case .loading:
-            let jsonData = Data(mockSuccessJson.utf8)
-            return try JSONDecoder().decode(User.self, from: jsonData)
+        case .failure(let error):
+            throw error
         }
     }
     
-    private var mockSuccessJson: String {
-        """
+    static var mockUser: User {
+        let json = """
         {
           "login": "iremkrkaplan",
           "id": 115878341,
           "avatar_url": "https://avatars.githubusercontent.com/u/115878341?v=4"
         }
         """
+        let data = Data(json.utf8)
+        return try! JSONDecoder().decode(User.self, from: data)
     }
+}
 
-    private var mockMalformedJson: String {
-        """
-        {
-          "login": "iremkrkaplan",
-          "id": "115878341",
-          "avatar_url": "https://avatars.githubusercontent.com/u/115878341?v=4"
-        }
-        """
-    }
+enum PreviewError: Error {
+    case forcedFailure
 }

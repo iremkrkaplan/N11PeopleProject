@@ -438,9 +438,11 @@ extension DashboardViewController {
 
 @available(iOS 17, *)
 #Preview("Error State") {
-    let failureInteractor = DashboardFailureInteractor()
+    let failureInteractor = DashboardMockInteractor(
+        scenario: .failure(PreviewError.forcedFailure)
+    )
     let vc = DashboardViewController(interactor: failureInteractor)
-    return UINavigationController(rootViewController: vc)
+    UINavigationController(rootViewController: vc)
 }
 /*
 @available(iOS 17, *)
