@@ -116,7 +116,7 @@ final class DashboardViewController: BaseScrollViewController{
             }
             
             if !isPullToRefresh {
-                try await Task.sleep(nanoseconds: 5_000_000_000)
+                try await Task.sleep(nanoseconds: 2_000_000_000)
             }
             
             do {
@@ -438,10 +438,13 @@ extension DashboardViewController {
 
 @available(iOS 17, *)
 #Preview("Error State") {
-    let failureInteractor = DashboardFailureInteractor()
+    let failureInteractor = DashboardMockInteractor(
+        scenario: .failure(PreviewError.forcedFailure)
+    )
     let vc = DashboardViewController(interactor: failureInteractor)
-    return UINavigationController(rootViewController: vc)
+    UINavigationController(rootViewController: vc)
 }
+
 /*
 @available(iOS 17, *)
 #Preview {

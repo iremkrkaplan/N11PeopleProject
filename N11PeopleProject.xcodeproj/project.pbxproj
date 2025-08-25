@@ -35,7 +35,6 @@
 		6458CE762E535EDE001ACBC6 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 6458CE752E535ED8001ACBC6 /* .gitignore */; };
 		6458CE922E56F06B001ACBC6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE912E56F06B001ACBC6 /* User.swift */; };
 		6458CE942E56F0AB001ACBC6 /* UserSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6458CE932E56F0AB001ACBC6 /* UserSearchResponse.swift */; };
-		648CCD782E589D20000496DF /* DashboardPreviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648CCD772E589D20000496DF /* DashboardPreviewInteractor.swift */; };
 		64AADB5B2E58517C00101001 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AADB5A2E58517C00101001 /* ErrorView.swift */; };
 		64BFAE222E5730B9005B9713 /* ErrorPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */; };
 /* End PBXBuildFile section */
@@ -68,7 +67,6 @@
 		6458CE752E535ED8001ACBC6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		6458CE912E56F06B001ACBC6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6458CE932E56F0AB001ACBC6 /* UserSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchResponse.swift; sourceTree = "<group>"; };
-		648CCD772E589D20000496DF /* DashboardPreviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPreviewInteractor.swift; sourceTree = "<group>"; };
 		64AADB5A2E58517C00101001 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationModel.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -268,7 +266,6 @@
 				6458CE232E4DFD3E001ACBC6 /* DashboardPresentationModel.swift */,
 				6458CE332E4F0FD8001ACBC6 /* DashboardContracts.swift */,
 				6458CE6B2E530AE8001ACBC6 /* DashboardFeature.swift */,
-				648CCD772E589D20000496DF /* DashboardPreviewInteractor.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -363,7 +360,6 @@
 				6458CE5C2E527839001ACBC6 /* APIClient.swift in Sources */,
 				6458CE6E2E530ED7001ACBC6 /* NetworkingModels.swift in Sources */,
 				6458CE682E530867001ACBC6 /* AppRouter.swift in Sources */,
-				648CCD782E589D20000496DF /* DashboardPreviewInteractor.swift in Sources */,
 				6458CE112E4CA03C001ACBC6 /* ProfilePresentationModel.swift in Sources */,
 				6458CE182E4CB38E001ACBC6 /* GalleryItemPresentationModel.swift in Sources */,
 				6458CDF02E467D75001ACBC6 /* BaseScrollViewController.swift in Sources */,
