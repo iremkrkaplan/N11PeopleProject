@@ -20,10 +20,10 @@ public struct DashboardFeature {
     }
     
     public func build() -> UIViewController {
-
+        let view = DashboardViewController(nibName: nil, bundle: nil)
         let interactor = DashboardAPIInteractor(apiClient: dependencies.apiClient)
-        
-        let vc = DashboardViewController(interactor: interactor)
-        return vc
+        let presenter = DashboardPresenter(view: view, interactor: interactor)
+        view.presenter = presenter
+        return view
     }
 }
