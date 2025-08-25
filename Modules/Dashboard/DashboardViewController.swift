@@ -19,6 +19,7 @@ final class DashboardViewController: BaseScrollViewController{
     private lazy var settingsButton: UIButton = .build()
     private lazy var galleryTitleLabel: UILabel = .build()
     private lazy var quickActionsStackView: UIStackView = .build()
+    private let refreshControl = UIRefreshControl()
     private let layout: Layout = .init()
     
     private lazy var activityIndicator: UIActivityIndicatorView = .build {
@@ -37,6 +38,7 @@ final class DashboardViewController: BaseScrollViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupRefreshControl()
         fetchDataAndUpdateUI()
     }
     
@@ -65,11 +67,58 @@ final class DashboardViewController: BaseScrollViewController{
         showContent()
     }
     
+    
+    
     @MainActor
-    private func fetchDataAndUpdateUI() {
+    private func fetchDataAndUpdateUI(isPullToRefresh: Bool = false) {
         Task {
-            showLoading()
-            try await Task.sleep(nanoseconds: 5_000_000_000)
+            
+            if isPullToRefresh {
+                async let fetchTask = Task {
+                    try await interactor.fetchAuthenticatedUser()
+                }
+
+                async let delayTask = Task {
+                    try await Task.sleep(nanoseconds: 1_000_000_000)
+                }
+
+                let userResult = await fetchTask.result
+
+                _ = await delayTask.result
+
+                switch userResult {
+                case .success(let user):
+                    let viewData = createViewData(from: user)
+                    bind(viewData)
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    showError()
+                }
+                
+                refreshControl.endRefreshing()
+            }
+            else {
+                showLoading()
+                do {
+                    let user = try await interactor.fetchAuthenticatedUser()
+                    let viewData = createViewData(from: user)
+                    bind(viewData)
+                
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                    showError()
+                }
+            }
+
+            
+            if !isPullToRefresh {
+                showLoading()
+            }
+            
+            if !isPullToRefresh {
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+            }
+            
             do {
                 let user = try await interactor.fetchAuthenticatedUser()
                 let viewData = createViewData(from: user)
@@ -106,6 +155,8 @@ final class DashboardViewController: BaseScrollViewController{
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
+        refreshControl.endRefreshing()
+        
         let errorModel = ErrorPresentationModel.createViewData(retryAction: { [weak self] in
             self?.fetchDataAndUpdateUI()
         })
@@ -129,6 +180,20 @@ private extension DashboardViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+private extension DashboardViewController {
+    func setupRefreshControl() {
+        refreshControl.tintColor = .systemPurple
+
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+
+        scrollView.refreshControl = refreshControl
+    }
+
+    @objc private func handleRefresh() {
+        fetchDataAndUpdateUI(isPullToRefresh: true)
     }
 }
 

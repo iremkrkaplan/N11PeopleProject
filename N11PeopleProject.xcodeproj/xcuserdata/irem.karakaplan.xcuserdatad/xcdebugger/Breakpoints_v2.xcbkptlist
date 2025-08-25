@@ -14,8 +14,8 @@
             filePath = "Modules/Dashboard/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "addGalleryView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,9 +30,9 @@
             filePath = "Modules/Dashboard/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "fetchDataAndUpdateUI()"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "fetchDataAndUpdateUI(isPullToRefresh:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
