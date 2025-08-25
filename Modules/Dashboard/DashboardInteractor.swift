@@ -9,12 +9,25 @@ import Foundation
 
 final class DashboardAPIInteractor: DashboardInteractorProtocol {
     private let apiClient: APIClient
-
+    weak var presenter: DashboardInteractorOutputProtocol?
+    
+    
     init(apiClient: APIClient) {
         self.apiClient = apiClient
     }
-
-    func fetchAuthenticatedUser() async throws -> User {
-        return try await self.apiClient.getAuthenticatedUser()
+    
+    func fetchAuthenticatedUser() {
+        Task {
+            do {
+                let user = try await self.apiClient.getAuthenticatedUser()
+                await MainActor.run {
+                    presenter?.didFetchUser(user: user)
+                }
+            } catch {
+                await MainActor.run {
+                    presenter?.didFailToFetchUser(error: error)
+                }
+            }
+        }
     }
 }
