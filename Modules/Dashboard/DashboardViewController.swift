@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DashboardViewController: BaseScrollViewController, DashboardViewProtocol{
+final class DashboardViewController: BaseScrollViewController, DashboardViewProtocol, ErrorViewDelegate{
     
     var presenter: DashboardPresenterProtocol!
     private lazy var profileView: ProfileView = .build()
@@ -85,10 +85,17 @@ final class DashboardViewController: BaseScrollViewController, DashboardViewProt
         activityIndicator.stopAnimating()
         scrollView.refreshControl?.endRefreshing()
     }
+    
+    func errorViewDidTapRetryButton(_ errorView: ErrorView) {
+        print("Delegate metodu ViewController'da tetiklendi. Presenter çağrılıyor.")
+        presenter.retryButtonTapped()
+    }
+
 }
 
 private extension DashboardViewController {
     func addStateViews() {
+        errorView.delegate = self
         view.addSubview(errorView)
         view.addSubview(activityIndicator)
         

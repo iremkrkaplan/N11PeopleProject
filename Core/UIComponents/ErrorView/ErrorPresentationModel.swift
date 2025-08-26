@@ -18,15 +18,13 @@ struct ErrorPresentationModel {
         subtitleViewText: "İnternet bağlantınızı kontrol edin",
         imageName: "NetworkErrorImage",
         retryButtonModel: .init(
-            buttonTitle: "Yeniden Dene",
-            action: {}
+            buttonTitle: "Yeniden Dene"
         )
     )
 }
 
 struct RetryActionPresentationModel {
     let buttonTitle: String
-    var action: () -> Void
 }
 
 

@@ -17,6 +17,7 @@ protocol DashboardPresenterProtocol: AnyObject {
     func viewDidLoad()
     func handleRefresh()
     func settingsButtonTapped()
+    func retryButtonTapped()
 }
 
 // MARK: - Interactor Protocol

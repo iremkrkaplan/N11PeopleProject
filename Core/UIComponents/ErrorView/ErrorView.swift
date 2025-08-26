@@ -8,7 +8,12 @@
 import UIKit
 import SwiftUI
 
+protocol ErrorViewDelegate: AnyObject {
+    func errorViewDidTapRetryButton(_ errorView: ErrorView)
+}
+
 final class ErrorView: UIView {
+    weak var delegate: ErrorViewDelegate?
     private lazy var imageView: UIImageView = .build()
     private lazy var titleView: UILabel = .build()
     private lazy var subtitleView: UILabel = .build()
@@ -112,12 +117,12 @@ private extension ErrorView{
         }
         
         retryButton.configuration = config
-        
-        self.onRetryTapped = model.action
-        
-        retryButton.addAction(UIAction { [weak self] _ in
-            self?.onRetryTapped?()
-        }, for: .touchUpInside)
+        retryButton.removeTarget(nil, action: nil, for: .allEvents)
+        retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func retryButtonTapped() {
+        delegate?.errorViewDidTapRetryButton(self)
     }
 }
 
@@ -149,8 +154,8 @@ private extension ErrorView {
         subtitleViewText: "İnternet bağlantınızı kontrol edin",
         imageName: "NetworkErrorImage",
         retryButtonModel: .init(
-            buttonTitle: "Tekrar Dene",
-            action: {}
+            buttonTitle: "Tekrar Dene"
+
         )
     )
     

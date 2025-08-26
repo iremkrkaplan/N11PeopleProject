@@ -27,10 +27,7 @@ extension DashboardPresenter: DashboardInteractorOutputProtocol {
     func didFailToFetchUser(error: Error) {
         print("Presenter'a hata ulaştı: \(error.localizedDescription)")
         
-        var errorModel = ErrorPresentationModel.networkConnectionError
-        errorModel.retryButtonModel.action = { [weak self] in
-            self?.viewDidLoad()
-        }
+        let errorModel = ErrorPresentationModel.networkConnectionError
         
         view?.displayError(errorModel)
     }
@@ -48,6 +45,11 @@ extension DashboardPresenter: DashboardPresenterProtocol {
     
     func settingsButtonTapped() {
         print("Ayarlar butonu tıklandı! Bu istek Presenter'a geldi.")
+    }
+    
+    func retryButtonTapped() {
+        print("Presenter, ViewController'dan gelen retry isteğini aldı.")
+        viewDidLoad()
     }
 }
 
