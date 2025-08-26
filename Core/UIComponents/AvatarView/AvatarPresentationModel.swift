@@ -22,6 +22,7 @@ struct AvatarPresentationModel {
     }
     
 }
+
 enum AvatarShape {
     case rectangle
     case circle
