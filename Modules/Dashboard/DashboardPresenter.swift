@@ -26,9 +26,12 @@ extension DashboardPresenter: DashboardInteractorOutputProtocol {
     
     func didFailToFetchUser(error: Error) {
         print("Presenter'a hata ulaştı: \(error.localizedDescription)")
-        let errorModel = ErrorPresentationModel.createViewData { [weak self] in
+        
+        var errorModel = ErrorPresentationModel.networkConnectionError
+        errorModel.retryButtonModel.action = { [weak self] in
             self?.viewDidLoad()
         }
+        
         view?.displayError(errorModel)
     }
 }

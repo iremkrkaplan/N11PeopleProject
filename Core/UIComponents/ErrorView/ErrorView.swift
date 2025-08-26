@@ -15,7 +15,7 @@ final class ErrorView: UIView {
     private lazy var retryButton: UIButton = .build()
     private let layout: Layout = .init()
     private var onRetryTapped: (() -> Void)?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUI()
@@ -28,7 +28,12 @@ final class ErrorView: UIView {
     func bind(_ model: ErrorPresentationModel){
         titleView.text = model.titleViewText
         subtitleView.text = model.subtitleViewText
-        imageView.image = model.imageView
+        
+        if let imageName = model.imageName {
+            imageView.image = UIImage(named: imageName)
+        } else {
+            imageView.image = nil
+        }
         configureRetryAction(with: model.retryButtonModel)
     }
 }
@@ -137,19 +142,20 @@ private extension ErrorView {
 #if DEBUG
 @available(iOS 17, *)
 #Preview("Error UIView") {
-    struct ErrorViewRepresentable: UIViewRepresentable {
-        
-        func makeUIView(context: Context) -> ErrorView {
-            let view = ErrorView()
-            view.bind(.createViewData())
-            return view
-        }
-        
-        func updateUIView(_ uiView: ErrorView, context: Context) {
-        }
-    }
-    return ErrorViewRepresentable()
-        .ignoresSafeArea()
+    let view = ErrorView()
+    
+    let previewModel = ErrorPresentationModel(
+        titleViewText: "Oops!",
+        subtitleViewText: "İnternet bağlantınızı kontrol edin",
+        imageName: "NetworkErrorImage",
+        retryButtonModel: .init(
+            buttonTitle: "Tekrar Dene",
+            action: {}
+        )
+    )
+    
+    view.bind(previewModel)
+    
+    return view
 }
 #endif
-

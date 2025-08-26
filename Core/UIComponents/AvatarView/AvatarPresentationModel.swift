@@ -20,7 +20,6 @@ struct AvatarPresentationModel {
         self.placeholderImageName = placeholderImageName
         self.shape = shape
     }
-    
 }
 
 enum AvatarShape {

@@ -5,31 +5,28 @@
 //  Created by irem.karakaplan on 21.08.2025.
 //
 
-import UIKit
+import Foundation
 
 struct ErrorPresentationModel {
     let titleViewText: String
     let subtitleViewText: String
-    let imageView: UIImage?
-    let retryButtonModel: RetryActionPresentationModel
+    let imageName: String?
+    var retryButtonModel: RetryActionPresentationModel
+    
+    static let networkConnectionError = ErrorPresentationModel(
+        titleViewText: "Oops!",
+        subtitleViewText: "İnternet bağlantınızı kontrol edin",
+        imageName: "NetworkErrorImage",
+        retryButtonModel: .init(
+            buttonTitle: "Yeniden Dene",
+            action: {}
+        )
+    )
 }
 
 struct RetryActionPresentationModel {
     let buttonTitle: String
-    let action: () -> Void
+    var action: () -> Void
 }
 
-//TODO: Will be moved to presenter
-extension ErrorPresentationModel{
-    
-    static func createViewData(retryAction: @escaping () -> Void = { print("Retry button tapped") }) -> ErrorPresentationModel {
-        return .init(titleViewText: "Oops!",
-                     subtitleViewText: "There is no connection",
-                     imageView:  UIImage(named: "NetworkErrorImage") ?? UIImage(systemName: "wifi.exclamationmark"),
-                     retryButtonModel: createPlaceholderRetryButtonModel(action: retryAction))
-    }
-    
-    static func createPlaceholderRetryButtonModel(action: @escaping () -> Void = { print("Retry button tapped") }) -> RetryActionPresentationModel {
-        return .init(buttonTitle: "Yeniden Dene", action: action)
-    }
-}
+
