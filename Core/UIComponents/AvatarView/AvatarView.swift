@@ -22,11 +22,16 @@ final class AvatarView: UIView {
     }
     
     func bind(_ model: AvatarPresentationModel) {
-        self.imageView.image = model.placeholderImage
+        var placeholderImage: UIImage?
+        if let imageName = model.placeholderImageName{
+            placeholderImage = UIImage(named: imageName)
+        }
+        self.imageView.image = placeholderImage
+        
 
         imageView.kf.setImage(
             with: model.url,
-            placeholder: model.placeholderImage,
+            placeholder: placeholderImage,
             options: [.transition(.fade(0.2))]
         )
     }

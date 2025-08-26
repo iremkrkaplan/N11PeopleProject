@@ -87,8 +87,6 @@ final class DashboardViewController: BaseScrollViewController, DashboardViewProt
     }
 }
 
-
-// MARK: - Add State Views //? diğer addlerle mi burada mı
 private extension DashboardViewController {
     func addStateViews() {
         view.addSubview(errorView)

@@ -58,7 +58,7 @@ private extension DashboardPresenter {
             profileModel: .init(
                 avatarModel: .init(
                     url: user.AvatarAsURL,
-                    placeholderImage: "PlaceHolder",
+                    placeholderImageName: "PlaceHolder",
                     shape: .circle
                 ),
                 nameText: user.login
