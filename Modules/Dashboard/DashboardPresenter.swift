@@ -59,7 +59,7 @@ private extension DashboardPresenter {
                 profileModel: .init(
                     avatarModel: .init(
                         url: user.avatarUrl,
-                        placeholderImage: UIImage(systemName: "person.circle.fill"),
+                        placeholderImage: "PlaceHolder",
                         shape: .circle
                     ),
                     nameText: user.login
@@ -74,8 +74,10 @@ private extension DashboardPresenter {
             return .init(
                 iconName: "gearshape.fill",
                 action: { [weak self] in
-                    self?.settingsButtonTapped()
-//                    guard letle yazılacak
+                    guard let self = self else {
+                        return
+                    }
+                    self.settingsButtonTapped()
                     // TODO: `self?.presenter.navigateToSettings()` olacak.
                 }
             )
