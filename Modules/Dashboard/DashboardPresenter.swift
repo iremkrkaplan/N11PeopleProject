@@ -59,7 +59,7 @@ private extension DashboardPresenter {
                 profileModel: .init(
                     avatarModel: .init(
                         url: user.avatarUrl,
-                        placeholderImage: UIImage(systemName: "person.circle.fill"), //????
+                        placeholderImage: UIImage(systemName: "person.circle.fill"),
                         shape: .circle
                     ),
                     nameText: user.login
@@ -75,6 +75,7 @@ private extension DashboardPresenter {
                 iconName: "gearshape.fill",
                 action: { [weak self] in
                     self?.settingsButtonTapped()
+//                    guard letle yazılacak
                     // TODO: `self?.presenter.navigateToSettings()` olacak.
                 }
             )
@@ -124,13 +125,13 @@ private extension DashboardPresenter {
             ]
         }
         
-        func createPlaceholderGalleryModel() -> GalleryPresentationModel {
-            let placeholderItemCount = 6
-            let placeholderItem = GalleryItemPresentationModel(
-                imageSystemName: "ladybug.fill",
-                tintColor: .systemGray4
-            )
-            let allItems = Array(repeating: placeholderItem, count: placeholderItemCount)
-            return GalleryPresentationModel(items: allItems)
-        }
+    func createPlaceholderGalleryModel() -> GalleryPresentationModel {
+        let placeholderItemCount = 6
+        let placeholderItem = GalleryItemPresentationModel(
+            imageSystemName: "ladybug.fill",
+            tintColor: .systemGray4
+        )
+        let allItems = Array<GalleryItemPresentationModel>(repeating: placeholderItem, count: placeholderItemCount)
+        return GalleryPresentationModel(items: allItems)
+    }
     }
