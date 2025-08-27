@@ -7,11 +7,10 @@
 
 import Foundation
 
-final class DashboardAPIInteractor: DashboardInteractorProtocol {
+final class DashboardAPIInteractor: DashboardInteractorInput {
+    weak var presenter: (any DashboardInteractorOutput)?
     private let apiClient: APIClient
-    weak var presenter: DashboardInteractorOutputProtocol?
-    
-    
+        
     init(apiClient: APIClient) {
         self.apiClient = apiClient
     }

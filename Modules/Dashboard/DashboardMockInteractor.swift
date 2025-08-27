@@ -11,9 +11,8 @@ enum MockScenario {
     case failure(Error)
 }
 
-final class DashboardMockInteractor: DashboardInteractorProtocol{
-    
-    weak var presenter: DashboardInteractorOutputProtocol?
+final class DashboardMockInteractor: DashboardInteractorInput{
+    weak var presenter: (any DashboardInteractorOutput)?
     private let scenario: MockScenario
     private let delayInSeconds: UInt64
     

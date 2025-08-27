@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class DashboardViewController: BaseScrollViewController, DashboardViewProtocol, ErrorViewDelegate{
+final class DashboardViewController: BaseScrollViewController, DashboardViewInput, ErrorViewDelegate{
     
-    var presenter: DashboardPresenterProtocol!
+    var presenter: DashboardViewOutput! //?
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
@@ -240,7 +240,7 @@ private extension DashboardViewController {
 
     
     @objc private func didPullToRefresh() {
-        presenter.handleRefresh()
+        presenter.didPullToRefresh()
     }
     
     }

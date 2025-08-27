@@ -7,18 +7,18 @@
 
 import Foundation
 
-final class DashboardPresenter {
-    private weak var view: DashboardViewProtocol?
-    private var interactor: DashboardInteractorProtocol
+final class DashboardPresenter: DashboardPresenterInput {
+    private weak var view: DashboardViewInput?
+    private var interactor: DashboardInteractorInput
 
-    init(view: DashboardViewProtocol, interactor: DashboardInteractorProtocol) {
+    init(view: DashboardViewInput, interactor: DashboardInteractorInput) {
         self.view = view
         self.interactor = interactor
         self.interactor.presenter = self
     }
 }
 
-extension DashboardPresenter: DashboardInteractorOutputProtocol {
+extension DashboardPresenter: DashboardInteractorOutput {
     func didFetchUser(user: User) {
         let viewData = createViewData(from: user)
         view?.bind(viewData: viewData)
@@ -33,13 +33,13 @@ extension DashboardPresenter: DashboardInteractorOutputProtocol {
     }
 }
 
-extension DashboardPresenter: DashboardPresenterProtocol {
+extension DashboardPresenter {
     func viewDidLoad() {
         view?.displayLoading()
         interactor.fetchAuthenticatedUser()
     }
 
-    func handleRefresh() {
+    func didPullToRefresh() {
         interactor.fetchAuthenticatedUser()
     }
     
