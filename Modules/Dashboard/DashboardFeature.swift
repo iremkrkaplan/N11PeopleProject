@@ -22,7 +22,8 @@ public struct DashboardFeature {
     public func build() -> UIViewController {
         let view = DashboardViewController(nibName: nil, bundle: nil)
         let interactor = DashboardAPIInteractor(apiClient: dependencies.apiClient)
-        let presenter = DashboardPresenter(view: view, interactor: interactor)
+        let router = DashboardRouter()
+        let presenter = DashboardPresenter(view: view, interactor: interactor, router: router)
         view.presenter = presenter
         return view
     }

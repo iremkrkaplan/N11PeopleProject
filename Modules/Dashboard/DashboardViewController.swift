@@ -8,8 +8,7 @@
 import UIKit
 
 final class DashboardViewController: BaseScrollViewController, DashboardViewInput, ErrorViewDelegate{
-    
-    var presenter: DashboardViewOutput! //?
+    var presenter: DashboardViewOutput?
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
@@ -30,7 +29,7 @@ final class DashboardViewController: BaseScrollViewController, DashboardViewInpu
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-        presenter.viewDidLoad()
+        presenter?.viewDidLoad()
     }
     
     override func addUI() {
@@ -88,7 +87,7 @@ final class DashboardViewController: BaseScrollViewController, DashboardViewInpu
     
     func errorViewDidTapRetryButton(_ errorView: ErrorView) {
         print("Delegate metodu ViewController'da tetiklendi. Presenter çağrılıyor.")
-        presenter.retryButtonTapped()
+        presenter?.retryButtonTapped()
     }
 
 }
@@ -240,7 +239,7 @@ private extension DashboardViewController {
 
     
     @objc private func didPullToRefresh() {
-        presenter.didPullToRefresh()
+        presenter?.didPullToRefresh()
     }
     
     }
@@ -273,29 +272,25 @@ extension DashboardViewController {
 
 @available(iOS 17, *)
 #Preview("Success State") {
+    let view = DashboardViewController()
     let interactor = DashboardMockInteractor(scenario: .success(DashboardMockInteractor.mockUser))
-    
-    let vc = DashboardViewController()
-    let presenter = DashboardPresenter(view: vc, interactor: interactor)
-    vc.presenter = presenter
-    
-    return UINavigationController(rootViewController: vc)
+    let router = DashboardRouter()
+    let presenter = DashboardPresenter(view: view,
+                                       interactor: interactor,
+                                       router: router)
+    view.presenter = presenter
+
+    return UINavigationController(rootViewController: view)
 }
 
 @available(iOS 17, *)
 #Preview("Error State") {
     let interactor = DashboardMockInteractor(scenario: .failure(PreviewError.forcedFailure))
-    
-    let vc = DashboardViewController()
-    let presenter = DashboardPresenter(view: vc, interactor: interactor)
-    vc.presenter = presenter
-    
-    return UINavigationController(rootViewController: vc)
-}
+    let router: DashboardRouterInput
 
-/*
-@available(iOS 17, *)
-#Preview {
-    DashboardViewController(interactor: DashboardAPIInteractor(apiClient: .live))
+    let view = DashboardViewController()
+    let presenter = DashboardPresenter(view: view, interactor: interactor, router: router)
+    view.presenter = presenter
+
+    return UINavigationController(rootViewController: view)
 }
-*/
