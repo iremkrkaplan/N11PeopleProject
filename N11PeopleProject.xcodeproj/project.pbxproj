@@ -39,6 +39,7 @@
 		64AADB5B2E58517C00101001 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AADB5A2E58517C00101001 /* ErrorView.swift */; };
 		64BFAE222E5730B9005B9713 /* ErrorPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */; };
 		64DF303B2E602F0A00A5CF24 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF303A2E602F0A00A5CF24 /* DashboardBuilder.swift */; };
+		64DF303E2E60734C00A5CF24 /* UserListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF303D2E60734C00A5CF24 /* UserListContracts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		64AADB5A2E58517C00101001 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationModel.swift; sourceTree = "<group>"; };
 		64DF303A2E602F0A00A5CF24 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
+		64DF303D2E60734C00A5CF24 /* UserListContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListContracts.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -235,6 +237,7 @@
 		64DF303C2E604DD800A5CF24 /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				64DF303D2E60734C00A5CF24 /* UserListContracts.swift */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */,
 				64AADB5B2E58517C00101001 /* ErrorView.swift in Sources */,
 				6458CE142E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift in Sources */,
+				64DF303E2E60734C00A5CF24 /* UserListContracts.swift in Sources */,
 				6458CE662E530857001ACBC6 /* AppLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
