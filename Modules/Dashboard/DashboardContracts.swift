@@ -8,7 +8,7 @@ import UIKit
 // MARK: - View Protocol
 protocol DashboardViewInput: AnyObject {
     var presenter: DashboardViewOutput? { get set }
-
+    
     func displayLoading()
     func bind(viewData: DashboardViewData)
     func displayError(_ errorModel: ErrorPresentationModel)
