@@ -16,7 +16,7 @@ final class DashboardMockInteractor: DashboardInteractorInput{
     private let scenario: MockScenario
     private let delayInSeconds: UInt64
     
-    init(scenario: MockScenario, delayInSeconds: UInt64 = 2) {
+    init(scenario: MockScenario, delayInSeconds: UInt64 = 1) {
         self.scenario = scenario
         self.delayInSeconds = delayInSeconds
     }

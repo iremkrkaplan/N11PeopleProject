@@ -21,6 +21,9 @@ final class DashboardRouter: DashboardRouterInput{
         )
         
         view.presenter = presenter
+        if let interactor = interactor as? DashboardAPIInteractor {
+            interactor.presenter = presenter
+        }
         
         router.viewController = view
 
