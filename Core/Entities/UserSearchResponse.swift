@@ -9,4 +9,9 @@ import Foundation
 
 struct UserSearchResponse: Codable {
     let items: [User]
+    
+    enum CodingKeys: String, CodingKey {
+        case items
+    }
 }
+
