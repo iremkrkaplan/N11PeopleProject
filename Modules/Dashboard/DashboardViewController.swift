@@ -286,8 +286,7 @@ extension DashboardViewController {
 @available(iOS 17, *)
 #Preview("Error State") {
     let interactor = DashboardMockInteractor(scenario: .failure(PreviewError.forcedFailure))
-    let router: DashboardRouterInput
-
+    let router = DashboardRouter()
     let view = DashboardViewController()
     let presenter = DashboardPresenter(view: view, interactor: interactor, router: router)
     view.presenter = presenter
