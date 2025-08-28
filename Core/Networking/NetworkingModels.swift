@@ -16,3 +16,13 @@ public extension Endpoint {
         URL(string: "https://api.github.com\(path)")!
     }
 }
+
+public struct SearchUsersParams {
+    public let query: String
+    public init(query: String) { self.query = query }
+}
+
+public struct GetUserDetailParams {
+    public let username: String
+    public init(username: String) { self.username = username }
+}

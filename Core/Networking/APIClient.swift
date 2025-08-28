@@ -8,9 +8,13 @@
 import Foundation
 
 struct APIClient {
+    var searchUsers: (SearchUsersParams) async throws -> UserSearchResponse
     var getAuthenticatedUser: () async throws -> User
     
-    static let noop = Self(getAuthenticatedUser: { try await Task.never() })
+    static let noop = Self(
+        searchUsers: { _ in try await Task.never() },
+        getAuthenticatedUser: { try await Task.never() }
+    )
 }
 
 extension Task where Failure == Never {
