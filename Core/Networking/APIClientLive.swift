@@ -55,7 +55,7 @@ extension APIClient {
         var client = Self.noop
         
         client.getAuthenticatedUser = { try await request(.getAuthenticatedUser()) }
-        client.searchUsers = { try await request(.searchUsers(params: $0)) }
+        client.searchUsers = { params in try await request(.searchUsers(params: params)) }
         
         return client
     }()
