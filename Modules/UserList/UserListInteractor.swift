@@ -34,6 +34,7 @@ final class UserListInteractor: UserListInteractorInput {
             }
         }
     }
+    
     func toggleFavorite(for username: String) {
         favoriteService.toggleFavorite(username: username)
         Task {
