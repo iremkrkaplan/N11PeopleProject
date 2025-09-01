@@ -30,7 +30,7 @@ final class UserListPresenter: UserListViewOutput, UserListInteractorOutput {
         let initialData = UserListViewData(
             title: "Kullanıcı Ara",
             searchPlaceholder: "GitHub kullanıcısı ara..."
-            //            TODO: Animation gif
+            //TODO: Animation gif
         )
         view?.displayInitialState(with: initialData)
     }
@@ -59,7 +59,8 @@ final class UserListPresenter: UserListViewOutput, UserListInteractorOutput {
         
         if cellModels.isEmpty {
             view?.displayError(title: "Sonuç Bulunamadı", message: "Girdiğiniz kritere uygun kullanıcı bulunamadı.")
-        } else {
+        }
+        else {
             view?.bind(results: cellModels)
         }
     }
@@ -67,7 +68,6 @@ final class UserListPresenter: UserListViewOutput, UserListInteractorOutput {
     func didFailToFetchUsers(error: Error) {
         view?.displayLoading(false)
         view?.displayError(title: "Hata Oluştu", message: "Arama sırasında bir sorun oluştu. Lütfen tekrar deneyin.")
-        
         print("Error from Interactor: \(error.localizedDescription)")
     }
     
@@ -75,6 +75,7 @@ final class UserListPresenter: UserListViewOutput, UserListInteractorOutput {
         let updatedCellModels = mapUsersToCellModels(from: self.users)
         view?.bind(results: updatedCellModels)
     }
+    
     private func mapUsersToCellModels(from users: [User]) -> [UserListCellModel] {
         return users.map { user in
             UserListCellModel(
@@ -85,5 +86,4 @@ final class UserListPresenter: UserListViewOutput, UserListInteractorOutput {
             )
         }
     }
-    
 }
