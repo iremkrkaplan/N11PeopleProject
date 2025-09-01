@@ -31,6 +31,7 @@ final class UserListRouter: UserListRouterInput {
         return view
     }
     
+    
     func navigateToUserDetail(username: String) {
         
         /* TODO: UserDetail from userlist
