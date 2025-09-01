@@ -14,4 +14,3 @@ struct UserSearchResponse: Codable {
         case items
     }
 }
-
