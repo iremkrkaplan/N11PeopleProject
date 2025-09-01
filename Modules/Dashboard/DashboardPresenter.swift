@@ -80,10 +80,7 @@ private extension DashboardPresenter {
     func createPlaceholderSettingsButtonModel() -> SimpleActionPresentationModel {
         return .init(
             iconName: "gearshape.fill",
-            action: { [weak self] in
-                guard let self = self else {
-                    return
-                }
+            action: {
                 self.settingsButtonTapped()
                 // TODO: `self?.presenter.navigateToSettings()` olacak.
             }
