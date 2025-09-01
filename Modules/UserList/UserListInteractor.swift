@@ -17,7 +17,7 @@ final class UserListInteractor: UserListInteractorInput {
         self.apiClient = apiClient
         self.favoriteService = favoriteService
     }
-
+    
     func searchUsers(with query: String){
         Task {
             do {
