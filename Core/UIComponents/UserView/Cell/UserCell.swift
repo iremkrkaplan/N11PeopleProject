@@ -11,6 +11,8 @@ import Kingfisher
 final class UserCell: UICollectionViewCell {
     private lazy var profileView: ProfileView = .build()
     private lazy var favoriteButton: UIButton = .build()
+    private let layout: Layout = .init()
+    
     var onFavoriteButtonTapped: (() -> Void)?
     
     override init(frame: CGRect) {
@@ -43,26 +45,27 @@ private extension UserCell {
         addProfileView()
         addFavoriteButton()
         contentView.backgroundColor = .systemGray6
-        contentView.layer.cornerRadius = Layout.cellCornerRadius
+        contentView.layer.cornerRadius = layout.cellCornerRadius
     }
     
     private func addProfileView() {
         contentView.addSubview(profileView)
         NSLayoutConstraint.activate([
-            profileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Layout.verticalPadding),
-            profileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Layout.horizontalPadding),
-            profileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.horizontalPadding),
-            profileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Layout.verticalPadding)
+            profileView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: layout.contentInsets.top),
+            profileView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: layout.contentInsets.leading),
+            profileView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.contentInsets.trailing),
+            profileView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -layout.contentInsets.bottom)
         ])
     }
     
     func addFavoriteButton(){
         contentView.addSubview(favoriteButton)
         NSLayoutConstraint.activate([
-            favoriteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Layout.horizontalOffset),
-            favoriteButton.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: Layout.verticalOffset),
-            favoriteButton.widthAnchor.constraint(equalToConstant: Layout.buttonSize),
-            favoriteButton.heightAnchor.constraint(equalToConstant: Layout.buttonSize)])
+            favoriteButton.centerXAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -layout.horizontalOffset),
+            favoriteButton.centerYAnchor.constraint(equalTo: contentView.topAnchor, constant: layout.verticalOffset),
+            favoriteButton.widthAnchor.constraint(equalToConstant: layout.buttonSize),
+            favoriteButton.heightAnchor.constraint(equalToConstant: layout.buttonSize)
+        ])
     }
     
     private func configureFavoriteButton() {
@@ -77,13 +80,19 @@ private extension UserCell {
     }
 }
 
+
 private extension UserCell {
-    struct Layout {
-        static let horizontalPadding: CGFloat = 8
-        static let verticalPadding: CGFloat = 16
-        static let cellCornerRadius: CGFloat = 16
-        static let buttonSize: CGFloat = 44
-        static let verticalOffset: CGFloat = 17
-        static let horizontalOffset: CGFloat = 18
+    private struct Layout {
+        let contentInsets: NSDirectionalEdgeInsets = .init(
+            top: 16,
+            leading: 8,
+            bottom: 16,
+            trailing: 8
+        )
+        
+        let cellCornerRadius: CGFloat = 16
+        let buttonSize: CGFloat = 44
+        let verticalOffset: CGFloat = 17
+        let horizontalOffset: CGFloat = 18
     }
 }
