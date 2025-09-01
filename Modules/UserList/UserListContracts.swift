@@ -7,18 +7,6 @@
 
 import UIKit
 
-struct UserListCellModel: Hashable {
-    let id: Int
-    let username: String
-    let avatarURL: URL?
-    //TODO: let isFavorite: Bool
-}
-
-struct UserListViewData {
-    let title: String
-    let searchPlaceholder: String
-}
-
 protocol UserListViewInput: AnyObject {
     var output: UserListViewOutput? { get set }
     func displayInitialState(with data: UserListViewData)
@@ -31,6 +19,7 @@ protocol UserListViewOutput: AnyObject {
     func viewDidLoad()
     func searchButtonTapped(with query: String)
     func didSelectUser(with model: UserListCellModel)
+    func favoriteButtonTapped(for model: UserListCellModel)
 }
 
 protocol UserListPresenterInput: UserListViewOutput, UserListInteractorOutput {
@@ -42,11 +31,13 @@ protocol UserListPresenterInput: UserListViewOutput, UserListInteractorOutput {
 protocol UserListInteractorInput: AnyObject {
     var output: UserListInteractorOutput? { get set }
     func searchUsers(with query: String)
+    func toggleFavorite(for username: String)
 }
 
 protocol UserListInteractorOutput: AnyObject {
     func didFetchUsersSuccessfully(users: [User])
     func didFailToFetchUsers(error: Error)
+    func favoriteStatusDidChange()
 }
 
 protocol UserListRouterInput: AnyObject {
