@@ -12,7 +12,6 @@ final class UserCell: UICollectionViewCell {
     private lazy var profileView: ProfileView = .build()
     private lazy var favoriteButton: UIButton = .build()
     private let layout: Layout = .init()
-    
     var onFavoriteButtonTapped: (() -> Void)?
     
     override init(frame: CGRect) {
@@ -79,7 +78,6 @@ private extension UserCell {
         }, for: .touchUpInside)
     }
 }
-
 
 private extension UserCell {
     private struct Layout {
