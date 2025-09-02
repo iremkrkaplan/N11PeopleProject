@@ -13,7 +13,8 @@ public final class AppLoader {
     public init() {}
     
     public func load(in window: UIWindow) {
-        window.rootViewController = router.buildMainInterface()
+        let rootViewController = MainTabBarController()
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
     }
 }
