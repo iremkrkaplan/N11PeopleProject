@@ -9,13 +9,11 @@ import UIKit
 
 public final class AppLoader {
     private let router = AppRouter()
-
+    
     public init() {}
-
+    
     public func load(in window: UIWindow) {
-        let rootViewController = router.buildDashboardBuilder()
-        
-        window.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window.rootViewController = router.buildMainInterface()
         window.makeKeyAndVisible()
     }
 }
