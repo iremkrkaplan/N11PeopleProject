@@ -69,7 +69,8 @@ private extension DashboardPresenter {
                     placeholderImageName: "PlaceHolder",
                     shape: .circle
                 ),
-                nameText: user.login
+                userNameText: user.login,
+                nameText: user.name
             ),
             quickActionModels: createPlaceholderQuickActionModels(),
             settingsButtonModel: createPlaceholderSettingsButtonModel(),
