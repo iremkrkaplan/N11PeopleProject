@@ -10,18 +10,14 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
+    private let appLoader = AppLoader()
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let mockInteractor = DashboardMockInteractor()
-        
-        let dashboardVC = DashboardViewController(interactor: mockInteractor)
-        
-        let navigationController = UINavigationController(rootViewController: dashboardVC)
-        
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        
+        appLoader.load(in: window)
+        
         self.window = window
     }
 

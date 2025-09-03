@@ -7,49 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9966D6EC-4EBC-43C5-9EE7-5D05BE0B41D1"
+            uuid = "CCF2EDAB-1317-4553-A839-F1E0ADD86402"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Core/UIComponents/QuickActionButtonView/QuickActionButton.swift"
+            filePath = "Modules/Dashboard/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "bind(with:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "addGalleryView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1E299383-A8D6-4E5F-ACEE-71B1D32CBDD4"
+            uuid = "18AB6787-C3CA-4B84-9A89-C553814AB29F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Core/UIComponents/QuickActionButtonView/QuickActionButton.swift"
+            filePath = "Modules/Dashboard/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "bind(with:)"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "fetchDataAndUpdateUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "404B1AC9-553D-40E4-A73B-C78721E2DCD4"
-            shouldBeEnabled = "Yes"
+            uuid = "17262286-9694-4375-B3ED-FE46C3EA75FB"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Modules/DashBoard/DashboardContracts.swift"
+            filePath = "Core/Networking/APIClientLive.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "DashboardInteractorProtocol"
-            landmarkType = "5">
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "request(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

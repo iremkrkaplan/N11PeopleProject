@@ -10,6 +10,7 @@ import Kingfisher
 final class AvatarView: UIView {
     
     private lazy var imageView: UIImageView = .build()
+    private let layout: Layout = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,14 +22,12 @@ final class AvatarView: UIView {
     }
     
     func bind(_ model: AvatarPresentationModel) {
-        let placeholder = model.placeholderImage
-        let transition: KingfisherOptionsInfoItem = .transition(.fade(0.2))
-
         self.imageView.image = model.placeholderImage
+
         imageView.kf.setImage(
             with: model.url,
-            placeholder: placeholder,
-            options: [transition]
+            placeholder: model.placeholderImage,
+            options: [.transition(.fade(0.2))]
         )
     }
 }
@@ -40,7 +39,7 @@ private extension AvatarView {
         clipsToBounds = true
         tintColor = .systemPurple
         layer.borderColor = UIColor.systemGray4.cgColor
-        layer.borderWidth = Layout.borderWidth
+        layer.borderWidth = layout.borderWidth
         
         addImageView()
     }
@@ -61,6 +60,6 @@ private extension AvatarView {
 
 private extension AvatarView {
     struct Layout {
-        static let borderWidth: CGFloat = 1.0
+        let borderWidth: CGFloat = 1.0
     }
 }
