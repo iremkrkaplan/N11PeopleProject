@@ -4,24 +4,24 @@
 //
 //  Created by irem.karakaplan on 13.08.2025.
 //
-import UIKit
+import Foundation
 
 struct AvatarPresentationModel {
     let url: URL?
-    let placeholderImage: UIImage?
+    let placeholderImageName: String?
     let shape: AvatarShape
     
     init(
         url: URL?,
-        placeholderImage: UIImage?,
+        placeholderImageName: String?,
         shape: AvatarShape = .circle
     ) {
         self.url = url
-        self.placeholderImage = placeholderImage
+        self.placeholderImageName = placeholderImageName
         self.shape = shape
     }
-    
 }
+
 enum AvatarShape {
     case rectangle
     case circle

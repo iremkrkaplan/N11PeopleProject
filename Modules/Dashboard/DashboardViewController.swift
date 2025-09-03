@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class DashboardViewController: BaseScrollViewController{
+final class DashboardViewController: BaseScrollViewController, DashboardViewInput, ErrorViewDelegate{
     
-    private let interactor: DashboardInteractorProtocol
+    var presenter: DashboardViewOutput! //?
     private lazy var profileView: ProfileView = .build()
     private lazy var galleryView: GalleryView = .build()
     private lazy var titleView: UILabel = .build()
@@ -27,19 +27,10 @@ final class DashboardViewController: BaseScrollViewController{
         $0.color = .systemPurple
     }
     
-    init(interactor: any DashboardInteractorProtocol) {
-        self.interactor = interactor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-        fetchDataAndUpdateUI()
+        presenter.viewDidLoad()
     }
     
     override func addUI() {
@@ -54,85 +45,24 @@ final class DashboardViewController: BaseScrollViewController{
         addSettingsAction()
         addStateViews()
     }
-    
-    private func bind(_ data: DashboardViewData) {
-        titleView.text = data.titleViewText
-        subtitleView.text = data.subtitleViewText
-        galleryTitleLabel.text = data.galleryTitleLabelText
+
+    func bind(viewData: DashboardViewData) {
+        scrollView.isHidden = false
+        errorView.isHidden = true
+        activityIndicator.stopAnimating()
+        refreshControl.endRefreshing()
         
-        profileView.bind(data.profileModel)
-        configureQuickActions(with: data.quickActionModels)
-        configureSettingsAction(with: data.settingsButtonModel)
-        configureGallery(with: data.galleryModel)
-        showContent()
+        titleView.text = viewData.titleViewText
+        subtitleView.text = viewData.subtitleViewText
+        galleryTitleLabel.text = viewData.galleryTitleLabelText
+        
+        profileView.bind(viewData.profileModel)
+        configureQuickActions(with: viewData.quickActionModels)
+        configureSettingsAction(with: viewData.settingsButtonModel)
+        configureGallery(with: viewData.galleryModel)
     }
-    
-    
-    
-    @MainActor
-    private func fetchDataAndUpdateUI(isPullToRefresh: Bool = false) {
-        Task {
-            
-            if isPullToRefresh {
-                async let fetchTask = Task {
-                    try await interactor.fetchAuthenticatedUser()
-                }
 
-                async let delayTask = Task {
-                    try await Task.sleep(nanoseconds: 1_000_000_000)
-                }
-
-                let userResult = await fetchTask.result
-
-                _ = await delayTask.result
-
-                switch userResult {
-                case .success(let user):
-                    let viewData = createViewData(from: user)
-                    bind(viewData)
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                    showError()
-                }
-                
-                refreshControl.endRefreshing()
-            }
-            else {
-                showLoading()
-                do {
-                    let user = try await interactor.fetchAuthenticatedUser()
-                    let viewData = createViewData(from: user)
-                    bind(viewData)
-                
-                } catch {
-                    print("Error: \(error.localizedDescription)")
-                    showError()
-                }
-            }
-
-            
-            if !isPullToRefresh {
-                showLoading()
-            }
-            
-            if !isPullToRefresh {
-                try await Task.sleep(nanoseconds: 2_000_000_000)
-            }
-            
-            do {
-                let user = try await interactor.fetchAuthenticatedUser()
-                let viewData = createViewData(from: user)
-                bind(viewData)
-                
-            } catch {
-                print("Error: \(error.localizedDescription)")
-                // TODO: Kullanıcıya allert ieklinde hata mesajı göster.
-                showError()
-            }
-        }
-    }
-    
-    private func showLoading() {
+    func displayLoading() {
         scrollView.isHidden = true
         errorView.isHidden = true
         
@@ -140,34 +70,32 @@ final class DashboardViewController: BaseScrollViewController{
         activityIndicator.startAnimating()
     }
     
-    private func showContent() {
-        scrollView.isHidden = false
-        errorView.isHidden = true
-        
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
-    }
-
-    private func showError() {
+    func displayError(_ model: ErrorPresentationModel) {
         scrollView.isHidden = true
-        errorView.isHidden = false
-        
-        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
-        
         refreshControl.endRefreshing()
         
-        let errorModel = ErrorPresentationModel.createViewData(retryAction: { [weak self] in
-            self?.fetchDataAndUpdateUI()
-        })
-        
-        errorView.bind(errorModel)
+        errorView.isHidden = false
+        errorView.bind(model)
     }
+    
+    private func hideAllContent() {
+        scrollView.isHidden = true
+        errorView.isHidden = true
+        activityIndicator.stopAnimating()
+        scrollView.refreshControl?.endRefreshing()
+    }
+    
+    func errorViewDidTapRetryButton(_ errorView: ErrorView) {
+        print("Delegate metodu ViewController'da tetiklendi. Presenter çağrılıyor.")
+        presenter.retryButtonTapped()
+    }
+
 }
 
-// MARK: - Add State Views
 private extension DashboardViewController {
     func addStateViews() {
+        errorView.delegate = self
         view.addSubview(errorView)
         view.addSubview(activityIndicator)
         
@@ -180,20 +108,6 @@ private extension DashboardViewController {
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-    }
-}
-
-private extension DashboardViewController {
-    func setupRefreshControl() {
-        refreshControl.tintColor = .systemPurple
-
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-
-        scrollView.refreshControl = refreshControl
-    }
-
-    @objc private func handleRefresh() {
-        fetchDataAndUpdateUI(isPullToRefresh: true)
     }
 }
 
@@ -310,97 +224,25 @@ private extension DashboardViewController {
         }
         
         private func configureGallery(with model: GalleryPresentationModel?) {
-            let finalModel = model ?? createPlaceholderGalleryModel()
+            guard let model = model else {
+                galleryView.isHidden = true
+                return
+            }
+            
             galleryView.isHidden = false
-            galleryView.bind(with: finalModel)
+            galleryView.bind(with: model)
         }
+    
+        private func setupRefreshControl() {
+            refreshControl.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+            scrollView.refreshControl = refreshControl
+    }
+
+    
+    @objc private func didPullToRefresh() {
+        presenter.didPullToRefresh()
     }
     
-    //Data Factory TODO: Move to presenter
-    private extension DashboardViewController {
-        
-        func createViewData(from user: User) -> DashboardViewData {
-            return .init(
-                titleViewText: "Yönetim Paneli",
-                subtitleViewText: "n11 Kültür",
-                galleryTitleLabelText: "n11 Galeri",
-                profileModel: .init(
-                    avatarModel: .init(
-                        url: user.avatarUrl,
-                        placeholderImage: UIImage(systemName: "person.circle.fill"),
-                        shape: .circle
-                    ),
-                    nameText: user.login
-                ),
-                quickActionModels: createPlaceholderQuickActionModels(),
-                settingsButtonModel: createPlaceholderSettingsButtonModel(),
-                galleryModel: createPlaceholderGalleryModel()
-            )
-        }
-        
-        func createPlaceholderSettingsButtonModel() -> SimpleActionPresentationModel {
-            return .init(
-                iconName: "gearshape.fill",
-                action: {
-                    print("Ayarlar butonu tıklandı!")
-                    // TODO: `self?.presenter.navigateToSettings()` olacak.
-                }
-            )
-        }
-        
-        func createPlaceholderQuickActionModels() -> [[QuickActionButtonPresentationModel]] {
-            return [
-                [
-                    .init(
-                        title: "Kayıt Sorgulama",
-                        iconName: "magnifyingglass",
-                        color: .systemPink
-                    ) {
-                        print("Kayıt Sorgulama tıklandı")
-                    },
-                    .init(
-                        title: "Favorilediklerim",
-                        iconName: "heart.fill",
-                        color: .systemPurple
-                    ) {
-                        print("Favorilediklerim tıklandı")
-                    },
-                    .init(
-                        title: "Görüntülediklerim",
-                        iconName: "eye.fill",
-                        color: .systemPink
-                    ) {
-                        print("Görüntülediklerim tıklandı")
-                    }
-                ],
-                [
-                    .init(
-                        title: "Arkadaşlarım",
-                        iconName: "person.badge.plus",
-                        color: .systemPurple
-                    ) {
-                        print("Arkadaşlarım tıklandı")
-                    },
-                    .init(
-                        title: "Bu Ay Doğanlar",
-                        iconName: "gift.fill",
-                        color: .systemPink
-                    ) {
-                        print("Bu Ay Doğanlar tıklandı")
-                    }
-                ]
-            ]
-        }
-        
-        func createPlaceholderGalleryModel() -> GalleryPresentationModel {
-            let placeholderItemCount = 6
-            let placeholderItem = GalleryItemPresentationModel(
-                imageSystemName: "ladybug.fill",
-                tintColor: .systemGray4
-            )
-            let allItems = Array(repeating: placeholderItem, count: placeholderItemCount)
-            return GalleryPresentationModel(items: allItems)
-        }
     }
 
 extension DashboardViewController {
@@ -431,18 +273,24 @@ extension DashboardViewController {
 
 @available(iOS 17, *)
 #Preview("Success State") {
-    let interactor = DashboardAPIInteractor(apiClient: .live)
-    let vc = DashboardViewController(interactor: interactor)
+    let interactor = DashboardMockInteractor(scenario: .success(DashboardMockInteractor.mockUser))
+    
+    let vc = DashboardViewController()
+    let presenter = DashboardPresenter(view: vc, interactor: interactor)
+    vc.presenter = presenter
+    
     return UINavigationController(rootViewController: vc)
 }
 
 @available(iOS 17, *)
 #Preview("Error State") {
-    let failureInteractor = DashboardMockInteractor(
-        scenario: .failure(PreviewError.forcedFailure)
-    )
-    let vc = DashboardViewController(interactor: failureInteractor)
-    UINavigationController(rootViewController: vc)
+    let interactor = DashboardMockInteractor(scenario: .failure(PreviewError.forcedFailure))
+    
+    let vc = DashboardViewController()
+    let presenter = DashboardPresenter(view: vc, interactor: interactor)
+    vc.presenter = presenter
+    
+    return UINavigationController(rootViewController: vc)
 }
 
 /*

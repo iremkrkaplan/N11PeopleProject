@@ -11,7 +11,8 @@ enum MockScenario {
     case failure(Error)
 }
 
-final class DashboardMockInteractor: DashboardInteractorProtocol {
+final class DashboardMockInteractor: DashboardInteractorInput{
+    weak var presenter: (any DashboardInteractorOutput)?
     private let scenario: MockScenario
     private let delayInSeconds: UInt64
     
@@ -20,18 +21,19 @@ final class DashboardMockInteractor: DashboardInteractorProtocol {
         self.delayInSeconds = delayInSeconds
     }
     
-    func fetchAuthenticatedUser() async throws -> User {
-        try await Task.sleep(nanoseconds: delayInSeconds * 1_000_000_000)
-        
-        switch scenario{
-        case .success(let user):
-            return user
-            
-        case .failure(let error):
-            throw error
+    func fetchAuthenticatedUser() {
+        Task {
+            try? await Task.sleep(nanoseconds: delayInSeconds * 1_000_000_000)
+            await MainActor.run {
+                switch self.scenario {
+                case .success(let user):
+                    self.presenter?.didFetchUser(user: user)
+                case .failure(let error):
+                    self.presenter?.didFailToFetchUser(error: error)
+                }
+            }
         }
     }
-    
     static var mockUser: User {
         let json = """
         {

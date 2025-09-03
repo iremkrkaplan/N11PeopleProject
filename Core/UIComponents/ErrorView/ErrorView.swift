@@ -8,14 +8,19 @@
 import UIKit
 import SwiftUI
 
+protocol ErrorViewDelegate: AnyObject {
+    func errorViewDidTapRetryButton(_ errorView: ErrorView)
+}
+
 final class ErrorView: UIView {
+    weak var delegate: ErrorViewDelegate?
     private lazy var imageView: UIImageView = .build()
     private lazy var titleView: UILabel = .build()
     private lazy var subtitleView: UILabel = .build()
     private lazy var retryButton: UIButton = .build()
     private let layout: Layout = .init()
     private var onRetryTapped: (() -> Void)?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUI()
@@ -28,7 +33,12 @@ final class ErrorView: UIView {
     func bind(_ model: ErrorPresentationModel){
         titleView.text = model.titleViewText
         subtitleView.text = model.subtitleViewText
-        imageView.image = model.imageView
+        
+        if let imageName = model.imageName {
+            imageView.image = UIImage(named: imageName)
+        } else {
+            imageView.image = nil
+        }
         configureRetryAction(with: model.retryButtonModel)
     }
 }
@@ -107,12 +117,12 @@ private extension ErrorView{
         }
         
         retryButton.configuration = config
-        
-        self.onRetryTapped = model.action
-        
-        retryButton.addAction(UIAction { [weak self] _ in
-            self?.onRetryTapped?()
-        }, for: .touchUpInside)
+        retryButton.removeTarget(nil, action: nil, for: .allEvents)
+        retryButton.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func retryButtonTapped() {
+        delegate?.errorViewDidTapRetryButton(self)
     }
 }
 
@@ -137,19 +147,20 @@ private extension ErrorView {
 #if DEBUG
 @available(iOS 17, *)
 #Preview("Error UIView") {
-    struct ErrorViewRepresentable: UIViewRepresentable {
-        
-        func makeUIView(context: Context) -> ErrorView {
-            let view = ErrorView()
-            view.bind(.createViewData())
-            return view
-        }
-        
-        func updateUIView(_ uiView: ErrorView, context: Context) {
-        }
-    }
-    return ErrorViewRepresentable()
-        .ignoresSafeArea()
+    let view = ErrorView()
+    
+    let previewModel = ErrorPresentationModel(
+        titleViewText: "Oops!",
+        subtitleViewText: "İnternet bağlantınızı kontrol edin",
+        imageName: "NetworkErrorImage",
+        retryButtonModel: .init(
+            buttonTitle: "Tekrar Dene"
+
+        )
+    )
+    
+    view.bind(previewModel)
+    
+    return view
 }
 #endif
-
