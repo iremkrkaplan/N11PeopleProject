@@ -9,5 +9,6 @@ import UIKit
 
 struct ProfilePresentationModel {
     let avatarModel: AvatarPresentationModel
-    let nameText: String
+    let userNameText: String
+    let nameText: String?
 }
