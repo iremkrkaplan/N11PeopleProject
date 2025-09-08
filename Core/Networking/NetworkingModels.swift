@@ -26,3 +26,13 @@ public struct GetUserDetailParams {
     public let username: String
     public init(username: String) { self.username = username }
 }
+
+public struct GetFollowersParams {
+    public let username: String
+    public init(username: String) { self.username = username }
+}
+
+public struct GetFollowingParams {
+    public let username: String
+    public init(username: String) { self.username = username }
+}

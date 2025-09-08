@@ -50,18 +50,59 @@ extension Endpoint where Self == GetUserDetailEndpoint {
     static func getUserDetail(params: GetUserDetailParams) -> Self { .init(params: params) }
 }
 
+struct GetFollowersEndpoint: Endpoint {
+    private let params: GetFollowersParams
+    init(params: GetFollowersParams) { self.params = params }
+    
+    func urlRequest() -> URLRequest {
+        let url = url(appendingPath: "/users/\(params.username)/followers")
+        return URLRequest(url: url)
+    }
+}
+
+extension Endpoint where Self == GetFollowersEndpoint {
+    static func getFollowers(params: GetFollowersParams) -> Self { .init(params: params) }
+}
+
+struct GetFollowingEndpoint: Endpoint {
+    private let params: GetFollowingParams
+    init(params: GetFollowingParams) { self.params = params }
+    
+    func urlRequest() -> URLRequest {
+        let url = url(appendingPath: "/users/\(params.username)/following")
+        return URLRequest(url: url)
+    }
+}
+
+extension Endpoint where Self == GetFollowingEndpoint {
+    static func getFollowing(params: GetFollowingParams) -> Self { .init(params: params) }
+}
+
 extension APIClient {
     public static let live: Self = {
         var client = Self.noop
         
         client.getAuthenticatedUser = { try await request(.getAuthenticatedUser()) }
         client.searchUsers = { params in try await request(.searchUsers(params: params)) }
-        
+        client.getUserDetail = { try await request(.getUserDetail(params: $0)) }
+        client.getFollowers = { try await request(.getFollowers(params: $0)) }
+        client.getFollowing = { try await request(.getFollowing(params: $0)) }
+
         return client
     }()
 }
 
 private extension APIClient {
+    
+    static var githubDateDecoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        return decoder
+    }
     
     static var githubToken: String {
         guard let token = Bundle.main.infoDictionary?["API_TOKEN"] as? String,
@@ -83,9 +124,9 @@ private extension APIClient {
             throw URLError(.badServerResponse)
             
         }
-        
-        let decoder = JSONDecoder()
-        
-        return try decoder.decode(T.self, from: data)
+//        let decoder = JSONDecoder()
+//        return try decoder.decode(T.self, from: data)
+        return try githubDateDecoder.decode(T.self, from: data)
+
     }
 }
