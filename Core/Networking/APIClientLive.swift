@@ -87,7 +87,7 @@ extension APIClient {
         client.getUserDetail = { try await request(.getUserDetail(params: $0)) }
         client.getFollowers = { try await request(.getFollowers(params: $0)) }
         client.getFollowing = { try await request(.getFollowing(params: $0)) }
-
+        
         return client
     }()
 }
@@ -124,9 +124,7 @@ private extension APIClient {
             throw URLError(.badServerResponse)
             
         }
-//        let decoder = JSONDecoder()
-//        return try decoder.decode(T.self, from: data)
         return try githubDateDecoder.decode(T.self, from: data)
-
+        
     }
 }
