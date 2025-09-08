@@ -16,7 +16,7 @@ public struct UserDetail: Codable {
     public let bio: String?
     public let followers: Int
     public let following: Int
-    public let createdAt: String
+    public let createdAt: Date
     
     public enum CodingKeys: String, CodingKey {
         case id, login, name, bio, followers, following
@@ -29,5 +29,11 @@ public struct UserDetail: Codable {
 extension UserDetail{
     var AvatarAsURL: URL? {
         return URL(string: avatarUrl)
+    }
+}
+
+extension UserDetail{
+    var htmlAsURL: URL? {
+        return URL(string: htmlUrl)
     }
 }
