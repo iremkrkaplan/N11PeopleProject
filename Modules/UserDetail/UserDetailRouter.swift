@@ -21,7 +21,6 @@ final class UserDetailRouter: UserDetailRouterInput {
         
         let presenter: UserDetailPresenterInput & UserDetailInteractorOutput = UserDetailPresenter()
         
-        
         view.output = presenter
         
         presenter.view = view
