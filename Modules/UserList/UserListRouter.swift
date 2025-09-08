@@ -33,20 +33,12 @@ final class UserListRouter: UserListRouterInput {
     
     func navigateToUserDetail(username: String) {
         
-        /* TODO: UserDetail from userlist
+        /* TODO: UserDetail from userlist */
          guard let sourceView = viewController else { return }
          let detailVC = UserDetailRouter.createModule(with: username)
          sourceView.navigationController?.pushViewController(detailVC, animated: true)
-         */
+
         
         print("ROUTER: \(username) kullanıcısının detayına gitme komutu alındı.")
-        
-        let alert = UIAlertController(
-            title: "Navigasyon",
-            message: "\(username) kullanıcısının detay sayfasına gidilecek.",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default))
-        viewController?.present(alert, animated: true)
     }
 }
