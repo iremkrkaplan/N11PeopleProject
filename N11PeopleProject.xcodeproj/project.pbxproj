@@ -50,6 +50,10 @@
 		64DF30732E68659C00A5CF24 /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30722E68659C00A5CF24 /* UserDetail.swift */; };
 		64DF30752E68667B00A5CF24 /* UserDetailContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30742E68667B00A5CF24 /* UserDetailContracts.swift */; };
 		64DF30772E686D0A00A5CF24 /* UserDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30762E686D0A00A5CF24 /* UserDetailInteractor.swift */; };
+		64DF30792E686F3500A5CF24 /* UserDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30782E686F3500A5CF24 /* UserDetailPresenter.swift */; };
+		64DF307B2E68862E00A5CF24 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF307A2E68862E00A5CF24 /* UserDetailViewController.swift */; };
+		64DF307D2E695E4300A5CF24 /* UserDetailPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF307C2E695E4300A5CF24 /* UserDetailPresentationModel.swift */; };
+		64DF30832E69CE0800A5CF24 /* UserDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30822E69CE0800A5CF24 /* UserDetailRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +99,10 @@
 		64DF30722E68659C00A5CF24 /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
 		64DF30742E68667B00A5CF24 /* UserDetailContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailContracts.swift; sourceTree = "<group>"; };
 		64DF30762E686D0A00A5CF24 /* UserDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInteractor.swift; sourceTree = "<group>"; };
+		64DF30782E686F3500A5CF24 /* UserDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailPresenter.swift; sourceTree = "<group>"; };
+		64DF307A2E68862E00A5CF24 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
+		64DF307C2E695E4300A5CF24 /* UserDetailPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailPresentationModel.swift; sourceTree = "<group>"; };
+		64DF30822E69CE0800A5CF24 /* UserDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailRouter.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -299,6 +307,10 @@
 			children = (
 				64DF30742E68667B00A5CF24 /* UserDetailContracts.swift */,
 				64DF30762E686D0A00A5CF24 /* UserDetailInteractor.swift */,
+				64DF30782E686F3500A5CF24 /* UserDetailPresenter.swift */,
+				64DF307A2E68862E00A5CF24 /* UserDetailViewController.swift */,
+				64DF307C2E695E4300A5CF24 /* UserDetailPresentationModel.swift */,
+				64DF30822E69CE0800A5CF24 /* UserDetailRouter.swift */,
 			);
 			path = UserDetail;
 			sourceTree = "<group>";
@@ -439,8 +451,10 @@
 				6458CDF72E49DD6E001ACBC6 /* ProfileView.swift in Sources */,
 				6458CDE32E4626AF001ACBC6 /* UIVIew+Layout.swift in Sources */,
 				6458CE0D2E4C82C7001ACBC6 /* AvatarPresentationModel.swift in Sources */,
+				64DF307B2E68862E00A5CF24 /* UserDetailViewController.swift in Sources */,
 				64DF306A2E64D46200A5CF24 /* UserListRouter.swift in Sources */,
 				6458CE342E4F0FD8001ACBC6 /* DashboardContracts.swift in Sources */,
+				64DF30832E69CE0800A5CF24 /* UserDetailRouter.swift in Sources */,
 				6458CE5C2E527839001ACBC6 /* APIClient.swift in Sources */,
 				6458CE6E2E530ED7001ACBC6 /* NetworkingModels.swift in Sources */,
 				6458CE682E530867001ACBC6 /* AppRouter.swift in Sources */,
@@ -454,7 +468,9 @@
 				6458CE322E4F0FB0001ACBC6 /* DashboardInteractor.swift in Sources */,
 				6458CE072E4B3E5C001ACBC6 /* QuickActionButton.swift in Sources */,
 				64BFAE222E5730B9005B9713 /* ErrorPresentationModel.swift in Sources */,
+				64DF30792E686F3500A5CF24 /* UserDetailPresenter.swift in Sources */,
 				6458CE092E4B7689001ACBC6 /* DashboardViewController.swift in Sources */,
+				64DF307D2E695E4300A5CF24 /* UserDetailPresentationModel.swift in Sources */,
 				6458CE602E5278E8001ACBC6 /* APIClientLive.swift in Sources */,
 				64DF30732E68659C00A5CF24 /* UserDetail.swift in Sources */,
 				6458CE2C2E4E0ACA001ACBC6 /* GalleryCell.swift in Sources */,
