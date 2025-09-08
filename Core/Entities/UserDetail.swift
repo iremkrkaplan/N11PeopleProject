@@ -4,7 +4,6 @@
 //
 //  Created by irem.karakaplan on 3.09.2025.
 //
-
 import Foundation
 
 public struct UserDetail: Codable {
@@ -17,7 +16,7 @@ public struct UserDetail: Codable {
     public let followers: Int
     public let following: Int
     public let createdAt: Date
-    
+
     public enum CodingKeys: String, CodingKey {
         case id, login, name, bio, followers, following
         case avatarUrl = "avatar_url"
