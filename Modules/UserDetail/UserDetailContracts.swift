@@ -6,38 +6,40 @@
 //
 
 import UIKit
-struct UserDetailViewData {
-    let profile: ProfilePresentationModel
-    
-    let bioText: String?
-    let followersText: String
-    let followingText: String
-    let publicReposText: String
-    let memberSinceText: String
-    let githubProfileURL: URL
+
+protocol UserDetailViewInput: AnyObject {
+    var  output: UserDetailViewOutput? { get set }
+    func displayLoading()
+    func bind(viewData: UserDetailViewData)
+    func displayError(_ errorModel: ErrorPresentationModel)
 }
 
-protocol ViewToPresenterUserDetailProtocol: AnyObject {
+protocol UserDetailViewOutput: AnyObject {
     func viewDidLoad()
-    func viewOnGitHubButtonTapped()
+    func didPullToRefresh()
+    func retryButtonTapped()
     func favoriteButtonTapped()
+    func githubButtonTappeed()
 }
 
-protocol PresenterToViewUserDetailProtocol: AnyObject {
-    func displayLoading(_ isLoading: Bool)
-    func display(viewData: UserDetailViewData)
-    func displayError(title: String, message: String)
+protocol UserDetailPresenterInput: UserDetailViewOutput, UserDetailInteractorOutput {
+    var view: UserDetailViewInput? { get set }
+    var interactor: UserDetailInteractorInput? { get set }
+    var router: UserDetailRouterInput? { get set }
 }
 
-protocol PresenterToInteractorUserDetailProtocol: AnyObject {
+protocol UserDetailInteractorInput: AnyObject {
+    var output: UserDetailInteractorOutput? { get set }
     func fetchUserDetail()
+    func toggleFavoriteStatus()
 }
 
-protocol InteractorToPresenterUserDetailProtocol: AnyObject {
+protocol UserDetailInteractorOutput: AnyObject {
     func didFetchUserDetailSuccessfully(detail: UserDetail)
     func didFailToFetchUserDetail(error: Error)
 }
 
-protocol PresenterToRouterUserDetailProtocol: AnyObject {
+protocol UserDetailRouterInput: AnyObject {
+    var viewController: UIViewController? { get set }
     func openInBrowser(url: URL)
 }
