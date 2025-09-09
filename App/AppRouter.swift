@@ -16,10 +16,7 @@ final class AppRouter {
         return UserListRouter.createModule()
     }
     
-    func createPlaceholderViewController(title: String) -> UIViewController {
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .systemBackground
-        viewController.title = title
-        return viewController
+    func buildUserFavoritesFeature() -> UIViewController {
+        return UserFavoritesRouter.createModule()
     }
 }
