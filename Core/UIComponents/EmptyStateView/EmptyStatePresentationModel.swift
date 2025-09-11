@@ -14,7 +14,9 @@ struct EmptyStatePresentationModel {
     
     static let emptyState = EmptyStatePresentationModel(
         titleViewText: "Favori listeniz boş!",
-        subtitleViewText: "kalp ikonuna tıklayarak favoriye ekleyebilirsiniz",
+        subtitleViewText: "Kalp ikonuna tıklayarak kişileri favoriye ekleyebilirsiniz!",
         imageName: "PlaceHolder"
     )
+    
+    static let searchEmptyState = EmptyStatePresentationModel(titleViewText: "N11 çalışanlarını arayın!", subtitleViewText: "Arama ikonuna tıklayarak aradığınız kişiyi bulabilirsiniz", imageName: "hello-kitty-investigate")
 }

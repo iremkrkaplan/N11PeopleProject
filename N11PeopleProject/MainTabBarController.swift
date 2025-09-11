@@ -9,9 +9,10 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
-    private let appRouter = AppRouter()
+    private let appRouter: AppRouter
     
-    init() {
+    init(appRouter: AppRouter) {
+        self.appRouter = appRouter
         super.init(nibName: nil, bundle: nil)
     }
     

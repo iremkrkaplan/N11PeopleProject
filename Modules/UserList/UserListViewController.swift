@@ -15,6 +15,7 @@ final class UserListViewController: BaseViewController, UserListViewInput {
     private let searchController = UISearchController(searchResultsController: nil)
     private var dataSource: UICollectionViewDiffableDataSource<Int, UserListCellModel>!
     private let layout: Layout = .init()
+    private var emptyStateView: EmptyStateView = .build()
     private lazy var errorView: ErrorView = .build()
     private lazy var activityIndicator: UIActivityIndicatorView = .build {
         $0.style = .large
@@ -40,10 +41,20 @@ final class UserListViewController: BaseViewController, UserListViewInput {
         searchController.searchBar.placeholder = data.searchPlaceholder
     }
     
+    func displayEmptyState(_ model: EmptyStatePresentationModel) {
+        collectionView.isHidden = true
+        
+        activityIndicator.stopAnimating()
+        
+        emptyStateView.isHidden = false
+        emptyStateView.bind(model)
+    }
+    
     func displayLoading(_ isLoading: Bool) {
         if isLoading {
             activityIndicator.startAnimating()
             collectionView.isHidden = true
+            emptyStateView.isHidden = true
         } else {
             activityIndicator.stopAnimating()
             collectionView.isHidden = false
@@ -51,6 +62,10 @@ final class UserListViewController: BaseViewController, UserListViewInput {
     }
     
     func bind(results: [UserListCellModel]) {
+        errorView.isHidden = true
+        activityIndicator.stopAnimating()
+        emptyStateView.isHidden = true
+        
         var snapshot = NSDiffableDataSourceSnapshot<Int, UserListCellModel>()
         snapshot.appendSections([0])
         snapshot.appendItems(results, toSection: 0)
@@ -68,10 +83,20 @@ final class UserListViewController: BaseViewController, UserListViewInput {
 private extension UserListViewController {
     func addStateViews() {
         view.addSubview(activityIndicator)
+        view.addSubview(emptyStateView)
+        
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            emptyStateView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        activityIndicator.isHidden = true
+        emptyStateView.isHidden = true
     }
 }
 
