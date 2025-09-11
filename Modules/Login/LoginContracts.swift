@@ -34,7 +34,6 @@ protocol LoginInteractorInput: AnyObject {
 protocol LoginInteractorOutput: AnyObject {
     func didGenerateAuthorizationURL(_ url: URL)
     func didSuccessfullyAuthenticate()
-//    func didFailAuthentication(error: Error)
 }
 
 protocol LoginRouterInput: AnyObject {
