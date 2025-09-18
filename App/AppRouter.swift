@@ -10,8 +10,8 @@ import UIKit
 public final class AppRouter {
     public init() {}
 
-    func buildDashboardFeature() -> UIViewController {
-        let feature = DashboardFeature(
+    func buildDashboardBuilder() -> UIViewController {
+        let feature = DashboardBuilder(
             dependencies: .init(apiClient: .live)
         )
         return feature.build()

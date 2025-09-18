@@ -8,13 +8,16 @@
 import Foundation
 
 final class DashboardPresenter: DashboardPresenterInput {
-    private weak var view: DashboardViewInput?
-    private var interactor: DashboardInteractorInput
+    private(set) weak var view: DashboardViewInput?
+    private(set) var interactor: DashboardInteractorInput
+    private(set) var router: DashboardRouterInput
 
-    init(view: DashboardViewInput, interactor: DashboardInteractorInput) {
+    init(view: DashboardViewInput,
+         interactor: DashboardInteractorInput,
+         router: DashboardRouterInput) {
         self.view = view
         self.interactor = interactor
-        self.interactor.presenter = self
+        self.router = router
     }
 }
 

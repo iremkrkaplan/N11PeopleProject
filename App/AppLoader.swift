@@ -13,7 +13,7 @@ public final class AppLoader {
     public init() {}
 
     public func load(in window: UIWindow) {
-        let rootViewController = router.buildDashboardFeature()
+        let rootViewController = router.buildDashboardBuilder()
         
         window.rootViewController = UINavigationController(rootViewController: rootViewController)
         window.makeKeyAndVisible()
