@@ -31,7 +31,8 @@ final class UserCell: UICollectionViewCell {
                 placeholderImageName: "PlaceHolder",
                 shape: .rectangle
             ),
-            nameText: model.username
+            userNameText: model.username,
+            nameText: nil
         )
         profileView.bind(profileModel)
         let heartImageName = model.isFavorite ? "heart.fill" : "heart"

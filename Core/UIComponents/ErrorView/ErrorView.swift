@@ -20,7 +20,7 @@ final class ErrorView: UIView {
     private lazy var retryButton: UIButton = .build()
     private let layout: Layout = .init()
     private var onRetryTapped: (() -> Void)?
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addUI()
@@ -155,7 +155,6 @@ private extension ErrorView {
         imageName: "NetworkErrorImage",
         retryButtonModel: .init(
             buttonTitle: "Tekrar Dene"
-
         )
     )
     

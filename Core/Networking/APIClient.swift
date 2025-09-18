@@ -10,10 +10,16 @@ import Foundation
 struct APIClient {
     var searchUsers: (SearchUsersParams) async throws -> UserSearchResponse
     var getAuthenticatedUser: () async throws -> User
+    var getUserDetail: (GetUserDetailParams) async throws -> UserDetail
+    var getFollowers: (GetFollowersParams) async throws -> [User]
+    var getFollowing: (GetFollowingParams) async throws -> [User]
     
     static let noop = Self(
         searchUsers: { _ in try await Task.never() },
-        getAuthenticatedUser: { try await Task.never() }
+        getAuthenticatedUser: { try await Task.never() },
+        getUserDetail: { _ in try await Task.never() },
+        getFollowers: { _ in try await Task.never() },
+        getFollowing: { _ in try await Task.never() }
     )
 }
 
@@ -23,6 +29,7 @@ extension Task where Failure == Never {
         throw _Concurrency.CancellationError()
     }
 }
+
 extension AsyncStream {
     static var never: Self { Self { _ in } }
 }

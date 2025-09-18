@@ -89,7 +89,6 @@ final class DashboardViewController: BaseScrollViewController, DashboardViewInpu
         print("Delegate metodu ViewController'da tetiklendi. Presenter çağrılıyor.")
         presenter?.retryButtonTapped()
     }
-    
 }
 
 private extension DashboardViewController {
