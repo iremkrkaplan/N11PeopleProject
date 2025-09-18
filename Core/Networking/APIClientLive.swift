@@ -21,11 +21,41 @@ extension Endpoint where Self == GetAuthenticatedUserEndpoint {
     }
 }
 
+struct SearchUsersEndpoint: Endpoint {
+    private let params: SearchUsersParams
+    init(params: SearchUsersParams) { self.params = params }
+    
+    func urlRequest() -> URLRequest {
+        var components = URLComponents(url: url(appendingPath: "/search/users"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [URLQueryItem(name: "q", value: params.query)]
+        return URLRequest(url: components.url!)
+    }
+}
+
+extension Endpoint where Self == SearchUsersEndpoint {
+    static func searchUsers(params: SearchUsersParams) -> Self { .init(params: params) }
+}
+
+struct GetUserDetailEndpoint: Endpoint {
+    private let params: GetUserDetailParams
+    init(params: GetUserDetailParams) { self.params = params }
+    
+    func urlRequest() -> URLRequest {
+        let url = url(appendingPath: "/users/\(params.username)")
+        return URLRequest(url: url)
+    }
+}
+
+extension Endpoint where Self == GetUserDetailEndpoint {
+    static func getUserDetail(params: GetUserDetailParams) -> Self { .init(params: params) }
+}
+
 extension APIClient {
     public static let live: Self = {
         var client = Self.noop
         
         client.getAuthenticatedUser = { try await request(.getAuthenticatedUser()) }
+        client.searchUsers = { params in try await request(.searchUsers(params: params)) }
         
         return client
     }()
@@ -46,7 +76,7 @@ private extension APIClient {
         
         request.addValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
         request.addValue("Bearer \(githubToken)", forHTTPHeaderField: "Authorization")
-
+        
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {

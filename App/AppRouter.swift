@@ -6,14 +6,20 @@
 //
 
 import UIKit
-
-public final class AppRouter {
-    public init() {}
-
-    func buildDashboardBuilder() -> UIViewController {
-        let feature = DashboardBuilder(
-            dependencies: .init(apiClient: .live)
-        )
-        return feature.build()
+final class AppRouter {
+    
+    func buildDashboardFeature() -> UIViewController {
+        return DashboardRouter.createModule()
+    }
+    
+    func buildUserListFeature() -> UIViewController {
+        return UserListRouter.createModule()
+    }
+    
+    func createPlaceholderViewController(title: String) -> UIViewController {
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .systemBackground
+        viewController.title = title
+        return viewController
     }
 }

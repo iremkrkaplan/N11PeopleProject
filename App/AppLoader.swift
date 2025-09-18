@@ -9,13 +9,12 @@ import UIKit
 
 public final class AppLoader {
     private let router = AppRouter()
-
+    
     public init() {}
-
+    
     public func load(in window: UIWindow) {
-        let rootViewController = router.buildDashboardBuilder()
-        
-        window.rootViewController = UINavigationController(rootViewController: rootViewController)
+        let rootViewController = MainTabBarController()
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
     }
 }

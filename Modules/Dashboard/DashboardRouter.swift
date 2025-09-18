@@ -4,9 +4,10 @@
 //
 //  Created by irem.karakaplan on 27.08.2025.
 //
-
 import UIKit
-final class DashboardRouter: DashboardRouterInput{
+
+final class DashboardRouter: DashboardRouterInput {
+    
     weak var viewController: UIViewController?
     
     static func createModule() -> UIViewController {
@@ -21,12 +22,9 @@ final class DashboardRouter: DashboardRouterInput{
         )
         
         view.presenter = presenter
-        if let interactor = interactor as? DashboardAPIInteractor {
-            interactor.presenter = presenter
-        }
-        
+        interactor.presenter = presenter
         router.viewController = view
-
+        
         return view
     }
 }

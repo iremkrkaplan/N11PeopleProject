@@ -39,6 +39,14 @@
 		64AADB5B2E58517C00101001 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AADB5A2E58517C00101001 /* ErrorView.swift */; };
 		64BFAE222E5730B9005B9713 /* ErrorPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */; };
 		64DF303B2E602F0A00A5CF24 /* DashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF303A2E602F0A00A5CF24 /* DashboardBuilder.swift */; };
+		64DF303E2E60734C00A5CF24 /* UserListContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF303D2E60734C00A5CF24 /* UserListContracts.swift */; };
+		64DF30402E607AAD00A5CF24 /* UserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF303F2E607AAD00A5CF24 /* UserListInteractor.swift */; };
+		64DF304D2E6097B600A5CF24 /* UserListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF304C2E6097B600A5CF24 /* UserListPresenter.swift */; };
+		64DF305C2E61BC7600A5CF24 /* UserPresentationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF305B2E61BC7600A5CF24 /* UserPresentationModel.swift */; };
+		64DF30632E61BE9D00A5CF24 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30622E61BE9D00A5CF24 /* UserCell.swift */; };
+		64DF30652E64C4E500A5CF24 /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30642E64C4E500A5CF24 /* UserListViewController.swift */; };
+		64DF30682E64CD0800A5CF24 /* FavoriteStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30672E64CD0800A5CF24 /* FavoriteStorageService.swift */; };
+		64DF306A2E64D46200A5CF24 /* UserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF30692E64D46200A5CF24 /* UserListRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +81,14 @@
 		64AADB5A2E58517C00101001 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		64BFAE212E5730B9005B9713 /* ErrorPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationModel.swift; sourceTree = "<group>"; };
 		64DF303A2E602F0A00A5CF24 /* DashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardBuilder.swift; sourceTree = "<group>"; };
+		64DF303D2E60734C00A5CF24 /* UserListContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListContracts.swift; sourceTree = "<group>"; };
+		64DF303F2E607AAD00A5CF24 /* UserListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListInteractor.swift; sourceTree = "<group>"; };
+		64DF304C2E6097B600A5CF24 /* UserListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresenter.swift; sourceTree = "<group>"; };
+		64DF305B2E61BC7600A5CF24 /* UserPresentationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPresentationModel.swift; sourceTree = "<group>"; };
+		64DF30622E61BE9D00A5CF24 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		64DF30642E64C4E500A5CF24 /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		64DF30672E64CD0800A5CF24 /* FavoriteStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStorageService.swift; sourceTree = "<group>"; };
+		64DF30692E64D46200A5CF24 /* UserListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRouter.swift; sourceTree = "<group>"; };
 		64EE7C442E45D294009AFFE4 /* N11PeopleProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = N11PeopleProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -120,6 +136,7 @@
 		6458CDEB2E467C87001ACBC6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				64DF30662E64CCEC00A5CF24 /* Services */,
 				6458CE902E56F04A001ACBC6 /* Entities */,
 				6458CE582E527765001ACBC6 /* Networking */,
 				6458CDF12E48E77F001ACBC6 /* UIComponents */,
@@ -141,6 +158,7 @@
 		6458CDF12E48E77F001ACBC6 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
+				64DF30602E61BE7B00A5CF24 /* UserView */,
 				64BFAE202E573064005B9713 /* ErrorView */,
 				6458CE152E4CA08A001ACBC6 /* GalleryView */,
 				6458CE122E4CA066001ACBC6 /* QuickActionButtonView */,
@@ -232,6 +250,43 @@
 			path = ErrorView;
 			sourceTree = "<group>";
 		};
+		64DF303C2E604DD800A5CF24 /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				64DF303D2E60734C00A5CF24 /* UserListContracts.swift */,
+				64DF303F2E607AAD00A5CF24 /* UserListInteractor.swift */,
+				64DF304C2E6097B600A5CF24 /* UserListPresenter.swift */,
+				64DF305B2E61BC7600A5CF24 /* UserPresentationModel.swift */,
+				64DF30642E64C4E500A5CF24 /* UserListViewController.swift */,
+				64DF30692E64D46200A5CF24 /* UserListRouter.swift */,
+			);
+			path = UserList;
+			sourceTree = "<group>";
+		};
+		64DF30602E61BE7B00A5CF24 /* UserView */ = {
+			isa = PBXGroup;
+			children = (
+				64DF30612E61BE8E00A5CF24 /* Cell */,
+			);
+			path = UserView;
+			sourceTree = "<group>";
+		};
+		64DF30612E61BE8E00A5CF24 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				64DF30622E61BE9D00A5CF24 /* UserCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		64DF30662E64CCEC00A5CF24 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				64DF30672E64CD0800A5CF24 /* FavoriteStorageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		64EE7C3B2E45D294009AFFE4 = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +311,7 @@
 		64EE7C5C2E45DD34009AFFE4 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				64DF303C2E604DD800A5CF24 /* UserList */,
 				64EE7C5D2E45DD75009AFFE4 /* Dashboard */,
 			);
 			path = Modules;
@@ -357,11 +413,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				64DF303B2E602F0A00A5CF24 /* DashboardBuilder.swift in Sources */,
+				64DF30682E64CD0800A5CF24 /* FavoriteStorageService.swift in Sources */,
+				64DF304D2E6097B600A5CF24 /* UserListPresenter.swift in Sources */,
+				64DF30402E607AAD00A5CF24 /* UserListInteractor.swift in Sources */,
 				6458CE922E56F06B001ACBC6 /* User.swift in Sources */,
 				6458CE242E4DFD3E001ACBC6 /* DashboardPresentationModel.swift in Sources */,
 				6458CDF72E49DD6E001ACBC6 /* ProfileView.swift in Sources */,
 				6458CDE32E4626AF001ACBC6 /* UIVIew+Layout.swift in Sources */,
 				6458CE0D2E4C82C7001ACBC6 /* AvatarPresentationModel.swift in Sources */,
+				64DF306A2E64D46200A5CF24 /* UserListRouter.swift in Sources */,
 				6458CE342E4F0FD8001ACBC6 /* DashboardContracts.swift in Sources */,
 				6458CE5C2E527839001ACBC6 /* APIClient.swift in Sources */,
 				6458CE6E2E530ED7001ACBC6 /* NetworkingModels.swift in Sources */,
@@ -381,10 +441,14 @@
 				6458CE942E56F0AB001ACBC6 /* UserSearchResponse.swift in Sources */,
 				6458CE362E4F1043001ACBC6 /* DashboardMockInteractor.swift in Sources */,
 				6458CDFB2E49E2F1001ACBC6 /* GalleryView.swift in Sources */,
+				64DF30652E64C4E500A5CF24 /* UserListViewController.swift in Sources */,
 				6458CDEE2E467D52001ACBC6 /* BaseViewController.swift in Sources */,
 				64AADB5B2E58517C00101001 /* ErrorView.swift in Sources */,
 				6458CE142E4CA084001ACBC6 /* QuickActionButtonPresentationModel.swift in Sources */,
+				64DF303E2E60734C00A5CF24 /* UserListContracts.swift in Sources */,
 				6458CE662E530857001ACBC6 /* AppLoader.swift in Sources */,
+				64DF30632E61BE9D00A5CF24 /* UserCell.swift in Sources */,
+				64DF305C2E61BC7600A5CF24 /* UserPresentationModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct User: Codable {
+struct User: Codable, Hashable {
     let login: String
     let id: Int
     let avatarUrl: String
